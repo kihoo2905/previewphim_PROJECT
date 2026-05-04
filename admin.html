@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - UniCenima</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #f0f2f5; font-family: 'Outfit', sans-serif; }
+        .navbar { background: linear-gradient(90deg, #1a1a1a, #333); }
+        .card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .table img { width: 50px; height: 75px; object-fit: cover; border-radius: 6px; }
+        .modal-header { background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; }
+        .section-title { border-left: 4px solid #0d6efd; padding-left: 10px; margin-bottom: 20px; font-weight: 700; color: #333; }
+        .episode-item { background-color: #f8f9fa; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">UniCenima Admin</a>
+            <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Trang chủ</a>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold m-0">Quản lý nội dung</h2>
+            <button class="btn btn-primary px-4 rounded-pill" onclick="openAddModal()"><i class="bi bi-plus-lg me-2"></i>Thêm phim mới</button>
+        </div>
+
+        <div class="card p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle" id="admin-table">
+                    <thead>
+                        <tr class="text-secondary small text-uppercase">
+                            <th>Poster</th>
+                            <th>Phim</th>
+                            <th>Năm</th>
+                            <th>Rating</th>
+                            <th class="text-end">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CHỈNH SỬA TỔNG HỢP -->
+    <div class="modal fade" id="movieModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header py-3">
+                    <h5 class="modal-title fw-bold" id="modalTitle">Chỉnh sửa phim</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <!-- Cột 1: Thông tin cơ bản -->
+                        <div class="col-lg-5 p-4 border-end">
+                            <h6 class="section-title">Thông tin cơ bản</h6>
+                            <ul class="nav nav-tabs nav-fill mb-3 small" id="movieMetaTabs">
+                                <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#movie-basic-tab">Thông tin chính</button></li>
+                                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#movie-cast-tab">Cast & Photos</button></li>
+                            </ul>
+                            
+                            <form id="movieForm">
+                                <input type="hidden" id="movieId">
+                                <div class="tab-content">
+                                    <!-- Basic Info Tab -->
+                                    <div class="tab-pane fade show active" id="movie-basic-tab">
+                                        <div class="row g-3">
+                                            <div class="col-md-8">
+                                                <label class="form-label small fw-bold">Tiêu đề chính</label>
+                                                <input type="text" class="form-control" id="movieTitle" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label small fw-bold">Tên phụ / Tên gốc</label>
+                                                <input type="text" class="form-control" id="movieSubtitle" placeholder="Ví dụ: Shingeki no Kyojin">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label small fw-bold">Năm</label>
+                                                <input type="number" class="form-control" id="movieYear" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label small fw-bold">Rating</label>
+                                                <input type="number" step="0.1" class="form-control" id="movieRating" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold">Thể loại</label>
+                                                <input type="text" class="form-control" id="movieGenre" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label small fw-bold">Đạo diễn</label>
+                                                <input type="text" class="form-control" id="movieDirector">
+                                            </div>
+                                            <div class="col-md-6" id="creatorFieldContainer">
+                                                <label class="form-label small fw-bold">Nguyên tác / Tác giả</label>
+                                                <input type="text" class="form-control" id="movieCreator">
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold">Link Poster</label>
+                                                <input type="text" class="form-control" id="moviePoster" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold">Link Banner</label>
+                                                <input type="text" class="form-control" id="movieBanner" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold">Mô tả (Ngắn)</label>
+                                                <textarea class="form-control" id="movieDesc" rows="2" required></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold text-primary">Preview (Nội dung chi tiết)</label>
+                                                <textarea class="form-control" id="moviePreview" rows="4" placeholder="Nhập nội dung chi tiết cho phần Preview..."></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="d-flex align-items-center gap-3 mt-1">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="movieTrending">
+                                                        <label class="form-check-label small fw-bold" for="movieTrending">Xu hướng (Trending)</label>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="input-group input-group-sm">
+                                                            <label class="input-group-text small fw-bold">Nhãn (Badge)</label>
+                                                            <select class="form-select" id="movieBadge">
+                                                                <option value="">Không có</option>
+                                                                <option value="NEW">NEW</option>
+                                                                <option value="HOT">HOT</option>
+                                                                <option value="TOP">TOP</option>
+                                                                <option value="HD">HD</option>
+                                                                <option value="4K">4K</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cast & Photos Tab -->
+                                    <div class="tab-pane fade" id="movie-cast-tab">
+                                        <h6 class="small fw-bold mb-3"><i class="bi bi-people me-1"></i>Diễn viên (Cast)</h6>
+                                        <div id="movie-cast-list" class="mb-3 border rounded p-2 bg-white" style="max-height: 200px; overflow-y: auto;"></div>
+                                        <div class="p-3 border rounded bg-light mb-4">
+                                            <div class="row g-2 mb-2">
+                                                <div class="col-6">
+                                                    <label class="small fw-bold">Tên thật</label>
+                                                    <input type="text" class="form-control form-control-sm" id="mCastName" placeholder="Ví dụ: Matthew McConaughey">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="small fw-bold">Tên nhân vật</label>
+                                                    <input type="text" class="form-control form-control-sm" id="mCastRole" placeholder="Ví dụ: Cooper">
+                                                </div>
+                                            </div>
+                                            <div class="row g-2 align-items-end">
+                                                <div class="col-12 mb-2">
+                                                    <label class="small fw-bold">Avatar (Upload hoặc Link)</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" id="mCastPhoto" placeholder="Link ảnh hoặc chọn file ->">
+                                                        <input type="file" class="d-none" id="mCastFileUpload" accept="image/*" onchange="handleCastUpload(this)">
+                                                        <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('mCastFileUpload').click()"><i class="bi bi-upload"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="hidden" id="editingCastIndex" value="-1">
+                                                    <button type="button" id="btn-save-cast" class="btn btn-sm btn-primary w-100" onclick="addMovieCast()">
+                                                        <i class="bi bi-plus-lg me-1"></i>Thêm diễn viên
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h6 class="small fw-bold mb-3"><i class="bi bi-images me-1"></i>Ảnh Gallery</h6>
+                                        <div id="movie-photos-list" class="row row-cols-4 g-2 mb-3 border rounded p-2 bg-white mx-0"></div>
+                                        <div class="input-group input-group-sm mb-3">
+                                            <input type="text" class="form-control" id="mNewPhoto" placeholder="Link ảnh gallery">
+                                            <button type="button" class="btn btn-success" onclick="addMoviePhoto()">Thêm</button>
+                                        </div>
+                                        
+                                        <hr>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Link Trailer (Youtube)</label>
+                                            <input type="text" class="form-control" id="movieTrailer" required>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <div class="p-3 border rounded liquid-glass-light shadow-sm">
+                                                <h6 class="small fw-bold text-primary mb-2"><i class="bi bi-cloud-upload me-1"></i>Upload Video Chính</h6>
+                                                <input type="file" class="form-control form-control-sm mb-2" id="movieVideoFile" accept="video/*">
+                                                <div id="movieUploadStatus" class="small text-muted">Chưa có video chính.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Cột 2: Quản lý Season & Episode -->
+                        <div class="col-lg-7 p-4 bg-light">
+                            <h6 class="section-title">Quản lý Tập phim (Series)</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="small fw-bold mb-2 text-primary">Phần (Seasons)</label>
+                                    <div id="seasons-list" class="list-group mb-3 shadow-sm"></div>
+                                    <button class="btn btn-sm btn-primary w-100 rounded-pill" onclick="addSeason()">+ Thêm phần mới</button>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="season-detail-area" class="d-none">
+                                        <!-- Season Metadata Tabs -->
+                                        <ul class="nav nav-pills nav-fill mb-3 small" id="seasonTabs">
+                                            <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#season-info-pane">Thông tin</button></li>
+                                            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#season-cast-pane" onclick="renderSeasonCast()">Diễn viên</button></li>
+                                            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#season-gallery-pane" onclick="renderSeasonPhotos()">Ảnh</button></li>
+                                            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#season-eps-pane">Tập phim</button></li>
+                                        </ul>
+                                        
+                                        <div class="tab-content bg-white p-3 border rounded-3 shadow-sm">
+                                            <!-- Season Metadata Pane -->
+                                            <div class="tab-pane fade show active" id="season-info-pane">
+                                                <div class="row g-2">
+                                                    <div class="col-md-8">
+                                                        <label class="small fw-bold">Tiêu đề Phần</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonTitle" placeholder="Ví dụ: Avatar hoặc Avatar: The Way of Water">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="small fw-bold">Tên phụ / Tên gốc</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonSubtitle" placeholder="Tên gốc hoặc tên khác">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="small fw-bold">Năm</label>
+                                                        <input type="number" class="form-control form-control-sm" id="seasonYear" placeholder="2022">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="small fw-bold">Thể loại</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonGenre" placeholder="Sci-Fi, Action">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="small fw-bold">Rating</label>
+                                                        <input type="number" step="0.1" class="form-control form-control-sm" id="seasonRating" placeholder="8.5">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="small fw-bold">Đạo diễn</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonDirector" placeholder="James Cameron">
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="small fw-bold">Loại (Phân loại hiển thị)</label>
+                                                        <select class="form-select form-select-sm" id="seasonType">
+                                                            <option value="season">Season (Dạng tập phim - Phim bộ)</option>
+                                                            <option value="movie">Movie (Dạng phim lẻ - Chiếu rạp)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="small fw-bold">Poster Phần</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonPoster" placeholder="Link ảnh poster riêng cho phần này">
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="small fw-bold">Banner Phần</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonBanner" placeholder="Link ảnh nền riêng cho phần này">
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="small fw-bold">Nhãn Trailer (Tiêu đề hiển thị)</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonTrailerLabel" placeholder="Ví dụ: Teaser 1 hoặc Official Trailer">
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="small fw-bold">Trailer/Video Phần</label>
+                                                        <div class="input-group input-group-sm mb-2">
+                                                            <input type="text" class="form-control" id="seasonTrailer" placeholder="Link trailer riêng cho phần này (Youtube Embed)">
+                                                            <input type="file" class="d-none" id="seasonTrailerFile" accept="video/*">
+                                                            <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('seasonTrailerFile').click()"><i class="bi bi-upload"></i></button>
+                                                        </div>
+                                                        <div id="seasonUploadStatus" class="small text-muted mb-2">Chưa có trailer local.</div>
+                                                        <div class="progress mb-2 d-none" id="seasonUploadProgress" style="height: 5px;">
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="small fw-bold">Mô tả Phần</label>
+                                                        <textarea class="form-control form-control-sm" id="seasonDesc" rows="3" placeholder="Tóm tắt nội dung phần này..."></textarea>
+                                                    </div>
+                                                    <div class="col-12 text-end mt-2">
+                                                        <button class="btn btn-sm btn-info text-white rounded-pill px-3" onclick="updateSeasonMetadata()">Lưu thông tin</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Season Cast Pane -->
+                                            <div class="tab-pane fade" id="season-cast-pane">
+                                                <div id="season-cast-list" class="mb-3 border rounded p-2 bg-light" style="max-height: 200px; overflow-y: auto;"></div>
+                                                <div class="p-2 border rounded bg-light mb-2">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6"><input type="text" class="form-control form-control-sm" id="sCastName" placeholder="Tên thật"></div>
+                                                        <div class="col-6"><input type="text" class="form-control form-control-sm" id="sCastRole" placeholder="Vai diễn"></div>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-2">
+                                                        <input type="text" class="form-control" id="sCastPhoto" placeholder="Link ảnh avatar">
+                                                        <input type="file" class="d-none" id="sCastFileUpload" accept="image/*" onchange="handleSeasonCastUpload(this)">
+                                                        <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('sCastFileUpload').click()"><i class="bi bi-upload"></i></button>
+                                                    </div>
+                                                    <input type="hidden" id="editingSeasonCastIndex" value="-1">
+                                                    <button type="button" id="btn-save-season-cast" class="btn btn-sm btn-primary w-100" onclick="addSeasonCast()">Thêm diễn viên</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Season Gallery Pane -->
+                                            <div class="tab-pane fade" id="season-gallery-pane">
+                                                <div id="season-photos-list" class="row row-cols-4 g-2 mb-3 border rounded p-2 bg-light mx-0"></div>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" id="sNewPhoto" placeholder="Link ảnh gallery">
+                                                    <button type="button" class="btn btn-success" onclick="addSeasonPhoto()">Thêm</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Episodes Pane -->
+                                            <div class="tab-pane fade" id="season-eps-pane">
+                                                <div id="episodes-list" class="mb-3" style="max-height: 250px; overflow-y: auto;"></div>
+                                                <hr>
+                                                <h6 class="small fw-bold text-success mb-2">Thêm tập mới</h6>
+                                                <div class="row g-2">
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="epTitle" placeholder="Tên tập"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="epEmbed" placeholder="Link Embed"></div>
+                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="epThumb" placeholder="Link Ảnh (Thumb)"></div>
+                                                    <div class="col-md-3 text-end">
+                                                        <button class="btn btn-sm btn-success px-3 rounded-pill w-100" onclick="addEpisode()">Thêm tập</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="no-season-msg" class="text-center text-muted py-5 mt-4">
+                                        <i class="bi bi-collection-play fs-1 opacity-25"></i>
+                                        <p class="mt-2">Chọn một phần bên trái để thiết kế Poster & Tập phim</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary px-4 rounded-pill" onclick="saveMovie()">Lưu toàn bộ thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADVANCED EPISODE EDITOR MODAL -->
+    <div class="modal fade" id="advancedEpModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Chi tiết tập phim: <span id="advEpTitle"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-6 border-end">
+                            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-people-fill me-2"></i>Diễn viên / Cast</h6>
+                            <div id="adv-cast-list" class="mb-3" style="max-height: 300px; overflow-y: auto;"></div>
+                            <div class="p-3 border rounded bg-light">
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label class="small fw-bold">Tên thật</label>
+                                        <input type="text" class="form-control form-control-sm" id="cName" placeholder="Tên diễn viên">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="small fw-bold">Tên nhân vật</label>
+                                        <input type="text" class="form-control form-control-sm" id="cRole" placeholder="Vai diễn">
+                                    </div>
+                                </div>
+                                <div class="row g-2 align-items-end">
+                                    <div class="col-12 mb-2">
+                                        <label class="small fw-bold">Avatar</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" id="cPhoto" placeholder="Link hoặc upload ->">
+                                            <input type="file" class="d-none" id="cFileUpload" accept="image/*" onchange="handleAdvCastUpload(this)">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('cFileUpload').click()"><i class="bi bi-upload"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="hidden" id="editingAdvCastIndex" value="-1">
+                                        <button id="btn-save-adv-cast" class="btn btn-sm btn-primary rounded-pill px-3 w-100" onclick="addCast()">Thêm DV</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-success mb-3"><i class="bi bi-images me-2"></i>Ảnh Gallery</h6>
+                            <div id="adv-photos-list" class="row row-cols-3 g-2 mb-3"></div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" id="newPhoto" placeholder="Link ảnh gallery">
+                                <button class="btn btn-success" onclick="addPhoto()">Thêm ảnh</button>
+                            </div>
+                            <hr>
+                            <div class="mt-3">
+                                <label class="small fw-bold">Thông tin chi tiết tập</label>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6"><input type="number" step="0.1" class="form-control form-control-sm" id="advRating" placeholder="Điểm số (9.0)"></div>
+                                    <div class="col-6"><input type="text" class="form-control form-control-sm" id="advDate" placeholder="Ngày chiếu (Sep 28, 2013)"></div>
+                                </div>
+                                <input type="text" class="form-control form-control-sm mb-2" id="advThumb" placeholder="Link ảnh bìa tập (Thumbnail)">
+                                <textarea class="form-control form-control-sm mb-2" id="advDesc" rows="3" placeholder="Mô tả tóm tắt tập phim..."></textarea>
+                                <hr>
+                                <div class="p-3 border rounded bg-light mb-3">
+                                    <h6 class="small fw-bold text-dark mb-2"><i class="bi bi-file-earmark-play me-1"></i>Upload Video Local (Hỗ trợ MP4, MKV)</h6>
+                                    <input type="file" class="form-control form-control-sm mb-2" id="epVideoFile" accept="video/*">
+                                    <div id="uploadStatus" class="small text-muted">Chưa có video được tải lên.</div>
+                                    <div class="progress mt-2 d-none" id="uploadProgress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <label class="small fw-bold">Thông tin sản xuất</label>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6"><input type="text" class="form-control form-control-sm" id="advDirectors" placeholder="Đạo diễn"></div>
+                                    <div class="col-6"><input type="text" class="form-control form-control-sm" id="advWriters" placeholder="Biên kịch"></div>
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6"><input type="text" class="form-control form-control-sm" id="advComposer" placeholder="Soạn nhạc"></div>
+                                    <div class="col-6"><input type="text" class="form-control form-control-sm" id="advStudio" placeholder="Studio"></div>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" id="advCreator" placeholder="Nguyên tác">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary px-4 rounded-pill" onclick="saveAdvancedEp()">Lưu chi tiết tập</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let adminMovies = JSON.parse(localStorage.getItem('cinematic_movies')) || [];
+        const movieModal = new bootstrap.Modal(document.getElementById('movieModal'));
+        let currentMovieId = null;
+        let currentSeasonId = null;
+
+        function renderAdminTable() {
+            let html = '';
+            adminMovies.forEach(m => {
+                html += `
+                    <tr>
+                        <td><img src="${m.poster}" alt=""></td>
+                        <td>
+                            <div class="fw-bold">${m.title}</div>
+                            <div class="small text-muted">${m.genre}</div>
+                        </td>
+                        <td>${m.year}</td>
+                        <td><span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i>${m.rating}</span></td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-light border rounded-pill me-1" onclick="editMovie(${m.id})">Sửa & Tập phim</button>
+                            <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteMovie(${m.id})">Xóa</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            $('#admin-table tbody').html(html);
+        }
+
+        function openAddModal() {
+            currentMovieId = null;
+            currentSeasonId = null;
+            document.getElementById('movieForm').reset();
+            $('#movieId').val('');
+            $('#modalTitle').text('Thêm phim mới');
+            $('#seasons-list').html('');
+            $('#season-detail-area').addClass('d-none');
+            $('#no-season-msg').removeClass('d-none');
+            movieModal.show();
+        }
+
+        function editMovie(id) {
+            currentMovieId = parseInt(id);
+            currentSeasonId = null;
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            if (movie) {
+                $('#movieId').val(movie.id);
+                $('#movieTitle').val(movie.title);
+                $('#movieSubtitle').val(movie.subtitle || '');
+                $('#movieYear').val(movie.year);
+                $('#movieRating').val(movie.rating);
+                $('#movieGenre').val(movie.genre);
+                $('#movieDirector').val(movie.director || '');
+                $('#moviePoster').val(movie.poster);
+                $('#movieBanner').val(movie.banner || '');
+                $('#movieTrailer').val(movie.trailerEmbed || '');
+                $('#movieDesc').val(movie.description);
+                $('#moviePreview').val(movie.preview || '');
+                $('#movieTrending').prop('checked', !!movie.isTrending);
+                $('#movieBadge').val(movie.badge || '');
+                $('#movieCreator').val(movie.creator || '');
+                $('#modalTitle').text('Sửa phim: ' + movie.title);
+                
+                renderMovieCast();
+                renderMoviePhotos();
+                renderSeasons();
+                $('#season-detail-area').addClass('d-none');
+                $('#no-season-msg').removeClass('d-none');
+                movieModal.show();
+            }
+        }
+
+        // --- MOVIE LEVEL CAST & PHOTOS ---
+        let currentMovieCast = [];
+        let currentMoviePhotos = [];
+
+        function renderMovieCast() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            currentMovieCast = (movie && movie.cast) ? [...movie.cast] : [];
+            updateMovieCastUI();
+        }
+
+        function updateMovieCastUI() {
+            let html = '';
+            currentMovieCast.forEach((c, i) => {
+                const photo = c.photo || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name);
+                html += `
+                    <div class="d-flex align-items-center gap-2 mb-2 p-1 border-bottom">
+                        <img src="${photo}" class="rounded-circle shadow-sm" style="width: 35px; height: 35px; object-fit: cover; border: 1px solid #ddd;">
+                        <div class="flex-grow-1 small">
+                            <div class="fw-bold">${c.name}</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">${c.role}</div>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button type="button" class="btn btn-sm btn-outline-primary p-0 px-1" onclick="editCastMember(${i})"><i class="bi bi-pencil-square"></i></button>
+                            <button type="button" class="btn btn-sm btn-outline-danger p-0 px-1" onclick="removeMovieCast(${i})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#movie-cast-list').html(html || '<p class="text-muted small text-center py-2">Chưa có diễn viên</p>');
+        }
+
+        function handleCastUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#mCastPhoto').val(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function editCastMember(index) {
+            const c = currentMovieCast[index];
+            $('#mCastName').val(c.name);
+            $('#mCastRole').val(c.role);
+            $('#mCastPhoto').val(c.photo || '');
+            $('#editingCastIndex').val(index);
+            $('#btn-save-cast').html('<i class="bi bi-check-lg me-1"></i>Cập nhật').removeClass('btn-primary').addClass('btn-success');
+        }
+
+        function addMovieCast() {
+            const name = $('#mCastName').val();
+            const role = $('#mCastRole').val();
+            const photo = $('#mCastPhoto').val();
+            const index = parseInt($('#editingCastIndex').val());
+
+            if(!name) { alert("Vui lòng nhập tên diễn viên"); return; }
+            
+            const castObj = { name, role, photo };
+
+            if (index >= 0) {
+                currentMovieCast[index] = castObj;
+            } else {
+                currentMovieCast.push(castObj);
+            }
+
+            updateMovieCastUI();
+            
+            // Reset form
+            $('#mCastName').val('');
+            $('#mCastRole').val('');
+            $('#mCastPhoto').val('');
+            $('#editingCastIndex').val('-1');
+            $('#btn-save-cast').html('<i class="bi bi-plus-lg me-1"></i>Thêm diễn viên').removeClass('btn-success').addClass('btn-primary');
+        }
+
+        function removeMovieCast(i) {
+            currentMovieCast.splice(i, 1);
+            updateMovieCastUI();
+        }
+
+        function renderMoviePhotos() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            currentMoviePhotos = (movie && movie.photos) ? [...movie.photos] : [];
+            updateMoviePhotosUI();
+        }
+
+        function updateMoviePhotosUI() {
+            let html = '';
+            currentMoviePhotos.forEach((p, i) => {
+                html += `
+                    <div class="col position-relative">
+                        <img src="${p}" class="img-fluid rounded border" style="height: 40px; width: 100%; object-fit: cover;">
+                        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0" onclick="removeMoviePhoto(${i})" style="width:15px;height:15px;line-height:1;font-size:8px;">x</button>
+                    </div>
+                `;
+            });
+            $('#movie-photos-list').html(html);
+        }
+
+        function addMoviePhoto() {
+            const url = $('#mNewPhoto').val();
+            if(!url) return;
+            currentMoviePhotos.push(url);
+            updateMoviePhotosUI();
+            $('#mNewPhoto').val('');
+        }
+
+        function removeMoviePhoto(i) {
+            currentMoviePhotos.splice(i, 1);
+            updateMoviePhotosUI();
+        }
+
+        function renderSeasons() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            if (!movie) return;
+            if (!movie.seasons) movie.seasons = [];
+            
+            let html = '';
+            movie.seasons.forEach(s => {
+                const active = s.id == currentSeasonId ? 'active' : '';
+                const displayTitle = s.title || `Phần ${s.id}`;
+                html += `
+                    <button class="list-group-item list-group-item-action ${active} d-flex justify-content-between align-items-center py-3" onclick="selectSeason(${s.id})">
+                        <span class="fw-bold">${displayTitle}</span>
+                        <i class="bi bi-trash text-danger" onclick="deleteSeason(event, ${s.id})"></i>
+                    </button>
+                `;
+            });
+            $('#seasons-list').html(html);
+        }
+
+        function addSeason() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            if (!movie) { alert("Vui lòng nhập thông tin cơ bản và lưu phim trước khi thêm phần!"); return; }
+            if (!movie.seasons) movie.seasons = [];
+            const nextId = movie.seasons.length > 0 ? Math.max(...movie.seasons.map(s => s.id)) + 1 : 1;
+            movie.seasons.push({ 
+                id: nextId, 
+                title: `Season ${nextId}`, 
+                poster: movie.poster, 
+                banner: movie.banner, 
+                trailer: movie.trailerEmbed,
+                description: movie.description,
+                episodes: [] 
+            });
+            renderSeasons();
+        }
+
+        function selectSeason(sId) {
+            currentSeasonId = sId;
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            
+            renderSeasons();
+            
+            // Populate Season Metadata
+            $('#seasonTitle').val(season.title || `Phần ${season.id}`);
+            $('#seasonSubtitle').val(season.subtitle || '');
+            $('#seasonYear').val(season.year || '');
+            $('#seasonGenre').val(season.genre || '');
+            $('#seasonRating').val(season.rating || '');
+            $('#seasonDirector').val(season.director || '');
+            $('#seasonType').val(season.type || 'season');
+            $('#seasonTrailerLabel').val(season.trailerLabel || '');
+            $('#seasonPoster').val(season.poster || '');
+            $('#seasonBanner').val(season.banner || '');
+            $('#seasonTrailer').val(season.trailer || '');
+            $('#seasonDesc').val(season.description || '');
+
+            // Reset Upload UI
+            $('#seasonUploadStatus').text(season.trailer && season.trailer.startsWith('indexeddb://') ? 'Đã có trailer local.' : 'Chưa có trailer local.');
+            $('#seasonUploadProgress').addClass('d-none').find('.progress-bar').css('width', '0%').removeClass('bg-success');
+            
+            // Reset Tabs
+            $('#seasonTabs button:first').tab('show');
+            
+            renderEpisodes();
+            renderSeasonCast();
+            renderSeasonPhotos();
+            $('#season-detail-area').removeClass('d-none');
+            $('#no-season-msg').addClass('d-none');
+        }
+
+        // --- SEASON CAST & PHOTOS LOGIC ---
+        function renderSeasonCast() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            let html = '';
+            (season.cast || []).forEach((c, i) => {
+                const photo = c.photo || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name);
+                html += `
+                    <div class="d-flex align-items-center gap-2 mb-2 p-1 border-bottom">
+                        <img src="${photo}" class="rounded-circle shadow-sm" style="width: 30px; height: 30px; object-fit: cover;">
+                        <div class="flex-grow-1 small">
+                            <div class="fw-bold">${c.name}</div>
+                            <div class="text-muted" style="font-size: 0.7rem;">${c.role}</div>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button type="button" class="btn btn-sm btn-outline-primary p-0 px-1" onclick="editSeasonCast(${i})"><i class="bi bi-pencil-square"></i></button>
+                            <button type="button" class="btn btn-sm btn-outline-danger p-0 px-1" onclick="removeSeasonCast(${i})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#season-cast-list').html(html || '<p class="text-muted small text-center py-2">Chưa có diễn viên</p>');
+        }
+
+        function addSeasonCast() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            if (!season.cast) season.cast = [];
+            
+            const name = $('#sCastName').val();
+            const role = $('#sCastRole').val();
+            const photo = $('#sCastPhoto').val();
+            const index = parseInt($('#editingSeasonCastIndex').val());
+
+            if(!name) return;
+            const castObj = { name, role, photo };
+
+            if (index >= 0) season.cast[index] = castObj;
+            else season.cast.push(castObj);
+
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderSeasonCast();
+            
+            // Reset
+            $('#sCastName').val(''); $('#sCastRole').val(''); $('#sCastPhoto').val('');
+            $('#editingSeasonCastIndex').val('-1');
+            $('#btn-save-season-cast').text('Thêm diễn viên').removeClass('btn-success').addClass('btn-primary');
+        }
+
+        function editSeasonCast(index) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            const c = season.cast[index];
+            $('#sCastName').val(c.name);
+            $('#sCastRole').val(c.role);
+            $('#sCastPhoto').val(c.photo || '');
+            $('#editingSeasonCastIndex').val(index);
+            $('#btn-save-season-cast').text('Cập nhật').removeClass('btn-primary').addClass('btn-success');
+        }
+
+        function removeSeasonCast(i) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            season.cast.splice(i, 1);
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderSeasonCast();
+        }
+
+        function handleSeasonCastUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => $('#sCastPhoto').val(e.target.result);
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function renderSeasonPhotos() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            let html = '';
+            (season.photos || []).forEach((p, i) => {
+                html += `
+                    <div class="col position-relative">
+                        <img src="${p}" class="img-fluid rounded border" style="height: 40px; width: 100%; object-fit: cover;">
+                        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0" onclick="removeSeasonPhoto(${i})" style="width:15px;height:15px;line-height:1;font-size:8px;">x</button>
+                    </div>
+                `;
+            });
+            $('#season-photos-list').html(html);
+        }
+
+        function addSeasonPhoto() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            if (!season.photos) season.photos = [];
+            const url = $('#sNewPhoto').val();
+            if(!url) return;
+            season.photos.push(url);
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderSeasonPhotos();
+            $('#sNewPhoto').val('');
+        }
+
+        function removeSeasonPhoto(i) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            season.photos.splice(i, 1);
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderSeasonPhotos();
+        }
+
+        function updateSeasonMetadata() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            if (season) {
+                season.title = $('#seasonTitle').val();
+                season.subtitle = $('#seasonSubtitle').val();
+                season.year = $('#seasonYear').val();
+                season.genre = $('#seasonGenre').val();
+                season.rating = $('#seasonRating').val();
+                season.director = $('#seasonDirector').val();
+                season.type = $('#seasonType').val();
+                season.trailerLabel = $('#seasonTrailerLabel').val();
+                season.poster = $('#seasonPoster').val();
+                season.banner = $('#seasonBanner').val();
+                season.trailer = $('#seasonTrailer').val();
+                season.description = $('#seasonDesc').val();
+                
+                // Important: Persist changes to localStorage
+                localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+                
+                renderSeasons(); // Update list names
+                alert("Đã cập nhật thông tin cho " + (season.title || "Phần " + currentSeasonId));
+            }
+        }
+
+        function renderEpisodes() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            let html = '';
+            season.episodes.forEach((ep, i) => {
+                const thumb = ep.thumb || movie.poster;
+                html += `
+                    <div class="episode-item d-flex gap-3 align-items-center">
+                        <img src="${thumb}" style="width: 80px; height: 45px; object-fit: cover; border-radius: 4px;">
+                        <div class="flex-grow-1 overflow-hidden">
+                            <div class="small fw-bold text-truncate">${ep.title}</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-info p-1 px-2 rounded-pill small" onclick="openAdvancedEpEditor(${i})" style="font-size: 10px;">Chi tiết</button>
+                            <button class="btn btn-sm text-danger p-0" onclick="deleteEpisode(${i})"><i class="bi bi-x-circle"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            if (season.episodes.length === 0) html = '<p class="text-muted small text-center py-3">Chưa có tập phim nào</p>';
+            $('#episodes-list').html(html);
+        }
+
+        function addEpisode() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            const newEp = {
+                id: Date.now(),
+                title: $('#epTitle').val(),
+                embed: $('#epEmbed').val(),
+                thumb: $('#epThumb').val(),
+                rating: 9.0,
+                date: new Date().toLocaleDateString(),
+                cast: [], // Array of {name, role, photo}
+                photos: [], // Array of URL strings
+                directors: "",
+                writers: ""
+            };
+            season.episodes.push(newEp);
+            
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderEpisodes();
+            $('#epTitle').val('');
+            $('#epEmbed').val('');
+            $('#epThumb').val('');
+        }
+
+        function deleteEpisode(index) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            season.episodes.splice(index, 1);
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderEpisodes();
+        }
+
+        function deleteSeason(e, sId) {
+            e.stopPropagation();
+            if (confirm(`Xóa Phần ${sId} và tất cả tập phim?`)) {
+                const movie = adminMovies.find(m => m.id == currentMovieId);
+                movie.seasons = movie.seasons.filter(s => s.id != sId);
+                currentSeasonId = null;
+                localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+                renderSeasons();
+                $('#season-detail-area').addClass('d-none');
+                $('#no-season-msg').removeClass('d-none');
+            }
+        }
+
+        function saveMovie() {
+            const id = $('#movieId').val();
+            const movieData = {
+                title: $('#movieTitle').val(),
+                subtitle: $('#movieSubtitle').val(),
+                year: parseInt($('#movieYear').val()),
+                rating: parseFloat($('#movieRating').val()),
+                genre: $('#movieGenre').val(),
+                director: $('#movieDirector').val(),
+                poster: $('#moviePoster').val(),
+                banner: $('#movieBanner').val(),
+                trailerEmbed: $('#movieTrailer').val(),
+                description: $('#movieDesc').val(),
+                preview: $('#moviePreview').val(),
+                isTrending: $('#movieTrending').is(':checked'),
+                badge: $('#movieBadge').val(),
+                creator: $('#movieCreator').val(),
+                cast: currentMovieCast,
+                photos: currentMoviePhotos
+            };
+
+            if (id) {
+                const index = adminMovies.findIndex(m => m.id == id);
+                adminMovies[index] = { ...adminMovies[index], ...movieData };
+            } else {
+                const newMovie = { id: Date.now(), ...movieData, seasons: [] };
+                adminMovies.push(newMovie);
+            }
+
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderAdminTable();
+            movieModal.hide();
+        }
+
+        function deleteMovie(id) {
+            if(confirm("Bạn có chắc muốn xóa phim này?")) {
+                adminMovies = adminMovies.filter(m => m.id != id);
+                localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+                renderAdminTable();
+            }
+        }
+
+        $(document).ready(() => renderAdminTable());
+
+        const advEpModal = new bootstrap.Modal(document.getElementById('advancedEpModal'));
+        let editingEpIndex = null;
+
+        function openAdvancedEpEditor(index) {
+            editingEpIndex = index;
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            const ep = season.episodes[editingEpIndex];
+
+            $('#advEpTitle').text(ep.title);
+            $('#advRating').val(ep.rating || '');
+            $('#advDate').val(ep.date || '');
+            $('#advThumb').val(ep.thumb || '');
+            $('#advDesc').val(ep.desc || '');
+            $('#advDirectors').val(ep.directors || '');
+            $('#advWriters').val(ep.writers || '');
+            $('#advComposer').val(ep.composer || '');
+            $('#advStudio').val(ep.studio || '');
+            $('#advCreator').val(ep.creator || '');
+            
+            renderAdvCast();
+            renderAdvPhotos();
+            advEpModal.show();
+        }
+
+        function renderAdvCast() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            let html = '';
+            (ep.cast || []).forEach((c, i) => {
+                const photo = c.photo || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name);
+                html += `
+                    <div class="d-flex align-items-center gap-2 mb-2 p-1 border-bottom">
+                        <img src="${photo}" class="rounded-circle shadow-sm" style="width: 35px; height: 35px; object-fit: cover; border: 1px solid #ddd;">
+                        <div class="flex-grow-1 small">
+                            <div class="fw-bold">${c.name}</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">${c.role}</div>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-sm btn-outline-primary p-0 px-1" onclick="editAdvCast(${i})"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-outline-danger p-0 px-1" onclick="removeCast(${i})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#adv-cast-list').html(html || '<p class="text-muted small">Chưa có diễn viên</p>');
+        }
+
+        function handleAdvCastUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#cPhoto').val(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function editAdvCast(index) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            const c = ep.cast[index];
+            
+            $('#cName').val(c.name);
+            $('#cRole').val(c.role);
+            $('#cPhoto').val(c.photo || '');
+            $('#editingAdvCastIndex').val(index);
+            $('#btn-save-adv-cast').text('Cập nhật DV').removeClass('btn-primary').addClass('btn-success');
+        }
+
+        function addCast() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            if(!ep.cast) ep.cast = [];
+            
+            const name = $('#cName').val();
+            const role = $('#cRole').val();
+            const photo = $('#cPhoto').val();
+            const index = parseInt($('#editingAdvCastIndex').val());
+
+            if(!name) { alert("Vui lòng nhập tên diễn viên"); return; }
+
+            const castObj = { name, role, photo };
+
+            if (index >= 0) {
+                ep.cast[index] = castObj;
+            } else {
+                ep.cast.push(castObj);
+            }
+
+            renderAdvCast();
+            
+            // Reset
+            $('#cName').val(''); $('#cRole').val(''); $('#cPhoto').val('');
+            $('#editingAdvCastIndex').val('-1');
+            $('#btn-save-adv-cast').text('Thêm DV').removeClass('btn-success').addClass('btn-primary');
+        }
+
+        function removeCast(i) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            ep.cast.splice(i, 1);
+            renderAdvCast();
+        }
+
+        function renderAdvPhotos() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            let html = '';
+            (ep.photos || []).forEach((p, i) => {
+                html += `
+                    <div class="col position-relative">
+                        <img src="${p}" class="img-fluid rounded border" style="height: 50px; width: 100%; object-fit: cover;">
+                        <button class="btn btn-sm btn-danger position-absolute top-0 end-0 p-0" onclick="removePhoto(${i})" style="width:15px;height:15px;line-height:1;font-size:8px;">x</button>
+                    </div>
+                `;
+            });
+            $('#adv-photos-list').html(html);
+        }
+
+        function addPhoto() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            if(!ep.photos) ep.photos = [];
+            ep.photos.push($('#newPhoto').val());
+            renderAdvPhotos();
+            $('#newPhoto').val('');
+        }
+
+        function removePhoto(i) {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            ep.photos.splice(i, 1);
+            renderAdvPhotos();
+        }
+
+        function saveAdvancedEp() {
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            ep.rating = $('#advRating').val();
+            ep.date = $('#advDate').val();
+            ep.thumb = $('#advThumb').val();
+            ep.desc = $('#advDesc').val();
+            ep.directors = $('#advDirectors').val();
+            ep.writers = $('#advWriters').val();
+            ep.composer = $('#advComposer').val();
+            ep.studio = $('#advStudio').val();
+            ep.creator = $('#advCreator').val();
+            
+            localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            renderEpisodes(); // Refresh list to show new info if any
+            advEpModal.hide();
+        }
+
+        // --- MAIN MOVIE VIDEO UPLOAD ---
+        $(document).on('change', '#movieVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const movieId = $('#movieId').val();
+            const movie = adminMovies.find(m => m.id == movieId);
+            if (!movie) return;
+            
+            const storageId = `movie_${movie.id}_${Date.now()}`;
+            $('#movieUploadStatus').text('Đang tải lên: ' + file.name);
+            $('#movieUploadProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, storageId);
+                
+                movie.localVideo = `indexeddb://${storageId}`;
+                $('#movieUploadStatus').text('Thành công: ' + file.name);
+                $('#movieUploadProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                alert("Đã tải lên video chính thành công!");
+            } catch (err) {
+                console.error(err);
+                $('#movieUploadStatus').text('Lỗi khi tải lên.');
+                alert("Lỗi khi lưu video.");
+            }
+        });
+
+        // --- EPISODE VIDEO UPLOAD (INDEXEDDB) ---
+        const DB_NAME = 'CinematicVideoDB';
+        const STORE_NAME = 'videos';
+
+        function openVideoDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, 1);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME);
+                };
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        $(document).on('change', '#epVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const ep = movie.seasons.find(s => s.id == currentSeasonId).episodes[editingEpIndex];
+            
+            const videoId = `ep_${ep.id}_${Date.now()}`;
+            $('#uploadStatus').text('Đang tải lên: ' + file.name);
+            $('#uploadProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, videoId);
+                
+                ep.embed = `indexeddb://${videoId}`; // Store protocol
+                $('#advEmbed').val(ep.embed);
+                $('#uploadStatus').text('Thành công: ' + file.name);
+                $('#uploadProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                alert("Đã tải lên video thành công!");
+            } catch (err) {
+                console.error(err);
+                $('#uploadStatus').text('Lỗi khi tải lên.');
+                alert("Lỗi khi lưu video vào trình duyệt.");
+            }
+        });
+
+        // --- SEASON TRAILER UPLOAD ---
+        $(document).on('change', '#seasonTrailerFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const movie = adminMovies.find(m => m.id == currentMovieId);
+            const season = movie.seasons.find(s => s.id == currentSeasonId);
+            if (!season) return;
+            
+            const videoId = `season_${season.id}_${Date.now()}`;
+            $('#seasonUploadStatus').text('Đang tải lên: ' + file.name);
+            $('#seasonUploadProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, videoId);
+                
+                season.trailer = `indexeddb://${videoId}`;
+                $('#seasonTrailer').val(season.trailer);
+                $('#seasonUploadStatus').text('Thành công: ' + file.name);
+                $('#seasonUploadProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                alert("Đã tải lên trailer phần thành công!");
+                
+                // Save immediately
+                localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+            } catch (err) {
+                console.error(err);
+                $('#seasonUploadStatus').text('Lỗi khi tải lên.');
+                alert("Lỗi khi lưu trailer.");
+            }
+        });
+    </script>
+</body>
+</html>

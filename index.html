@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematic - Movie Review</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="position-relative">
+    
+    <!-- BACKGROUND VIDEO GLOBAL -->
+    <div class="global-bg-wrapper position-fixed top-0 start-0 w-100 h-100 z-n1 overflow-hidden" style="opacity: 0.2;">
+        <video autoplay muted loop playsinline class="w-100 h-100" style="object-fit: cover;">
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4" type="video/mp4">
+        </video>
+    </div>
+
+
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-transparent" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand font-heading fw-bold d-flex align-items-center logo-wrapper" href="index.html">
+                <span class="logo-text">
+                    <span class="logo-uni-container">
+                        <span class="logo-uni">Uni</span>
+                        <div class="solar-system logo-moon">
+                            <div class="solar-system-tilt">
+                                <div class="sun"></div>
+                                <div class="orbit earth-orbit">
+                                    <div class="planet earth"></div>
+                                </div>
+                                <div class="orbit mars-orbit">
+                                    <div class="planet mars"></div>
+                                </div>
+                                <div class="orbit jupiter-orbit">
+                                    <div class="planet jupiter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </span><span class="logo-cenima">Cenima</span>
+                </span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto liquid-glass rounded-pill px-2 py-1 gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link active rounded-pill px-3" href="index.html" data-i18n="nav_home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="movies.html" data-i18n="nav_movies">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top
+                            Rated</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <form class="d-flex" role="search">
+                        <div class="input-group liquid-glass rounded-pill overflow-hidden">
+                            <span class="input-group-text bg-transparent border-0 text-white"><i
+                                    class="bi bi-search"></i></span>
+                            <input class="form-control bg-transparent border-0 text-white shadow-none" type="search"
+                                placeholder="Search movies..." data-i18n="search_placeholder">
+                        </div>
+                    </form>
+                    <button
+                        class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
+                        <i class="bi bi-bookmark-fill"></i> <span data-i18n="watchlist">Watchlist</span>
+                        <span id="watchlist-badge"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                    </button>
+                    <!-- Auth Buttons -->
+                    <div class="vr text-white opacity-25 d-none d-lg-block"></div>
+                    <div class="auth-buttons d-flex align-items-center gap-2"></div>
+                    <div class="vr text-white opacity-25 d-none d-lg-block"></div>
+                    <div class="dropdown">
+                        <button
+                            class="btn text-white fw-bold dropdown-toggle d-flex align-items-center gap-1 border-0 shadow-none px-2 bg-transparent"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false" id="lang-btn">
+                            EN
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow">
+                            <li><a class="dropdown-item text-white lang-switch" href="#" data-lang="en">English (EN)</a>
+                            </li>
+                            <li><a class="dropdown-item text-white lang-switch" href="#" data-lang="vi">Tiếng Việt
+                                    (VI)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO CAROUSEL -->
+    <header id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
+        <div class="carousel-indicators mb-5">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active" data-bs-interval="5000">
+                <div class="hero-slide-bg"
+                    style="background-image: url('https://image.tmdb.org/t/p/original/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg');">
+                </div>
+                <div class="container h-100 position-relative">
+                    <div class="hero-content liquid-glass">
+                        <span class="badge text-bg-light mb-3">Sci-Fi</span>
+                        <h1 class="hero-title font-heading fw-bold text-white">Dune: Part One</h1>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="text-warning"><i class="bi bi-star-fill"></i> 8.0</span>
+                            <span class="text-white-50">| 2021 | 2h 35m</span>
+                        </div>
+                        <p class="text-light mb-4">Paul Atreides, a brilliant and gifted young man born into a great
+                            destiny beyond his understanding, must travel to the most dangerous planet in the
+                            universe...</p>
+                        <div class="d-flex gap-3">
+                            <a href="detail.html?id=1" class="btn btn-primary-custom rounded-pill px-4 py-2">
+                                <i class="bi bi-play-fill fs-5 align-middle"></i> Watch Trailer
+                            </a>
+                            <button class="btn btn-outline-light rounded-pill px-4 py-2 btn-watchlist" data-id="1"
+                                data-title="Dune: Part One">
+                                <i class="bi bi-plus-lg"></i> Watchlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item" data-bs-interval="5000">
+                <div class="hero-slide-bg"
+                    style="background-image: url('https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg');">
+                </div>
+                <div class="container h-100 position-relative">
+                    <div class="hero-content liquid-glass">
+                        <span class="badge text-bg-light mb-3">Sci-Fi</span>
+                        <h1 class="hero-title font-heading fw-bold text-white">Interstellar</h1>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="text-warning"><i class="bi bi-star-fill"></i> 8.7</span>
+                            <span class="text-white-50">| 2014 | 2h 49m</span>
+                        </div>
+                        <p class="text-light mb-4">A team of explorers travel through a wormhole in space in an attempt
+                            to ensure humanity's survival.</p>
+                        <div class="d-flex gap-3">
+                            <a href="detail.html?id=2" class="btn btn-primary-custom rounded-pill px-4 py-2">
+                                <i class="bi bi-play-fill fs-5 align-middle"></i> Watch Trailer
+                            </a>
+                            <button class="btn btn-outline-light rounded-pill px-4 py-2 btn-watchlist" data-id="2"
+                                data-title="Interstellar">
+                                <i class="bi bi-plus-lg"></i> Watchlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item" data-bs-interval="5000">
+                <div class="hero-slide-bg"
+                    style="background-image: url('https://image.tmdb.org/t/p/original/b0PlSNiZ3eDAnz247oK5t6yP12F.jpg');">
+                </div>
+                <div class="container h-100 position-relative">
+                    <div class="hero-content liquid-glass">
+                        <span class="badge text-bg-light mb-3">Action</span>
+                        <h1 class="hero-title font-heading fw-bold text-white">The Batman</h1>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="text-warning"><i class="bi bi-star-fill"></i> 7.8</span>
+                            <span class="text-white-50">| 2022 | 2h 56m</span>
+                        </div>
+                        <p class="text-light mb-4">When a sadistic serial killer begins murdering key political figures
+                            in Gotham, Batman is forced to investigate the city's hidden corruption...</p>
+                        <div class="d-flex gap-3">
+                            <a href="detail.html?id=3" class="btn btn-primary-custom rounded-pill px-4 py-2">
+                                <i class="bi bi-play-fill fs-5 align-middle"></i> Watch Trailer
+                            </a>
+                            <button class="btn btn-outline-light rounded-pill px-4 py-2 btn-watchlist" data-id="3"
+                                data-title="The Batman">
+                                <i class="bi bi-plus-lg"></i> Watchlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </header>
+
+    <!-- TRENDING SECTION -->
+    <section class="py-5 my-5 trending-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body" data-i18n="featured">
+                        Featured</h6>
+                    <h2 class="font-heading fw-bold text-white m-0 section-heading" data-i18n="trending_now">Trending Now</h2>
+                </div>
+                <a href="movies.html" class="text-white text-decoration-none border-bottom border-light pb-1"
+                    data-i18n="view_all">View
+                    All</a>
+            </div>
+
+            <!-- Grid phim được render từ jQuery -->
+            <div id="trending-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <!-- JS sẽ bơm HTML vào đây -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <!-- TOP ROW: Social + App -->
+            <div class="footer-top-row">
+                <!-- Social Box -->
+                <div class="footer-social-box">
+                    <p class="box-label">Follow UniCenima on social</p>
+                    <div class="footer-social-icons">
+                        <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+                <!-- App Box -->
+                <div class="footer-app-box">
+                    <div class="footer-app-info">
+                        <p class="app-title">Get the UniCenima App</p>
+                        <p class="app-sub">For Android and iOS</p>
+                    </div>
+                    <!-- Inline QR code SVG (simple pattern) -->
+                    <div class="footer-qr" title="Scan to download">
+                        <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000">
+                            <rect x="0" y="0" width="9" height="9"/><rect x="12" y="0" width="9" height="9"/>
+                            <rect x="0" y="12" width="9" height="9"/>
+                            <rect x="2" y="2" width="5" height="5" fill="#fff"/><rect x="14" y="2" width="5" height="5" fill="#fff"/>
+                            <rect x="2" y="14" width="5" height="5" fill="#fff"/>
+                            <rect x="4" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/>
+                            <rect x="4" y="16" width="1" height="1"/>
+                            <rect x="12" y="12" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/>
+                            <rect x="16" y="12" width="1" height="1"/><rect x="18" y="12" width="3" height="1"/>
+                            <rect x="12" y="14" width="3" height="1"/><rect x="16" y="14" width="1" height="1"/>
+                            <rect x="18" y="14" width="3" height="3"/><rect x="12" y="16" width="1" height="1"/>
+                            <rect x="14" y="16" width="3" height="1"/><rect x="20" y="16" width="1" height="1"/>
+                            <rect x="12" y="18" width="5" height="1"/><rect x="18" y="18" width="1" height="1"/>
+                            <rect x="12" y="20" width="9" height="1"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINK ROW 1 (Primary) -->
+            <div class="footer-links-row">
+                <a href="index.html">Home</a>
+                <a href="movies.html">Explore Movies</a>
+                <a href="top-rated.html">Top Rated</a>
+                <a href="#">About UniCenima</a>
+                <a href="#">Help Center</a>
+            </div>
+
+            <!-- LINK ROW 2 (Secondary) -->
+            <div class="footer-links-row" style="border-top: none; padding-top: 0; padding-bottom: 24px;">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <!-- BOTTOM BAR -->
+            <div class="footer-bottom-bar">
+                <span class="copyright">&copy; 2026 UniCenima</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST THÔNG BÁO -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="watchlistToast" class="toast align-items-center text-bg-success border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toast-body-text">
+                    Đã thêm vào Watchlist!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING ADMIN BUTTON -->
+    <a href="admin.html" class="btn btn-warning rounded-circle position-fixed shadow-lg"
+        style="bottom: 20px; left: 20px; z-index: 1000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+        <i class="bi bi-gear-fill fs-5"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
