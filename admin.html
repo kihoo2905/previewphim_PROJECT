@@ -107,6 +107,13 @@
                                                     <option value="Anime">Anime/Japan</option>
                                                 </select>
                                             </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label small fw-bold text-primary">Loại nội dung (Type)</label>
+                                                <select class="form-select border-primary border-opacity-25" id="movieType">
+                                                    <option value="Movie">Movie (Phim lẻ)</option>
+                                                    <option value="Series">Series (Phim bộ)</option>
+                                                </select>
+                                            </div>
                                             <div class="col-12">
                                                 <label class="form-label small fw-bold text-primary">Nhãn phụ (Tags)</label>
                                                 <div class="d-flex flex-wrap gap-3 p-3 border rounded bg-white shadow-sm">
@@ -538,6 +545,7 @@
             document.getElementById('movieForm').reset();
             $('#movieId').val('');
             $('#movieRegion').val('Hollywood');
+            $('#movieType').val('Movie');
             $('#movieDuration').val('');
             $('.movie-tag').prop('checked', false);
             $('#modalTitle').text('Thêm phim mới');
@@ -563,6 +571,7 @@
                 $('#movieRating').val(movie.rating);
                 $('#movieGenre').val(movie.genre);
                 $('#movieRegion').val(movie.region || 'Hollywood');
+                $('#movieType').val(movie.type || 'Movie');
                 $('#movieDuration').val(movie.duration || '');
                 $('#movieDirector').val(movie.director || '');
                 $('#moviePoster').val(movie.poster);
@@ -1009,6 +1018,7 @@
                 rating: parseFloat($('#movieRating').val()) || 0,
                 genre: $('#movieGenre').val() || "Chưa phân loại",
                 region: $('#movieRegion').val() || "Hollywood",
+                type: $('#movieType').val() || "Movie",
                 duration: $('#movieDuration').val(),
                 director: $('#movieDirector').val(),
                 poster: $('#moviePoster').val(),

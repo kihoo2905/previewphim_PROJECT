@@ -742,9 +742,13 @@ $(document).ready(function () {
                                   movie.collection === filterGenre ||
                                   (movie.tags && movie.tags.includes(filterGenre)));
                 
-                // Special case for "Series" filter to avoid confusion with live-action movies
+                // Special case for "Series" filter
                 if (filterGenre === 'Series') {
                     genreMatch = (movie.type === 'Series' || (movie.seasons && movie.seasons.length > 0));
+                }
+                // Special case for "Movie" filter
+                if (filterGenre === 'Movie') {
+                    genreMatch = (movie.type === 'Movie' || (!movie.type && !(movie.seasons && movie.seasons.length > 0)));
                 }
                 
                 let titleMatch = movie.title.toLowerCase().includes(searchQuery);
