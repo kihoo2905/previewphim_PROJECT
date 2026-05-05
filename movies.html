@@ -99,63 +99,159 @@
                         </div>
                     </div>
                     
-                    <h6 class="fw-bold mb-3" style="color: rgba(255,255,255,0.45); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;" data-i18n="genre">CATEGORIES</h6>
-                    <ul class="nav flex-column modern-side-menu gap-1" id="genre-menu">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="All">
-                                <i class="bi bi-grid-fill" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="nav_movies">All Movies</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Action">
-                                <i class="bi bi-lightning-fill" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_action">Action</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Sci-Fi">
-                                <i class="bi bi-stars" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_scifi">Sci-Fi</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Drama">
-                                <i class="bi bi-mask" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_drama">Drama</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Anime">
-                                <i class="bi bi-incognito" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_anime">Anime</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Horror">
-                                <i class="bi bi-ghost" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_horror">Horror</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Comedy">
-                                <i class="bi bi-emoji-laughing" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_comedy">Comedy</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Romance">
-                                <i class="bi bi-heart-fill" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_romance">Romance</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Adventure">
-                                <i class="bi bi-compass" style="font-size: 0.85rem;"></i>
-                                <span data-i18n="genre_adventure">Adventure</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <!-- DISCOVER SECTION -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold mb-3 sidebar-section-title" data-i18n="section_discover">DISCOVER</h6>
+                        <ul class="nav flex-column modern-side-menu gap-1" id="discover-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="All">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span data-i18n="nav_movies">All Movies</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Series">
+                                    <i class="bi bi-collection-play-fill"></i>
+                                    <span data-i18n="nav_series">Series</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="top-rated.html" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2">
+                                    <i class="bi bi-trophy-fill"></i>
+                                    <span data-i18n="nav_top_rated">Top Rated</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- REGIONS SECTION -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold mb-3 sidebar-section-title" data-i18n="section_regions">REGIONS</h6>
+                        <ul class="nav flex-column modern-side-menu gap-1" id="region-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Hollywood">
+                                    <i class="bi bi-film"></i>
+                                    <span data-i18n="region_hollywood">Hollywood</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="K-Drama">
+                                    <i class="bi bi-star-half"></i>
+                                    <span data-i18n="region_kdrama">K-Drama</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="C-Drama">
+                                    <i class="bi bi-translate"></i>
+                                    <span data-i18n="region_chinese">C-Drama</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Anime">
+                                    <i class="bi bi-incognito"></i>
+                                    <span data-i18n="genre_anime">Anime</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- GENRES SECTION -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold mb-3 sidebar-section-title" data-i18n="genre">GENRES</h6>
+                        <ul class="nav flex-column modern-side-menu gap-1" id="genre-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Action">
+                                    <i class="bi bi-lightning-fill"></i>
+                                    <span data-i18n="genre_action">Action</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Sci-Fi">
+                                    <i class="bi bi-stars"></i>
+                                    <span data-i18n="genre_scifi">Sci-Fi</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Drama">
+                                    <i class="bi bi-mask"></i>
+                                    <span data-i18n="genre_drama">Drama</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Horror">
+                                    <i class="bi bi-ghost"></i>
+                                    <span data-i18n="genre_horror">Horror</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Comedy">
+                                    <i class="bi bi-emoji-laughing"></i>
+                                    <span data-i18n="genre_comedy">Comedy</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="School">
+                                    <i class="bi bi-mortarboard-fill"></i>
+                                    <span data-i18n="genre_school">School</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Teen">
+                                    <i class="bi bi-balloon-heart-fill"></i>
+                                    <span data-i18n="genre_teen">Teen</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Coming-of-age">
+                                    <i class="bi bi-sun-fill"></i>
+                                    <span data-i18n="genre_coming_of_age">Coming-of-age</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Bromance">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span data-i18n="genre_bromance">Bromance</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Mystery">
+                                    <i class="bi bi-question-circle-fill"></i>
+                                    <span data-i18n="genre_mystery">Mystery</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Thriller">
+                                    <i class="bi bi-eye-slash-fill"></i>
+                                    <span data-i18n="genre_thriller">Thriller</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Fantasy">
+                                    <i class="bi bi-magic"></i>
+                                    <span data-i18n="genre_fantasy">Fantasy</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- COLLECTIONS SECTION -->
+                    <div class="mb-0">
+                        <h6 class="fw-bold mb-3 sidebar-section-title" data-i18n="section_collections">COLLECTIONS</h6>
+                        <ul class="nav flex-column modern-side-menu gap-1" id="collection-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="Live-action">
+                                    <i class="bi bi-camera-reels-fill"></i>
+                                    <span data-i18n="coll_liveaction">Live-action</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2 genre-link" data-genre="LGBTQ+">
+                                    <i class="bi bi-rainbow"></i>
+                                    <span data-i18n="coll_lgbtq">LGBTQ+</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

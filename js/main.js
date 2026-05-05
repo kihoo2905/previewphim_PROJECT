@@ -29,7 +29,26 @@ window.translations = {
         'genre_romance': 'Romance',
         'genre_adventure': 'Adventure',
         'seasons': 'Seasons',
-        'movies': 'Movies'
+        'movies': 'Movies',
+        'section_discover': 'Discover',
+        'section_regions': 'Regions',
+        'section_collections': 'Collections',
+        'region_hollywood': 'Hollywood',
+        'region_kdrama': 'K-Drama',
+        'region_chinese': 'C-Drama',
+        'coll_liveaction': 'Live-action',
+        'coll_lgbtq': 'LGBTQ+',
+        'genre': 'Genres',
+        'nav_series': 'Series',
+        'genre_school': 'School',
+        'genre_teen': 'Teen',
+        'genre_coming_of_age': 'Coming-of-age',
+        'genre_bromance': 'Bromance',
+        'genre_mystery': 'Mystery',
+        'genre_thriller': 'Thriller',
+        'genre_fantasy': 'Fantasy',
+        'genre_animation': 'Animation',
+        'genre_family': 'Family'
     },
     'vi': {
         'nav_home': 'Trang chủ',
@@ -61,7 +80,26 @@ window.translations = {
         'genre_romance': 'Lãng mạn',
         'genre_adventure': 'Phiêu lưu',
         'seasons': 'Các phần',
-        'movies': 'Phim lẻ'
+        'movies': 'Phim lẻ',
+        'section_discover': 'Khám phá',
+        'section_regions': 'Khu vực',
+        'section_collections': 'Bộ sưu tập',
+        'region_hollywood': 'Hollywood',
+        'region_kdrama': 'Phim Hàn Quốc',
+        'region_chinese': 'Phim Hoa Ngữ (C-Drama)',
+        'coll_liveaction': 'Live-action',
+        'coll_lgbtq': 'LGBTQ+',
+        'genre': 'Thể loại',
+        'nav_series': 'Phim bộ',
+        'genre_school': 'Học đường',
+        'genre_teen': 'Tuổi teen',
+        'genre_coming_of_age': 'Trưởng thành',
+        'genre_bromance': 'Tình bạn (Bromance)',
+        'genre_mystery': 'Bí ẩn',
+        'genre_thriller': 'Giật gân',
+        'genre_fantasy': 'Phép thuật',
+        'genre_animation': 'Hoạt hình',
+        'genre_family': 'Gia đình'
     }
 };
 
@@ -101,6 +139,7 @@ const defaultMoviesData = [
         poster: "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
         banner: "https://image.tmdb.org/t/p/original/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg",
         genre: "Sci-Fi",
+        region: "Hollywood",
         rating: 8.0,
         year: 2021,
         director: "Denis Villeneuve",
@@ -147,7 +186,8 @@ const defaultMoviesData = [
         poster: "https://image.tmdb.org/t/p/w500/gEU2QlsUUHXjNpeMacBj4kSpBq0.jpg",
         banner: "https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
         genre: "Sci-Fi",
-        rating: 8.7,
+        rating: 8.6,
+        duration: "2h 49m",
         year: 2014,
         director: "Christopher Nolan",
         trailerEmbed: "https://www.youtube.com/embed/zSWdZVtXT7E",
@@ -279,7 +319,8 @@ const defaultMoviesData = [
         director: "Greg Mottola",
         trailerEmbed: "https://www.youtube.com/embed/4eaZ_48ZH0k",
         description: "Two co-dependent high school seniors are forced to deal with separation anxiety after their plan to stage a booze-soaked party goes awry.",
-        isTrending: false
+        isTrending: false,
+        tags: ["School", "Teen"]
     },
     {
         id: 12,
@@ -348,18 +389,160 @@ const defaultMoviesData = [
                 ]
             }
         ]
+    },
+    {
+        id: 13,
+        title: "Crash Landing on You",
+        subtitle: "Hạ Cánh Nơi Anh",
+        poster: "https://image.tmdb.org/t/p/w500/vX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        banner: "https://image.tmdb.org/t/p/original/vX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        genre: "Romance",
+        region: "K-Drama",
+        rating: 8.7,
+        year: 2019,
+        director: "Lee Jeong-hyo",
+        description: "A paragliding mishap drops a South Korean heiress in North Korea - and into the life of an army officer, who decides he will help her hide.",
+        isTrending: true
+    },
+    {
+        id: 14,
+        title: "Hidden Love",
+        subtitle: "Vụng Trộm Không Thể Giấu",
+        poster: "https://image.tmdb.org/t/p/w500/vX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        banner: "https://image.tmdb.org/t/p/original/vX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        genre: "Romance",
+        region: "C-Drama",
+        rating: 8.8,
+        year: 2023,
+        director: "Sha Wei Qi",
+        description: "Sang Zhi falls in love with Duan Jia Xu, a boy who often comes to her house to play games in her older brother's room.",
+        isTrending: true
+    },
+    {
+        id: 15,
+        title: "One Piece",
+        subtitle: "Live Action",
+        poster: "https://image.tmdb.org/t/p/w500/vX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        banner: "https://image.tmdb.org/t/p/original/vX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        genre: "Adventure",
+        region: "Hollywood",
+        collection: "Live-action",
+        rating: 8.5,
+        year: 2023,
+        director: "Various",
+        description: "In a seafaring world, a young pirate captain sets out with his crew to attain the title of Pirate King, and to discover the mythical treasure known as 'One Piece'.",
+        isTrending: true
+    },
+    {
+        id: 16,
+        title: "Sex Education",
+        poster: "https://image.tmdb.org/t/p/w500/8Jv6SOfp8T7S707t5Cof6S86Z7.jpg",
+        banner: "https://image.tmdb.org/t/p/original/9v35pXG9pX8mX9mX9mX9mX9mX9m.jpg",
+        genre: "School",
+        type: "Series",
+        rating: 8.3,
+        year: 2019,
+        director: "Laurie Nunn",
+        description: "A teenage boy with a sex therapist mother teams up with a high school classmate to set up an underground sex therapy clinic at school.",
+        isTrending: true,
+        duration: "45m / ep",
+        tags: ["School", "Teen", "LGBTQ+"],
+        seasons: [
+            { id: 1, title: "Season 1", year: 2019, episodes: [] }
+        ]
+    },
+    {
+        id: 17,
+        title: "Mean Girls",
+        poster: "https://image.tmdb.org/t/p/w500/fX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        banner: "https://image.tmdb.org/t/p/original/fX9YHoNreIpsZp6Y3Y7YvYvC9iE.jpg",
+        genre: "Teen",
+        rating: 7.1,
+        year: 2004,
+        director: "Mark Waters",
+        description: "Cady Heron is a hit with The Plastics, the A-list girl clique at her new school, until she makes the mistake of falling for Aaron Samuels, the ex-boyfriend of alpha Plastic Regina George.",
+        isTrending: false,
+        tags: ["School", "Teen"]
+    },
+    {
+        id: 101,
+        title: "Attack on Titan: Live Action",
+        subtitle: "Shingeki no Kyojin",
+        poster: "https://image.tmdb.org/t/p/w500/yDqiY7pY6HkS6Y1uXh9YvYvC9iE.jpg",
+        banner: "https://image.tmdb.org/t/p/original/yDqiY7pY6HkS6Y1uXh9YvYvC9iE.jpg",
+        genre: "Action",
+        region: "C-Drama",
+        collection: "Live-action",
+        rating: 6.5,
+        year: 2015,
+        director: "Shinji Higuchi",
+        trailerEmbed: "https://www.youtube.com/embed/InM_SHe8HNo",
+        description: "In a world where giant humanoids called Titans prey on humans, Eren Jaeger joins the scout regiment to fight back after witnessing the destruction of his home.",
+        isTrending: false,
+        tags: ["Live-action", "Fantasy", "Action"]
     }
 ];
 
-// Clean up only unwanted demo movies (IDs 14+) without deleting user data
-let moviesData = JSON.parse(localStorage.getItem('cinematic_movies'));
-if (moviesData) {
-    const originalCount = moviesData.length;
-    moviesData = moviesData.filter(m => m.id < 14);
-    if (moviesData.length !== originalCount) {
-        localStorage.setItem('cinematic_movies', JSON.stringify(moviesData));
+// Tải dữ liệu từ LocalStorage
+// ---- DATA MIGRATION: Convert 'Chinese' to 'C-Drama' ----
+let savedMovies = JSON.parse(localStorage.getItem('cinematic_movies'));
+if (savedMovies && Array.isArray(savedMovies)) {
+    let migrated = false;
+        savedMovies.forEach(m => {
+            if (m.region === "Chinese") {
+                m.region = "C-Drama";
+                migrated = true;
+            }
+            // Cleanup: Remove "Live-action" from the Anime Series (id 12) if present
+            if (m.id == 12 && m.tags && m.tags.includes("Live-action")) {
+                m.tags = m.tags.filter(t => t !== "Live-action");
+                migrated = true;
+            }
+            // Migration: Clear out season genres that are just "Drama" or empty
+            if (m.seasons && Array.isArray(m.seasons)) {
+                m.seasons.forEach(s => {
+                    if (s.genre === "Drama" || s.genre === "") {
+                        delete s.genre;
+                        migrated = true;
+                    }
+                });
+            }
+        });
+        
+        // Versioned Migration to avoid re-adding deleted movies
+        const CURRENT_VERSION = '1.1';
+        let dataVersion = localStorage.getItem('cinematic_data_version');
+        
+        if (dataVersion !== CURRENT_VERSION) {
+            // Force Add Live Action Movie if missing (Only run once per version)
+            if (!savedMovies.find(m => m.id == 101)) {
+                savedMovies.push({
+                    id: 101,
+                    title: "Attack on Titan: Live Action",
+                    subtitle: "Shingeki no Kyojin",
+                    poster: "https://image.tmdb.org/t/p/w500/yDqiY7pY6HkS6Y1uXh9YvYvC9iE.jpg",
+                    banner: "https://image.tmdb.org/t/p/original/yDqiY7pY6HkS6Y1uXh9YvYvC9iE.jpg",
+                    genre: "Action",
+                    region: "C-Drama",
+                    collection: "Live-action",
+                    rating: 6.5,
+                    year: 2015,
+                    director: "Shinji Higuchi",
+                    trailerEmbed: "https://www.youtube.com/embed/InM_SHe8HNo",
+                    description: "In a world where giant humanoids called Titans prey on humans, Eren Jaeger joins the scout regiment to fight back after witnessing the destruction of his home.",
+                    isTrending: false,
+                    tags: ["Live-action", "Fantasy", "Action"]
+                });
+                migrated = true;
+            }
+            localStorage.setItem('cinematic_data_version', CURRENT_VERSION);
+        }
+    if (migrated) {
+        localStorage.setItem('cinematic_movies', JSON.stringify(savedMovies));
     }
 }
+
+let moviesData = savedMovies || defaultMoviesData;
 
 if (!moviesData || moviesData.length === 0) {
     moviesData = defaultMoviesData;
@@ -483,10 +666,29 @@ $(document).ready(function () {
             return;
         }
 
-        const filtered = moviesData.filter(m => 
-            m.title.toLowerCase().includes(query) || 
-            m.genre.toLowerCase().includes(query)
-        );
+        const queryWords = query.split(' ').filter(w => w.length > 0);
+        
+        const filtered = moviesData.filter(m => {
+            // Check if ALL words in the query are found somewhere in the movie data
+            return queryWords.every(word => {
+                const inTitle = m.title.toLowerCase().includes(word);
+                const inGenre = m.genre.toLowerCase().includes(word);
+                const inRegion = m.region && m.region.toLowerCase().includes(word);
+                const inCollection = m.collection && m.collection.toLowerCase().includes(word);
+                const inTags = m.tags && m.tags.some(t => t.toLowerCase().includes(word));
+                
+                // Deep search in seasons and episodes
+                let inSeasons = false;
+                if (m.seasons) {
+                    inSeasons = m.seasons.some(s => 
+                        (s.title && s.title.toLowerCase().includes(word)) ||
+                        (s.episodes && s.episodes.some(ep => ep.title && ep.title.toLowerCase().includes(word)))
+                    );
+                }
+                
+                return inTitle || inGenre || inRegion || inCollection || inTags || inSeasons;
+            });
+        });
 
         $sectionTitle.text(window.currentLang === 'vi' ? `Kết quả cho "${query}"` : `Results for "${query}"`);
         
@@ -533,7 +735,18 @@ $(document).ready(function () {
         function renderMoviesSearch(filterGenre, searchQuery) {
             let html = '';
             moviesData.forEach(movie => {
-                let genreMatch = (filterGenre === 'All' || movie.genre === filterGenre);
+                // Support filtering by Genre, Region or Collection
+                let genreMatch = (filterGenre === 'All' || 
+                                  movie.genre === filterGenre || 
+                                  movie.region === filterGenre || 
+                                  movie.collection === filterGenre ||
+                                  (movie.tags && movie.tags.includes(filterGenre)));
+                
+                // Special case for "Series" filter to avoid confusion with live-action movies
+                if (filterGenre === 'Series') {
+                    genreMatch = (movie.type === 'Series' || (movie.seasons && movie.seasons.length > 0));
+                }
+                
                 let titleMatch = movie.title.toLowerCase().includes(searchQuery);
                 if (genreMatch && titleMatch) {
                     html += renderMovieCard(movie);
@@ -584,6 +797,14 @@ $(document).ready(function () {
             }
             $('#detail-year').text(movie.year);
             $('#detail-genre').text(movie.genre);
+            
+            if (movie.duration) {
+                $('#detail-duration-container').removeClass('d-none');
+                $('#detail-duration').text(movie.duration);
+            } else {
+                $('#detail-duration-container').addClass('d-none');
+            }
+
             $('#detail-rating').text(movie.rating);
             $('#detail-desc').text(movie.description);
             $('#detail-director').text(movie.director || 'N/A');
@@ -596,13 +817,17 @@ $(document).ready(function () {
             }
             
             // Render episodes/seasons if exists
-            if (movie.seasons && movie.seasons.length > 0) {
+            const hasSeasons = movie.seasons && movie.seasons.length > 0;
+            const isSeries = (movie.type === 'Series' || hasSeasons);
+
+            if (isSeries && hasSeasons) {
                 $('#episodes-section').removeClass('d-none');
                 
                 let currentSeasonId = movie.seasons[0].id;
 
                 function renderSeasonUI() {
                     const t = window.translations[window.currentLang];
+                    const $heading = $('#episodes-section h3');
                     
                     const seasonsOnly = movie.seasons.filter(s => !s.type || s.type === 'season');
                     const moviesOnly = movie.seasons.filter(s => s.type === 'movie');
@@ -611,6 +836,26 @@ $(document).ready(function () {
                     let activeTab = window.currentSeasonView;
                     if (!activeTab) {
                         activeTab = seasonsOnly.length > 0 ? 'seasons' : 'movies';
+                    }
+
+                    // Update Heading Text based on Tab
+                    if (activeTab === 'movies') {
+                        $heading.text(window.currentLang === 'vi' ? 'Phim Điện Ảnh' : 'Special Movies');
+                    } else {
+                        $heading.text(window.currentLang === 'vi' ? 'Danh Sách Tập' : 'Episodes');
+                    }
+
+                    // Fix: Sync currentSeasonId with the active tab type
+                    const isCurrentValid = activeTab === 'seasons' 
+                        ? seasonsOnly.some(s => s.id == currentSeasonId)
+                        : moviesOnly.some(m => m.id == currentSeasonId);
+
+                    if (!isCurrentValid) {
+                        if (activeTab === 'seasons' && seasonsOnly.length > 0) {
+                            currentSeasonId = seasonsOnly[0].id;
+                        } else if (activeTab === 'movies' && moviesOnly.length > 0) {
+                            currentSeasonId = moviesOnly[0].id;
+                        }
                     }
 
                     // If only one type exists, don't show the switcher
@@ -643,7 +888,12 @@ $(document).ready(function () {
                         seasonTabsHtml += `<div class="d-flex gap-2 flex-wrap">`;
                         seasonsOnly.forEach(s => {
                             const activeClass = s.id === currentSeasonId ? 'btn-warning' : 'btn-outline-light';
-                            seasonTabsHtml += `<button class="btn ${activeClass} rounded-circle fw-bold season-select-btn" style="width:40px; height:40px; padding:0" data-id="${s.id}">${s.id}</button>`;
+                            const displayText = s.displayNumber || s.id;
+                            const isLong = displayText.toString().length > 2;
+                            const shapeClass = isLong ? 'rounded-pill px-3' : 'rounded-circle';
+                            const style = isLong ? 'height:40px;' : 'width:40px; height:40px; padding:0;';
+                            
+                            seasonTabsHtml += `<button class="btn ${activeClass} ${shapeClass} fw-bold season-select-btn" style="${style}" data-id="${s.id}">${displayText}</button>`;
                         });
                         seasonTabsHtml += `</div>`;
                     } else {
@@ -721,6 +971,15 @@ $(document).ready(function () {
                         $('#detail-desc').text(descText);
                         $('#detail-year').text(season.year || movie.year);
                         $('#detail-genre').text(season.genre || movie.genre);
+                        
+                        const displayDuration = season.duration || movie.duration;
+                        if (displayDuration) {
+                            $('#detail-duration-container').removeClass('d-none');
+                            $('#detail-duration').text(displayDuration);
+                        } else {
+                            $('#detail-duration-container').addClass('d-none');
+                        }
+
                         $('#detail-rating').text(season.rating || movie.rating);
                         $('#detail-director').text(season.director || movie.director || 'N/A');
                         updateTrailerPlayer(trailerUrl);

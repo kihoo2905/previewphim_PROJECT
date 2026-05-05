@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Detail - Cinematic</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="position-relative">
-    
+
 
 
     <!-- NAVBAR -->
@@ -26,9 +30,15 @@
                         <div class="solar-system logo-moon">
                             <div class="solar-system-tilt">
                                 <div class="sun"></div>
-                                <div class="orbit earth-orbit"><div class="planet earth"></div></div>
-                                <div class="orbit mars-orbit"><div class="planet mars"></div></div>
-                                <div class="orbit jupiter-orbit"><div class="planet jupiter"></div></div>
+                                <div class="orbit earth-orbit">
+                                    <div class="planet earth"></div>
+                                </div>
+                                <div class="orbit mars-orbit">
+                                    <div class="planet mars"></div>
+                                </div>
+                                <div class="orbit jupiter-orbit">
+                                    <div class="planet jupiter"></div>
+                                </div>
                             </div>
                         </div>
                     </span><span class="logo-cenima">Cenima</span>
@@ -43,9 +53,11 @@
                     <li class="nav-item"><a class="nav-link rounded-pill px-3" href="movies.html">Movies</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <button class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
+                    <button
+                        class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
                         <i class="bi bi-bookmark-fill"></i> Watchlist
-                        <span id="watchlist-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        <span id="watchlist-badge"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                     </button>
                     <!-- Auth Buttons -->
                     <div class="vr text-white opacity-25 d-none d-lg-block"></div>
@@ -57,48 +69,61 @@
 
     <!-- WRAPPER để check render JS -->
     <div id="movie-detail-container" class="detail-content-area">
-        
+
         <!-- HERO BANNER OVERLAY -->
-        <div id="detail-hero" class="detail-hero-wrapper" style="background-image: url('https://image.tmdb.org/t/p/original/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg');"></div>
+        <div id="detail-hero" class="detail-hero-wrapper"
+            style="background-image: url('https://image.tmdb.org/t/p/original/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg');"></div>
 
         <!-- MAIN MOVIE INFO -->
         <div class="container position-relative z-1 detail-info mb-5 pb-5">
             <div class="row gx-5">
                 <!-- POSTER -->
                 <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
-                    <img id="detail-poster" src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" alt="Poster" class="detail-poster img-fluid">
+                    <img id="detail-poster" src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg"
+                        alt="Poster" class="detail-poster img-fluid">
                 </div>
-                
+
                 <!-- THÔNG TIN -->
                 <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-end">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <span class="badge text-bg-warning px-3 py-2 fs-6"><i class="bi bi-star-fill"></i> <span id="detail-rating">8.0</span></span>
-                        <span class="text-white-50"><span id="detail-year">2021</span> &bull; <span id="detail-genre">Sci-Fi</span></span>
+                        <span class="badge text-bg-warning px-3 py-2 fs-6"><i class="bi bi-star-fill"></i> <span
+                                id="detail-rating">8.0</span></span>
+                        <span class="text-white-50">
+                            <span id="detail-year">2021</span> &bull;
+                            <span id="detail-genre">Sci-Fi</span>
+                            <span id="detail-duration-container" class="d-none"> &bull; <span
+                                    id="detail-duration"></span></span>
+                        </span>
                     </div>
-                    
+
                     <div class="d-flex gap-4 mb-3">
                         <div class="mb-2">
                             <span class="text-white-50 small text-uppercase" data-i18n="director">Director</span>
                             <h6 id="detail-director" class="text-white m-0">Denis Villeneuve</h6>
                         </div>
                         <div class="mb-2 d-none" id="detail-creator-row">
-                            <span class="text-white-50 small text-uppercase" data-i18n="original_creator">Original Creator</span>
+                            <span class="text-white-50 small text-uppercase" data-i18n="original_creator">Original
+                                Creator</span>
                             <h6 id="detail-creator" class="text-white m-0">N/A</h6>
                         </div>
                     </div>
-                    
+
                     <h1 id="detail-title" class="font-heading fw-bold text-white display-4 mb-1">Dune: Part One</h1>
-                    <h2 id="detail-subtitle" class="text-warning text-opacity-75 fs-5 fw-bold mb-4 font-heading" style="letter-spacing: 2px;">SHINGEKI NO KYOJIN</h2>
-                    
+                    <h2 id="detail-subtitle" class="text-warning text-opacity-75 fs-5 fw-bold mb-4 font-heading"
+                        style="letter-spacing: 2px;">SHINGEKI NO KYOJIN</h2>
+
                     <p id="detail-desc" class="text-light mb-5 fs-5 fw-light" style="max-width: 800px;">
-                        Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding...
+                        Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his
+                        understanding...
                     </p>
-                    
+
                     <div class="d-flex gap-3">
                         <a href="#trailer-section" class="btn btn-primary-custom rounded-pill px-5 py-3 fs-5">
                             <i class="bi bi-play-fill"></i> Watch Trailer
                         </a>
-                        <button id="btn-add-watchlist" class="btn liquid-glass-strong text-white rounded-pill px-4 py-3 btn-watchlist" data-id="1" data-title="Dune: Part One">
+                        <button id="btn-add-watchlist"
+                            class="btn liquid-glass-strong text-white rounded-pill px-4 py-3 btn-watchlist" data-id="1"
+                            data-title="Dune: Part One">
                             <i class="bi bi-plus-lg"></i> Add to Watchlist
                         </button>
                     </div>
@@ -111,35 +136,49 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <h3 class="font-heading fw-bold text-white mb-4">Official Trailer</h3>
-                    <div class="ratio ratio-21x9 rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-25">
-                        <iframe id="trailer-iframe" src="https://www.youtube.com/embed/n9xhJrPXop4" title="YouTube video" allowfullscreen></iframe>
+                    <div
+                        class="ratio ratio-21x9 rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-25">
+                        <iframe id="trailer-iframe" src="https://www.youtube.com/embed/n9xhJrPXop4"
+                            title="YouTube video" allowfullscreen></iframe>
                     </div>
                     <!-- EMOJI REACTIONS (Youtube Style) -->
                     <div class="mt-4 d-flex align-items-center gap-2 flex-wrap">
                         <div class="d-flex align-items-center bg-white bg-opacity-10 rounded-pill p-1">
-                            <button class="btn btn-sm text-white px-3 border-0 border-end border-white border-opacity-25 emoji-btn" data-emoji="like">
+                            <button
+                                class="btn btn-sm text-white px-3 border-0 border-end border-white border-opacity-25 emoji-btn"
+                                data-emoji="like">
                                 <i class="bi bi-hand-thumbs-up fs-5 me-1"></i> <span>354</span>
                             </button>
                             <button class="btn btn-sm text-white px-3 border-0 emoji-btn" data-emoji="dislike">
                                 <i class="bi bi-hand-thumbs-down fs-5"></i>
                             </button>
                         </div>
-                        
+
                         <div class="vr text-white opacity-25 mx-2"></div>
-                        
-                        <button class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn" data-emoji="heart">
+
+                        <button
+                            class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn"
+                            data-emoji="heart">
                             💖 <span class="ms-1">107</span>
                         </button>
-                        <button class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn" data-emoji="clap">
+                        <button
+                            class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn"
+                            data-emoji="clap">
                             👏 <span class="ms-1">29</span>
                         </button>
-                        <button class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn" data-emoji="idea">
+                        <button
+                            class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn"
+                            data-emoji="idea">
                             💡 <span class="ms-1">24</span>
                         </button>
-                        <button class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn" data-emoji="laugh">
+                        <button
+                            class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn"
+                            data-emoji="laugh">
                             😂 <span class="ms-1">19</span>
                         </button>
-                        <button class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn" data-emoji="wow">
+                        <button
+                            class="btn btn-sm bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 border-0 emoji-btn"
+                            data-emoji="wow">
                             🤩 <span class="ms-1">38</span>
                         </button>
                     </div>
@@ -164,16 +203,22 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">Top Cast <span class="text-white-50 fs-6 ms-2 fw-light" id="cast-count"></span></h3>
+                        <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">Top
+                            Cast <span class="text-white-50 fs-6 ms-2 fw-light" id="cast-count"></span></h3>
                     </div>
                     <div class="position-relative">
-                        <div id="cast-slider" class="overflow-x-auto hide-scrollbar pb-3" style="scroll-behavior: smooth;">
+                        <div id="cast-slider" class="overflow-x-auto hide-scrollbar pb-3"
+                            style="scroll-behavior: smooth;">
                             <!-- Cast injected here -->
                         </div>
-                        <button class="slider-btn prev-btn rounded-circle position-absolute top-50 start-0 translate-middle-y z-1" onclick="scrollSlider('cast-slider', -400)">
+                        <button
+                            class="slider-btn prev-btn rounded-circle position-absolute top-50 start-0 translate-middle-y z-1"
+                            onclick="scrollSlider('cast-slider', -400)">
                             <i class="bi bi-chevron-left text-white"></i>
                         </button>
-                        <button class="slider-btn next-btn rounded-circle position-absolute top-50 end-0 translate-middle-y z-1" onclick="scrollSlider('cast-slider', 400)">
+                        <button
+                            class="slider-btn next-btn rounded-circle position-absolute top-50 end-0 translate-middle-y z-1"
+                            onclick="scrollSlider('cast-slider', 400)">
                             <i class="bi bi-chevron-right text-white"></i>
                         </button>
                     </div>
@@ -186,16 +231,22 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">Photos <span class="text-white-50 fs-6 ms-2 fw-light" id="photo-count"></span></h3>
+                        <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">Photos
+                            <span class="text-white-50 fs-6 ms-2 fw-light" id="photo-count"></span></h3>
                     </div>
                     <div class="position-relative">
-                        <div id="photo-slider" class="overflow-x-auto hide-scrollbar pb-3" style="scroll-behavior: smooth;">
+                        <div id="photo-slider" class="overflow-x-auto hide-scrollbar pb-3"
+                            style="scroll-behavior: smooth;">
                             <!-- Photos injected here -->
                         </div>
-                        <button class="slider-btn prev-btn rounded-circle position-absolute top-50 start-0 translate-middle-y z-1" onclick="scrollSlider('photo-slider', -500)">
+                        <button
+                            class="slider-btn prev-btn rounded-circle position-absolute top-50 start-0 translate-middle-y z-1"
+                            onclick="scrollSlider('photo-slider', -500)">
                             <i class="bi bi-chevron-left text-white"></i>
                         </button>
-                        <button class="slider-btn next-btn rounded-circle position-absolute top-50 end-0 translate-middle-y z-1" onclick="scrollSlider('photo-slider', 500)">
+                        <button
+                            class="slider-btn next-btn rounded-circle position-absolute top-50 end-0 translate-middle-y z-1"
+                            onclick="scrollSlider('photo-slider', 500)">
                             <i class="bi bi-chevron-right text-white"></i>
                         </button>
                     </div>
@@ -207,7 +258,8 @@
         <div id="preview-section" class="container mb-5 pb-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <h3 class="font-heading fw-bold text-white mb-5 border-start border-warning border-4 ps-3">Storyline Preview</h3>
+                    <h3 class="font-heading fw-bold text-white mb-5 border-start border-warning border-4 ps-3">Storyline
+                        Preview</h3>
                     <div class="liquid-glass p-4 rounded-4 border-secondary border-opacity-10">
                         <div id="preview-content" class="text-light fs-5 fw-light lh-lg opacity-75">
                             <!-- Preview content injected here -->
@@ -223,7 +275,8 @@
                 <div class="col-lg-10">
                     <div class="d-flex justify-content-between align-items-end mb-4">
                         <div>
-                            <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">User reviews <span class="text-white-50 fs-6 ms-2 fw-light">7.2K ></span></h3>
+                            <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">
+                                User reviews <span class="text-white-50 fs-6 ms-2 fw-light">7.2K ></span></h3>
                         </div>
                     </div>
 
@@ -232,7 +285,8 @@
                         <div class="row align-items-center">
                             <div class="col-auto px-4 border-end border-white border-opacity-10">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <div class="display-3 fw-bold text-white lh-1 mb-2" id="summary-rating-avg">8.7</div>
+                                    <div class="display-3 fw-bold text-white lh-1 mb-2" id="summary-rating-avg">8.7
+                                    </div>
                                     <div class="rating-stars mb-2">
                                         <i class="bi bi-star-fill text-warning"></i>
                                         <i class="bi bi-star-fill text-warning"></i>
@@ -294,27 +348,35 @@
                         <!-- Inline Review Form (Revealed on Rating Click) -->
                         <div id="inline-review-form" class="inline-review-form">
                             <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h5 class="fw-bold m-0" style="color: #ffc107;">GIVE IT A SCORE: <span id="selected-rating-text">10</span>/10</h5>
-                                <button type="button" class="btn-close btn-close-white" onclick="$('#inline-review-form').fadeOut()"></button>
+                                <h5 class="fw-bold m-0" style="color: #ffc107;">GIVE IT A SCORE: <span
+                                        id="selected-rating-text">10</span>/10</h5>
+                                <button type="button" class="btn-close btn-close-white"
+                                    onclick="$('#inline-review-form').fadeOut()"></button>
                             </div>
                             <input type="text" id="inlineReviewName" class="form-control w-100" placeholder="Your Name">
-                            <textarea id="inlineReviewText" class="form-control" rows="3" placeholder="Your Review"></textarea>
+                            <textarea id="inlineReviewText" class="form-control" rows="3"
+                                placeholder="Your Review"></textarea>
                             <div class="d-flex justify-content-end gap-2">
-                                <button class="btn btn-submit-review" onclick="submitInlineReview()">Submit Review</button>
+                                <button class="btn btn-submit-review" onclick="submitInlineReview()">Submit
+                                    Review</button>
                             </div>
                         </div>
                     </div>
                     <h6 class="text-white fw-bold mb-4 small text-uppercase opacity-75">Featured reviews</h6>
-                    
+
                     <!-- REVIEWS SLIDER -->
                     <div class="position-relative">
                         <div id="reviews-container" class="hide-scrollbar pb-3" style="scroll-behavior: smooth;">
                             <!-- Modern reviews injected here -->
                         </div>
-                        <button class="slider-btn prev-btn rounded-circle position-absolute top-50 start-0 translate-middle-y z-1" onclick="scrollSlider('reviews-container', -500)">
+                        <button
+                            class="slider-btn prev-btn rounded-circle position-absolute top-50 start-0 translate-middle-y z-1"
+                            onclick="scrollSlider('reviews-container', -500)">
                             <i class="bi bi-chevron-left"></i>
                         </button>
-                        <button class="slider-btn next-btn rounded-circle position-absolute top-50 end-0 translate-middle-y z-1" onclick="scrollSlider('reviews-container', 500)">
+                        <button
+                            class="slider-btn next-btn rounded-circle position-absolute top-50 end-0 translate-middle-y z-1"
+                            onclick="scrollSlider('reviews-container', 500)">
                             <i class="bi bi-chevron-right"></i>
                         </button>
                     </div>
@@ -330,278 +392,363 @@
             </div>
         </div>
 
-    <!-- EPISODE DETAIL VIEW (Dynamic Overlay) -->
-    <div id="episode-detail-view" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-black z-3 overflow-y-auto" style="--bs-bg-opacity: 0.98;">
-        <div class="container py-5 mt-5">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <button class="btn btn-outline-light rounded-pill px-4" onclick="closeEpisodeDetail()">
-                    <i class="bi bi-arrow-left me-2"></i> Back to Series
-                </button>
-                <div class="text-end">
-                    <h2 id="ep-detail-title" class="font-heading fw-bold text-white m-0">Episode Title</h2>
-                    <span id="ep-detail-meta" class="text-white-50 small">S1.E1 &bull; Sep 28, 2013</span>
+        <!-- EPISODE DETAIL VIEW (Dynamic Overlay) -->
+        <div id="episode-detail-view"
+            class="d-none position-fixed top-0 start-0 w-100 h-100 bg-black z-3 overflow-y-auto"
+            style="--bs-bg-opacity: 0.98;">
+            <div class="container py-5 mt-5">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                    <button class="btn btn-outline-light rounded-pill px-4" onclick="closeEpisodeDetail()">
+                        <i class="bi bi-arrow-left me-2"></i> Back to Series
+                    </button>
+                    <div class="text-end">
+                        <h2 id="ep-detail-title" class="font-heading fw-bold text-white m-0">Episode Title</h2>
+                        <span id="ep-detail-meta" class="text-white-50 small">S1.E1 &bull; Sep 28, 2013</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row g-5">
-                <div class="col-lg-8">
-                    <!-- EPISODE VIDEO/PLAYER -->
-                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-25 mb-5">
-                        <iframe id="ep-video-iframe" src="" allowfullscreen></iframe>
-                    </div>
-
-                    <!-- STORYLINE -->
-                    <div class="mb-5">
-                        <h3 class="font-heading fw-bold text-white mb-4 border-start border-warning border-4 ps-3">Storyline Preview</h3>
-                        <div class="liquid-glass p-4 rounded-4 border border-white border-opacity-10">
-                            <p id="ep-detail-storyline" class="text-light fs-5 fw-light lh-lg opacity-75">
-                                No description available for this episode.
-                            </p>
+                <div class="row g-5">
+                    <div class="col-lg-8">
+                        <!-- EPISODE VIDEO/PLAYER -->
+                        <div
+                            class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-25 mb-5">
+                            <iframe id="ep-video-iframe" src="" allowfullscreen></iframe>
                         </div>
-                    </div>
 
-                    <!-- GALLERY -->
-                    <div class="mb-5">
-                        <div class="d-flex justify-content-between align-items-center mb-5">
-                            <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">Photos <span class="text-white-50 fs-6 ms-2 fw-light" id="ep-photo-count"></span></h3>
-                        </div>
-                        <div class="position-relative">
-                            <div id="ep-gallery-slider" class="d-flex gap-3 overflow-hidden pb-2 hide-scrollbar" style="overflow-x: auto; scroll-behavior: smooth;">
-                                <!-- Photos injected here -->
+                        <!-- STORYLINE -->
+                        <div class="mb-5">
+                            <h3 class="font-heading fw-bold text-white mb-4 border-start border-warning border-4 ps-3">
+                                Storyline Preview</h3>
+                            <div class="liquid-glass p-4 rounded-4 border border-white border-opacity-10">
+                                <p id="ep-detail-storyline" class="text-light fs-5 fw-light lh-lg opacity-75">
+                                    No description available for this episode.
+                                </p>
                             </div>
-                            <button class="slider-btn prev-btn rounded-circle position-absolute top-50 translate-middle-y z-1" style="left: -25px !important;" onclick="scrollSlider('ep-gallery-slider', -500)">
-                                <i class="bi bi-chevron-left text-white"></i>
-                            </button>
-                            <button class="slider-btn next-btn rounded-circle position-absolute top-50 translate-middle-y z-1" style="right: -25px !important;" onclick="scrollSlider('ep-gallery-slider', 500)">
-                                <i class="bi bi-chevron-right text-white"></i>
-                            </button>
                         </div>
-                    </div>
 
-                    <!-- CAST -->
-                    <div class="mb-5">
-                        <div class="d-flex justify-content-between align-items-center mb-5">
-                            <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">Top Cast <span class="text-white-50 fs-6 ms-2 fw-light" id="ep-cast-count"></span></h3>
-                        </div>
-                        <div class="position-relative">
-                            <div id="ep-cast-slider" class="d-flex gap-4 overflow-hidden pb-3 hide-scrollbar" style="overflow-x: auto; scroll-behavior: smooth;">
-                                <!-- Cast injected here -->
+                        <!-- GALLERY -->
+                        <div class="mb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                <h3
+                                    class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">
+                                    Photos <span class="text-white-50 fs-6 ms-2 fw-light" id="ep-photo-count"></span>
+                                </h3>
                             </div>
-                            <button class="slider-btn prev-btn rounded-circle position-absolute top-50 translate-middle-y z-1" style="left: -25px !important;" onclick="scrollSlider('ep-cast-slider', -400)">
-                                <i class="bi bi-chevron-left text-white"></i>
-                            </button>
-                            <button class="slider-btn next-btn rounded-circle position-absolute top-50 translate-middle-y z-1" style="right: -25px !important;" onclick="scrollSlider('ep-cast-slider', 400)">
-                                <i class="bi bi-chevron-right text-white"></i>
-                            </button>
+                            <div class="position-relative">
+                                <div id="ep-gallery-slider" class="d-flex gap-3 overflow-hidden pb-2 hide-scrollbar"
+                                    style="overflow-x: auto; scroll-behavior: smooth;">
+                                    <!-- Photos injected here -->
+                                </div>
+                                <button
+                                    class="slider-btn prev-btn rounded-circle position-absolute top-50 translate-middle-y z-1"
+                                    style="left: -25px !important;" onclick="scrollSlider('ep-gallery-slider', -500)">
+                                    <i class="bi bi-chevron-left text-white"></i>
+                                </button>
+                                <button
+                                    class="slider-btn next-btn rounded-circle position-absolute top-50 translate-middle-y z-1"
+                                    style="right: -25px !important;" onclick="scrollSlider('ep-gallery-slider', 500)">
+                                    <i class="bi bi-chevron-right text-white"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- USER REVIEWS -->
-                    <div class="mb-5 pb-5">
-                        <div class="d-flex justify-content-between align-items-center mb-5">
-                            <h3 class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">User reviews <span class="text-white-50 fs-6 ms-2 fw-light">2.1K ></span></h3>
-                            <button class="btn btn-warning rounded-pill px-4" onclick="openEpReviewModal()">
-                                <i class="bi bi-pencil-fill me-2"></i> Write a Review
-                            </button>
+                        <!-- CAST -->
+                        <div class="mb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                <h3
+                                    class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">
+                                    Top Cast <span class="text-white-50 fs-6 ms-2 fw-light" id="ep-cast-count"></span>
+                                </h3>
+                            </div>
+                            <div class="position-relative">
+                                <div id="ep-cast-slider" class="d-flex gap-4 overflow-hidden pb-3 hide-scrollbar"
+                                    style="overflow-x: auto; scroll-behavior: smooth;">
+                                    <!-- Cast injected here -->
+                                </div>
+                                <button
+                                    class="slider-btn prev-btn rounded-circle position-absolute top-50 translate-middle-y z-1"
+                                    style="left: -25px !important;" onclick="scrollSlider('ep-cast-slider', -400)">
+                                    <i class="bi bi-chevron-left text-white"></i>
+                                </button>
+                                <button
+                                    class="slider-btn next-btn rounded-circle position-absolute top-50 translate-middle-y z-1"
+                                    style="right: -25px !important;" onclick="scrollSlider('ep-cast-slider', 400)">
+                                    <i class="bi bi-chevron-right text-white"></i>
+                                </button>
+                            </div>
                         </div>
 
-                        <!-- Rating Summary (Episode) -->
-                        <div class="rating-summary-glass mb-5 shadow-lg">
-                            <div class="row align-items-center">
-                                <div class="col-auto px-4 border-end border-white border-opacity-10">
-                                    <div class="d-flex flex-column align-items-center text-center">
-                                        <div class="display-4 fw-bold text-white lh-1 mb-2" id="ep-summary-rating-avg">9.2</div>
-                                        <div class="rating-stars mb-2" style="font-size: 0.8rem;">
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
+                        <!-- USER REVIEWS -->
+                        <div class="mb-5 pb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                <h3
+                                    class="font-heading fw-bold text-white m-0 border-start border-warning border-4 ps-3">
+                                    User reviews <span class="text-white-50 fs-6 ms-2 fw-light">2.1K ></span></h3>
+                                <button class="btn btn-warning rounded-pill px-4" onclick="openEpReviewModal()">
+                                    <i class="bi bi-pencil-fill me-2"></i> Write a Review
+                                </button>
+                            </div>
+
+                            <!-- Rating Summary (Episode) -->
+                            <div class="rating-summary-glass mb-5 shadow-lg">
+                                <div class="row align-items-center">
+                                    <div class="col-auto px-4 border-end border-white border-opacity-10">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            <div class="display-4 fw-bold text-white lh-1 mb-2"
+                                                id="ep-summary-rating-avg">9.2</div>
+                                            <div class="rating-stars mb-2" style="font-size: 0.8rem;">
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            </div>
+                                            <div class="text-white-50 x-small" style="font-size: 0.6rem;">12,540 ratings
+                                            </div>
                                         </div>
-                                        <div class="text-white-50 x-small" style="font-size: 0.6rem;">12,540 ratings</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="rating-distribution-container ms-lg-4" style="height: 80px;">
+                                            <div class="d-flex align-items-end gap-2 h-100">
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 5%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">1</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 3%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">2</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 2%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">3</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 4%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">4</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 8%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">5</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 15%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">6</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 25%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">7</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 45%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">8</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1 selected">
+                                                    <div class="rating-bar" style="height: 75%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">9</span>
+                                                </div>
+                                                <div class="rating-bar-wrapper flex-grow-1">
+                                                    <div class="rating-bar" style="height: 35%;"></div><span
+                                                        class="x-small text-white-50 mt-1"
+                                                        style="font-size: 0.5rem;">10</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="rating-distribution-container ms-lg-4" style="height: 80px;">
-                                        <div class="d-flex align-items-end gap-2 h-100">
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 5%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">1</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 3%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">2</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 2%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">3</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 4%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">4</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 8%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">5</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 15%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">6</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 25%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">7</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 45%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">8</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1 selected"><div class="rating-bar" style="height: 75%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">9</span></div>
-                                            <div class="rating-bar-wrapper flex-grow-1"><div class="rating-bar" style="height: 35%;"></div><span class="x-small text-white-50 mt-1" style="font-size: 0.5rem;">10</span></div>
-                                        </div>
-                                    </div>
+                            </div>
+
+                            <div id="ep-reviews-list" class="d-flex flex-column gap-4">
+                                <!-- Reviews injected here -->
+                                <div class="text-white-50 py-5 text-center liquid-glass rounded-4">
+                                    <i class="bi bi-chat-dots fs-1 mb-3 d-block"></i>
+                                    <p>No reviews yet. Be the first to share your thoughts!</p>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="ep-reviews-list" class="d-flex flex-column gap-4">
-                            <!-- Reviews injected here -->
-                            <div class="text-white-50 py-5 text-center liquid-glass rounded-4">
-                                <i class="bi bi-chat-dots fs-1 mb-3 d-block"></i>
-                                <p>No reviews yet. Be the first to share your thoughts!</p>
+                    <div class="col-lg-4">
+                        <div class="liquid-glass rounded-4 p-4 sticky-top" style="top: 100px;">
+                            <h5 class="text-white mb-4 small text-uppercase fw-bold opacity-75">Episode Info</h5>
+                            <div class="mb-4">
+                                <label class="text-primary small fw-bold d-block mb-1">Directors</label>
+                                <div id="ep-detail-directors" class="text-white fw-light">N/A</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-primary small fw-bold d-block mb-1">Writers</label>
+                                <div id="ep-detail-writers" class="text-white fw-light">N/A</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-primary small fw-bold d-block mb-1">Composer</label>
+                                <div id="ep-detail-composer" class="text-white fw-light">N/A</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-primary small fw-bold d-block mb-1">Studio</label>
+                                <div id="ep-detail-studio" class="text-white fw-light">N/A</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-primary small fw-bold d-block mb-1">Original Creator</label>
+                                <div id="ep-detail-creator" class="text-white fw-light">N/A</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-primary small fw-bold d-block mb-1">UniCenima Rating</label>
+                                <div class="text-warning fs-4 fw-bold"><i class="bi bi-star-fill"></i> <span
+                                        id="ep-detail-rating">9.0</span><small class="text-white-50 fs-6">/10</small>
+                                </div>
+                            </div>
+                            <hr class="border-secondary opacity-25">
+                            <div class="d-grid mt-4">
+                                <button class="btn btn-primary-custom rounded-pill py-3 fw-bold">Rate this
+                                    Episode</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-lg-4">
-                    <div class="liquid-glass rounded-4 p-4 sticky-top" style="top: 100px;">
-                        <h5 class="text-white mb-4 small text-uppercase fw-bold opacity-75">Episode Info</h5>
-                        <div class="mb-4">
-                            <label class="text-primary small fw-bold d-block mb-1">Directors</label>
-                            <div id="ep-detail-directors" class="text-white fw-light">N/A</div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="text-primary small fw-bold d-block mb-1">Writers</label>
-                            <div id="ep-detail-writers" class="text-white fw-light">N/A</div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="text-primary small fw-bold d-block mb-1">Composer</label>
-                            <div id="ep-detail-composer" class="text-white fw-light">N/A</div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="text-primary small fw-bold d-block mb-1">Studio</label>
-                            <div id="ep-detail-studio" class="text-white fw-light">N/A</div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="text-primary small fw-bold d-block mb-1">Original Creator</label>
-                            <div id="ep-detail-creator" class="text-white fw-light">N/A</div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="text-primary small fw-bold d-block mb-1">UniCenima Rating</label>
-                            <div class="text-warning fs-4 fw-bold"><i class="bi bi-star-fill"></i> <span id="ep-detail-rating">9.0</span><small class="text-white-50 fs-6">/10</small></div>
-                        </div>
-                        <hr class="border-secondary opacity-25">
-                        <div class="d-grid mt-4">
-                            <button class="btn btn-primary-custom rounded-pill py-3 fw-bold">Rate this Episode</button>
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-top-row">
+                    <div class="footer-social-box">
+                        <p class="box-label">Follow UniCenima on social</p>
+                        <div class="footer-social-icons">
+                            <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
                         </div>
                     </div>
+                    <div class="footer-app-box">
+                        <div class="footer-app-info">
+                            <p class="app-title">Get the UniCenima App</p>
+                            <p class="app-sub">For Android and iOS</p>
+                        </div>
+                        <div class="footer-qr" title="Scan to download">
+                            <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000">
+                                <rect x="0" y="0" width="9" height="9" />
+                                <rect x="12" y="0" width="9" height="9" />
+                                <rect x="0" y="12" width="9" height="9" />
+                                <rect x="2" y="2" width="5" height="5" fill="#fff" />
+                                <rect x="14" y="2" width="5" height="5" fill="#fff" />
+                                <rect x="2" y="14" width="5" height="5" fill="#fff" />
+                                <rect x="4" y="4" width="1" height="1" />
+                                <rect x="16" y="4" width="1" height="1" />
+                                <rect x="4" y="16" width="1" height="1" />
+                                <rect x="12" y="12" width="1" height="1" />
+                                <rect x="14" y="12" width="1" height="1" />
+                                <rect x="16" y="12" width="1" height="1" />
+                                <rect x="18" y="12" width="3" height="1" />
+                                <rect x="12" y="14" width="3" height="1" />
+                                <rect x="16" y="14" width="1" height="1" />
+                                <rect x="18" y="14" width="3" height="3" />
+                                <rect x="12" y="16" width="1" height="1" />
+                                <rect x="14" y="16" width="3" height="1" />
+                                <rect x="20" y="16" width="1" height="1" />
+                                <rect x="12" y="18" width="5" height="1" />
+                                <rect x="18" y="18" width="1" height="1" />
+                                <rect x="12" y="20" width="9" height="1" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links-row">
+                    <a href="index.html">Home</a>
+                    <a href="movies.html">Explore Movies</a>
+                    <a href="top-rated.html">Top Rated</a>
+                    <a href="#">About UniCenima</a>
+                    <a href="#">Help Center</a>
+                </div>
+                <div class="footer-links-row" style="border-top: none; padding-top: 0; padding-bottom: 24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="footer-bottom-bar">
+                    <span class="copyright">&copy; 2026 UniCenima</span>
+                </div>
+            </div>
+        </footer>
+
+        <!-- TOAST -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="watchlistToast" class="toast align-items-center text-bg-success border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body" id="toast-body-text">Đã thêm vào Watchlist!</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-top-row">
-                <div class="footer-social-box">
-                    <p class="box-label">Follow UniCenima on social</p>
-                    <div class="footer-social-icons">
-                        <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <!-- FLOATING ADMIN BUTTON -->
+        <a href="admin.html" class="btn btn-warning rounded-circle position-fixed shadow-lg"
+            style="bottom: 20px; left: 20px; z-index: 1000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+            <i class="bi bi-gear-fill fs-5"></i>
+        </a>
+
+        <!-- REVIEW FORM MODAL -->
+        <div class="modal fade" id="review-form-modal" tabindex="-1" data-bs-theme="dark">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content liquid-glass-strong border-secondary border-opacity-50">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title font-heading fw-bold">Write a Review</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
-                <div class="footer-app-box">
-                    <div class="footer-app-info">
-                        <p class="app-title">Get the UniCenima App</p>
-                        <p class="app-sub">For Android and iOS</p>
-                    </div>
-                    <div class="footer-qr" title="Scan to download">
-                        <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000">
-                            <rect x="0" y="0" width="9" height="9"/><rect x="12" y="0" width="9" height="9"/>
-                            <rect x="0" y="12" width="9" height="9"/>
-                            <rect x="2" y="2" width="5" height="5" fill="#fff"/><rect x="14" y="2" width="5" height="5" fill="#fff"/>
-                            <rect x="2" y="14" width="5" height="5" fill="#fff"/>
-                            <rect x="4" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/>
-                            <rect x="4" y="16" width="1" height="1"/>
-                            <rect x="12" y="12" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/>
-                            <rect x="16" y="12" width="1" height="1"/><rect x="18" y="12" width="3" height="1"/>
-                            <rect x="12" y="14" width="3" height="1"/><rect x="16" y="14" width="1" height="1"/>
-                            <rect x="18" y="14" width="3" height="3"/><rect x="12" y="16" width="1" height="1"/>
-                            <rect x="14" y="16" width="3" height="1"/><rect x="20" y="16" width="1" height="1"/>
-                            <rect x="12" y="18" width="5" height="1"/><rect x="18" y="18" width="1" height="1"/>
-                            <rect x="12" y="20" width="9" height="1"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-links-row">
-                <a href="index.html">Home</a>
-                <a href="movies.html">Explore Movies</a>
-                <a href="top-rated.html">Top Rated</a>
-                <a href="#">About UniCenima</a>
-                <a href="#">Help Center</a>
-            </div>
-            <div class="footer-links-row" style="border-top: none; padding-top: 0; padding-bottom: 24px;">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-                <a href="#">Contact Us</a>
-            </div>
-            <div class="footer-bottom-bar">
-                <span class="copyright">&copy; 2026 UniCenima</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- TOAST -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="watchlistToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body" id="toast-body-text">Đã thêm vào Watchlist!</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- FLOATING ADMIN BUTTON -->
-    <a href="admin.html" class="btn btn-warning rounded-circle position-fixed shadow-lg" style="bottom: 20px; left: 20px; z-index: 1000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-        <i class="bi bi-gear-fill fs-5"></i>
-    </a>
-
-    <!-- REVIEW FORM MODAL -->
-    <div class="modal fade" id="review-form-modal" tabindex="-1" data-bs-theme="dark">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content liquid-glass-strong border-secondary border-opacity-50">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title font-heading fw-bold">Write a Review</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="review-form">
-                        <div class="mb-4">
-                            <label class="form-label text-white-50">Your Rating</label>
-                            <div class="text-warning fs-3" id="star-rating" style="cursor: pointer;">
-                                <i class="bi bi-star star-item" data-value="1"></i>
-                                <i class="bi bi-star star-item" data-value="2"></i>
-                                <i class="bi bi-star star-item" data-value="3"></i>
-                                <i class="bi bi-star star-item" data-value="4"></i>
-                                <i class="bi bi-star star-item" data-value="5"></i>
-                                <i class="bi bi-star star-item" data-value="6"></i>
-                                <i class="bi bi-star star-item" data-value="7"></i>
-                                <i class="bi bi-star star-item" data-value="8"></i>
-                                <i class="bi bi-star star-item" data-value="9"></i>
-                                <i class="bi bi-star star-item" data-value="10"></i>
+                    <div class="modal-body">
+                        <form id="review-form">
+                            <div class="mb-4">
+                                <label class="form-label text-white-50">Your Rating</label>
+                                <div class="text-warning fs-3" id="star-rating" style="cursor: pointer;">
+                                    <i class="bi bi-star star-item" data-value="1"></i>
+                                    <i class="bi bi-star star-item" data-value="2"></i>
+                                    <i class="bi bi-star star-item" data-value="3"></i>
+                                    <i class="bi bi-star star-item" data-value="4"></i>
+                                    <i class="bi bi-star star-item" data-value="5"></i>
+                                    <i class="bi bi-star star-item" data-value="6"></i>
+                                    <i class="bi bi-star star-item" data-value="7"></i>
+                                    <i class="bi bi-star star-item" data-value="8"></i>
+                                    <i class="bi bi-star star-item" data-value="9"></i>
+                                    <i class="bi bi-star star-item" data-value="10"></i>
+                                </div>
+                                <input type="hidden" id="review-rating-value" value="0">
                             </div>
-                            <input type="hidden" id="review-rating-value" value="0">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label text-white-50">Review Title</label>
-                            <input type="text" id="review-title" class="form-control bg-transparent text-white border-secondary border-opacity-50 shadow-none" placeholder="Short summary of your review">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label text-white-50">Your Review</label>
-                            <textarea id="review-text" class="form-control bg-transparent text-white border-secondary border-opacity-50 shadow-none" rows="5" placeholder="What did you think about the movie?"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary-custom w-100 rounded-pill py-3 fw-bold">Submit Review</button>
-                    </form>
+                            <div class="mb-4">
+                                <label class="form-label text-white-50">Review Title</label>
+                                <input type="text" id="review-title"
+                                    class="form-control bg-transparent text-white border-secondary border-opacity-50 shadow-none"
+                                    placeholder="Short summary of your review">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-white-50">Your Review</label>
+                                <textarea id="review-text"
+                                    class="form-control bg-transparent text-white border-secondary border-opacity-50 shadow-none"
+                                    rows="5" placeholder="What did you think about the movie?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom w-100 rounded-pill py-3 fw-bold">Submit
+                                Review</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/main.js"></script>
 </body>
+
 </html>

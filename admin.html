@@ -86,12 +86,75 @@
                                                 <input type="number" class="form-control" id="movieYear" required>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label small fw-bold">Rating</label>
+                                                <label class="form-label small fw-bold">Điểm số</label>
                                                 <input type="number" step="0.1" class="form-control" id="movieRating" required>
                                             </div>
-                                            <div class="col-12">
-                                                <label class="form-label small fw-bold">Thể loại</label>
+                                            <div class="col-md-12">
+                                                <label class="form-label small fw-bold">Thời lượng (ví dụ: 2h 56m)</label>
+                                                <input type="text" class="form-control" id="movieDuration" placeholder="e.g. 1h 45m or 10 tập">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label small fw-bold">Thể loại chính</label>
                                                 <input type="text" class="form-control" id="movieGenre" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label small fw-bold">Khu vực (Region)</label>
+                                                <select class="form-select" id="movieRegion">
+                                                    <option value="Hollywood">Hollywood</option>
+                                                    <option value="K-Drama">K-Drama</option>
+                                                    <option value="C-Drama">C-Drama</option>
+                                                    <option value="Vietnam">Việt Nam</option>
+                                                    <option value="Anime">Anime/Japan</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label small fw-bold text-primary">Nhãn phụ (Tags)</label>
+                                                <div class="d-flex flex-wrap gap-3 p-3 border rounded bg-white shadow-sm">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Teen" id="tagTeen">
+                                                        <label class="form-check-label small" for="tagTeen">Teen</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="School" id="tagSchool">
+                                                        <label class="form-check-label small" for="tagSchool">Học đường</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Coming-of-age" id="tagComingOfAge">
+                                                        <label class="form-check-label small" for="tagComingOfAge">Coming-of-age</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Bromance" id="tagBromance">
+                                                        <label class="form-check-label small" for="tagBromance">Bromance</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="LGBTQ+" id="tagLGBTQ">
+                                                        <label class="form-check-label small" for="tagLGBTQ">LGBTQ+</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Live-action" id="tagLiveAction">
+                                                        <label class="form-check-label small" for="tagLiveAction">Live-action</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Mystery" id="tagMystery">
+                                                        <label class="form-check-label small" for="tagMystery">Mystery</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Thriller" id="tagThriller">
+                                                        <label class="form-check-label small" for="tagThriller">Thriller</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Fantasy" id="tagFantasy">
+                                                        <label class="form-check-label small" for="tagFantasy">Fantasy</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Action" id="tagAction">
+                                                        <label class="form-check-label small" for="tagAction">Action</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input movie-tag" type="checkbox" value="Horror" id="tagHorror">
+                                                        <label class="form-check-label small" for="tagHorror">Horror</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label small fw-bold">Đạo diễn</label>
@@ -220,9 +283,13 @@
                                             <!-- Season Metadata Pane -->
                                             <div class="tab-pane fade show active" id="season-info-pane">
                                                 <div class="row g-2">
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-2">
+                                                        <label class="small fw-bold">Số/Chữ hiển thị</label>
+                                                        <input type="text" class="form-control form-control-sm" id="seasonDisplayNumber" placeholder="1 hoặc Full...">
+                                                    </div>
+                                                    <div class="col-md-6">
                                                         <label class="small fw-bold">Tiêu đề Phần</label>
-                                                        <input type="text" class="form-control form-control-sm" id="seasonTitle" placeholder="Ví dụ: Avatar hoặc Avatar: The Way of Water">
+                                                        <input type="text" class="form-control form-control-sm" id="seasonTitle" placeholder="Ví dụ: Phim Lẻ hoặc Season 1">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="small fw-bold">Tên phụ / Tên gốc</label>
@@ -465,9 +532,19 @@
         function openAddModal() {
             currentMovieId = null;
             currentSeasonId = null;
+            currentMovieCast = [];
+            currentMoviePhotos = [];
+            
             document.getElementById('movieForm').reset();
             $('#movieId').val('');
+            $('#movieRegion').val('Hollywood');
+            $('#movieDuration').val('');
+            $('.movie-tag').prop('checked', false);
             $('#modalTitle').text('Thêm phim mới');
+            
+            updateMovieCastUI();
+            updateMoviePhotosUI();
+            
             $('#seasons-list').html('');
             $('#season-detail-area').addClass('d-none');
             $('#no-season-msg').removeClass('d-none');
@@ -485,6 +562,8 @@
                 $('#movieYear').val(movie.year);
                 $('#movieRating').val(movie.rating);
                 $('#movieGenre').val(movie.genre);
+                $('#movieRegion').val(movie.region || 'Hollywood');
+                $('#movieDuration').val(movie.duration || '');
                 $('#movieDirector').val(movie.director || '');
                 $('#moviePoster').val(movie.poster);
                 $('#movieBanner').val(movie.banner || '');
@@ -494,6 +573,15 @@
                 $('#movieTrending').prop('checked', !!movie.isTrending);
                 $('#movieBadge').val(movie.badge || '');
                 $('#movieCreator').val(movie.creator || '');
+                
+                // Set secondary tags
+                $('.movie-tag').prop('checked', false);
+                if (movie.tags && Array.isArray(movie.tags)) {
+                    movie.tags.forEach(tag => {
+                        $(`.movie-tag[value="${tag}"]`).prop('checked', true);
+                    });
+                }
+
                 $('#modalTitle').text('Sửa phim: ' + movie.title);
                 
                 renderMovieCast();
@@ -663,7 +751,8 @@
             renderSeasons();
             
             // Populate Season Metadata
-            $('#seasonTitle').val(season.title || `Phần ${season.id}`);
+            $('#seasonTitle').val(season.title || '');
+            $('#seasonDisplayNumber').val(season.displayNumber || season.id);
             $('#seasonSubtitle').val(season.subtitle || '');
             $('#seasonYear').val(season.year || '');
             $('#seasonGenre').val(season.genre || '');
@@ -807,6 +896,7 @@
             const season = movie.seasons.find(s => s.id == currentSeasonId);
             if (season) {
                 season.title = $('#seasonTitle').val();
+                season.displayNumber = $('#seasonDisplayNumber').val();
                 season.subtitle = $('#seasonSubtitle').val();
                 season.year = $('#seasonYear').val();
                 season.genre = $('#seasonGenre').val();
@@ -897,12 +987,29 @@
 
         function saveMovie() {
             const id = $('#movieId').val();
+            
+            // Validate required fields
+            const title = $('#movieTitle').val();
+            const year = $('#movieYear').val();
+            if (!title || !year) {
+                alert("Vui lòng nhập ít nhất Tiêu đề và Năm sản xuất!");
+                return;
+            }
+
+            // Thu thập nhãn phụ (Tags)
+            const tags = [];
+            $('.movie-tag:checked').each(function() {
+                tags.push($(this).val());
+            });
+
             const movieData = {
-                title: $('#movieTitle').val(),
+                title: title,
                 subtitle: $('#movieSubtitle').val(),
-                year: parseInt($('#movieYear').val()),
-                rating: parseFloat($('#movieRating').val()),
-                genre: $('#movieGenre').val(),
+                year: parseInt(year),
+                rating: parseFloat($('#movieRating').val()) || 0,
+                genre: $('#movieGenre').val() || "Chưa phân loại",
+                region: $('#movieRegion').val() || "Hollywood",
+                duration: $('#movieDuration').val(),
                 director: $('#movieDirector').val(),
                 poster: $('#moviePoster').val(),
                 banner: $('#movieBanner').val(),
@@ -913,12 +1020,15 @@
                 badge: $('#movieBadge').val(),
                 creator: $('#movieCreator').val(),
                 cast: currentMovieCast,
-                photos: currentMoviePhotos
+                photos: currentMoviePhotos,
+                tags: tags
             };
 
             if (id) {
                 const index = adminMovies.findIndex(m => m.id == id);
-                adminMovies[index] = { ...adminMovies[index], ...movieData };
+                if (index !== -1) {
+                    adminMovies[index] = { ...adminMovies[index], ...movieData };
+                }
             } else {
                 const newMovie = { id: Date.now(), ...movieData, seasons: [] };
                 adminMovies.push(newMovie);
