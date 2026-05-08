@@ -23,8 +23,177 @@
 
     <style>
         /* ===== TOP RATED PAGE STYLES ===== */
+        :root {
+            --bg-dark: #0a0a0c;
+        }
+
+        .ranked-rows-scrollable {
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            /* Fade mask for premium feel */
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .ranked-rows-scrollable::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* ===== TOP RATED HERO ===== */
+        .tr-hero {
+            height: 95vh;
+            min-height: 650px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            margin-bottom: -150px;
+            /* Maximum pull-up for rankings */
+        }
+
+        .tr-hero-video-wrapper {
+            position: absolute;
+            top: -100px;
+            /* Shift up to hide top black bars */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: calc(100% + 100px);
+            z-index: 1;
+        }
+
+        .tr-hero-video,
+        .tr-hero-iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+            border: none;
+        }
+
+        .tr-hero-iframe {
+            transform: scale(1.35) translateY(-2%);
+            /* Hide YT borders */
+            pointer-events: none;
+        }
+
+        /* The "Loang" / Gradient blending effect - Sync with Home */
+        .tr-hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            background: linear-gradient(to top, var(--bg-dark) 0%, var(--bg-dark) 10%, rgba(10, 10, 12, 0.5) 30%, rgba(10, 10, 12, 0) 60%, rgba(10, 10, 12, 0.4) 100%),
+                linear-gradient(to right, var(--bg-dark) 0%, rgba(10, 10, 12, 0.4) 15%, rgba(10, 10, 12, 0) 40%);
+        }
+
+        .tr-hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding-left: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 2.2s cubic-bezier(0.15, 0.75, 0.5, 1);
+            margin-top: 0;
+            /* Maintain lowered position */
+        }
+
+        .tr-hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tr-top-badge {
+            display: inline-block;
+            background: #ff9800;
+            color: #fff;
+            padding: 4px 12px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .tr-hero-logo {
+            max-width: 450px;
+            height: auto;
+            max-height: 180px;
+            margin-bottom: 25px;
+            display: block;
+            filter: contrast(1.1) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.9));
+            background: transparent;
+        }
+
+        #trLogoContainer {
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .tr-hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3.5rem, 9vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: -2px;
+            color: #fff;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .tr-hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .tr-hero-rating {
+            color: #ffc107;
+        }
+
+        .tr-hero-desc {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 550px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #tr-mute-btn {
+            bottom: 150px;
+            right: 5%;
+            z-index: 100;
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        #tr-mute-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .page-header {
-            padding: 160px 0 60px;
+            padding: 80px 0 30px;
             text-align: center;
         }
 
@@ -54,7 +223,18 @@
             justify-content: center;
             gap: 0;
             padding: 0 0 80px;
-            /* More bottom space for the big numbers */
+            /* Animation sync - Slide Up */
+            opacity: 0;
+            transform: scale(0.85) translateY(20px);
+            transform-origin: right bottom;
+            transition: all 2.2s cubic-bezier(0.15, 0.75, 0.5, 1);
+            pointer-events: none;
+        }
+
+        .podium-section.visible {
+            opacity: 1;
+            transform: scale(0.85) translateY(0);
+            pointer-events: all;
         }
 
         .podium-card {
@@ -70,10 +250,54 @@
         /* Clip the image itself, not the container */
         .podium-card .podium-img-wrapper {
             border-radius: 20px;
-            overflow: hidden;
+            position: relative;
             width: 100%;
             height: 100%;
-            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            z-index: 1;
+            padding: 2px;
+            /* For liquid border */
+        }
+
+        /* Liquid Border Effect for Podium */
+        .podium-img-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(from 0deg,
+                    transparent 0%,
+                    transparent 25%,
+                    rgba(255, 152, 0, 0.6) 45%,
+                    rgba(255, 152, 0, 1) 50%,
+                    rgba(255, 152, 0, 0.6) 55%,
+                    transparent 75%,
+                    transparent 100%);
+            animation: rotateLiquid 5s linear infinite;
+            z-index: -2;
+        }
+
+        .podium-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%), rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(25px);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        .podium-card:hover .podium-img-wrapper::before {
+            animation-duration: 2.5s;
+            background: conic-gradient(from 0deg,
+                    transparent 0%,
+                    rgba(255, 152, 0, 0.85) 35%,
+                    #fff 50%,
+                    rgba(255, 152, 0, 0.85) 65%,
+                    transparent 100%);
         }
 
         .podium-card:hover {
@@ -116,18 +340,24 @@
             object-fit: cover;
             display: block;
             border-radius: 20px;
+            opacity: 1;
+            transition: transform 0.5s ease;
         }
 
-        /* Dark gradient overlay - on the img wrapper */
-        .podium-img-wrapper::after {
-            content: '';
+        .podium-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Dark gradient overlay inside podium */
+        .podium-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(to top,
-                    rgba(0, 0, 0, 0.92) 0%,
-                    rgba(0, 0, 0, 0.25) 55%,
+                    rgba(0, 0, 0, 0.95) 0%,
+                    rgba(0, 0, 0, 0.4) 40%,
                     rgba(0, 0, 0, 0) 100%);
-            border-radius: 20px;
+            border-radius: 18px;
+            z-index: 2;
         }
 
         /* Giant rank number — IN FRONT of image, bottom-left, half peeking out */
@@ -213,7 +443,7 @@
 
         /* ===== RANKED LIST (4-10) ===== */
         .ranked-list {
-            margin-top: 60px;
+            margin-top: 180px;
         }
 
         .ranked-list-title {
@@ -327,9 +557,9 @@
         }
 
         .badge-liquid-new {
-            background: rgba(229, 9, 20, 0.85);
+            background: rgba(255, 152, 0, 0.85);
             border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
+            box-shadow: 0 0 15px rgba(255, 152, 0, 0.4);
             color: #fff;
         }
 
@@ -359,26 +589,67 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
+        /* PREMIUM RIBBON FOR TOP 1 */
+        .premium-ribbon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            z-index: 50;
+            pointer-events: none;
+        }
 
+        .premium-ribbon::before,
+        .premium-ribbon::after {
+            position: absolute;
+            z-index: -1;
+            content: '';
+            display: block;
+            border: 5px solid #9c5c00;
+            border-top-color: transparent;
+            border-right-color: transparent;
+        }
+
+        .premium-ribbon::before {
+            top: 0;
+            left: 37px;
+        }
+
+        .premium-ribbon::after {
+            bottom: 37px;
+            right: 0;
+        }
+
+        .premium-ribbon span {
+            position: absolute;
+            display: block;
+            width: 225px;
+            padding: 10px 0;
+            background: linear-gradient(135deg, #ff9800 0%, #ffc107 50%, #ff9800 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 950;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            text-align: center;
+            left: -25px;
+            top: 30px;
+            transform: rotate(45deg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 2px;
+            font-family: 'Outfit', sans-serif;
+        }
     </style>
 </head>
 
 <body class="position-relative">
 
-    <!-- BACKGROUND VIDEO GLOBAL -->
-    <div class="global-bg-wrapper position-fixed top-0 start-0 w-100 h-100 z-n1 overflow-hidden" style="opacity: 0.2;">
-        <video autoplay muted loop playsinline class="w-100 h-100" style="object-fit: cover;">
-            <source
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4"
-                type="video/mp4">
-        </video>
-    </div>
-
-
-
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg fixed-top liquid-glass-strong" data-bs-theme="dark">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-transparent" data-bs-theme="dark">
+        <div class="container-fluid px-lg-5">
             <a class="navbar-brand font-heading fw-bold d-flex align-items-center logo-wrapper" href="index.html">
                 <span class="logo-text">
                     <span class="logo-uni-container">
@@ -409,11 +680,14 @@
                         <a class="nav-link rounded-pill px-3" href="index.html" data-i18n="nav_home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link rounded-pill px-3" href="movies.html" data-i18n="nav_movies">Movies</a>
+                        <a class="nav-link rounded-pill px-3" href="movies.html"
+                            data-i18n="nav_movies_all">Movies/Series</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top
-                            Rated</a>
+                        <a class="nav-link active rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top Rated</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="awards.html" data-i18n="nav_awards">Awards</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
@@ -442,34 +716,40 @@
         </div>
     </nav>
 
-    <!-- PAGE HEADER -->
-    <div class="page-header">
-        <h1>Top Rated</h1>
-        <p>The finest films, ranked by audience score</p>
-    </div>
+    <!-- TOP RATED HERO SECTION -->
+    <header id="topRatedHero" class="tr-hero">
+        <button id="tr-mute-btn" class="btn btn-outline-light rounded-circle position-absolute">
+            <i class="bi bi-volume-mute-fill"></i>
+        </button>
+
+        <div id="trVideoContainer" class="tr-hero-video-wrapper">
+            <video autoplay muted loop playsinline class="tr-hero-video" id="trHeroVideo">
+                <!-- Video source will be set by JS -->
+            </video>
+            <div class="tr-hero-overlay"></div>
+        </div>
+        <div class="container h-100 d-flex align-items-center justify-content-between">
+            <div class="tr-hero-content" id="trHeroContent">
+                <div id="trTopBadge" class="tr-top-badge" style="display:none;">TOP 1 RATED</div>
+                <div id="trLogoContainer"></div>
+                <p class="tr-hero-desc" id="trDesc" style="display:none;"></p>
+            </div>
+
+            <!-- PODIUM TOP 3 (Moved to Hero) -->
+            <div class="podium-section mb-0 pe-4" id="podium-container" style="z-index: 10;">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </header>
 
     <!-- MAIN -->
     <div class="container pb-5">
 
-        <!-- PODIUM TOP 3 -->
-        <div class="podium-section" id="podium-container">
-            <!-- Rendered by JS -->
-        </div>
-
-        <!-- RANKED LIST 4–10 -->
+        <!-- RANKED LIST -->
         <div class="ranked-list liquid-glass rounded-4 p-4" id="ranked-list-container">
             <p class="ranked-list-title">Rankings</p>
-            <div id="ranked-rows">
+            <div id="ranked-rows" class="ranked-rows-scrollable">
                 <!-- Rendered by JS -->
-            </div>
-
-            <!-- LOAD MORE BUTTON -->
-            <div class="text-center mt-4 pt-2" id="load-more-container">
-                <button id="load-more-btn"
-                    class="btn liquid-glass border-0 rounded-pill px-5 py-2 text-white fw-bold hover-white"
-                    style="transition: all 0.3s;">
-                    <i class="bi bi-chevron-down me-2"></i> Show More
-                </button>
             </div>
         </div>
     </div>
@@ -555,10 +835,161 @@
     <script src="js/main.js"></script>
     <script>
         // Render Top Rated page after moviesData is loaded
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const data = JSON.parse(localStorage.getItem('cinematic_movies')) || [];
 
-            // Sort by rating desc
+            // Helper for IDB
+            function getFromDB(id) {
+                return openVideoDB().then(db => {
+                    return new Promise((resolve, reject) => {
+                        const tx = db.transaction('videos', 'readonly');
+                        const store = tx.objectStore('videos');
+                        const req = store.get(id);
+                        req.onsuccess = () => resolve(req.result);
+                        req.onerror = () => reject(req.error);
+                    });
+                });
+            }
+
+            // --- LOAD CUSTOM HERO BANNER DATA ---
+            async function loadCustomHero() {
+                const sorted = [...data].sort((a, b) => b.rating - a.rating);
+                const topMovie = sorted[0];
+
+                const savedDataStr = localStorage.getItem('custom_top_rated_banner_data');
+                const hasVideo = localStorage.getItem('has_custom_top_rated_video');
+                const hasLogo = localStorage.getItem('has_custom_top_rated_logo');
+
+                let banner = null;
+                if (savedDataStr) {
+                    banner = JSON.parse(savedDataStr);
+                }
+
+                // 1. SET TEXT INFO (Priority: Admin Custom > Top Movie > Defaults)
+                if (banner) {
+                    $('#trTopBadge').text(banner.topBadge || 'TOP 1 RATED').show();
+                    $('#trDesc').text(banner.desc || '').show();
+                } else if (topMovie) {
+                    $('#trTopBadge').text('TOP 1 RATED').show();
+                    $('#trDesc').text(topMovie.description || topMovie.preview || '').show();
+                }
+
+                // 2. LOGO HANDLING
+                if (hasLogo === 'true') {
+                    try {
+                        const logoBlob = await getFromDB('custom_top_rated_banner_logo');
+                        if (logoBlob) {
+                            const url = URL.createObjectURL(logoBlob);
+                            const size = banner ? (banner.logoSize || 500) : 500;
+                            $('#trLogoContainer').html(`<img src="${url}" class="tr-hero-logo" style="max-height: ${size}px;">`);
+                        } else {
+                            throw new Error("Logo not found");
+                        }
+                    } catch (e) {
+                        const title = banner ? banner.title : (topMovie ? topMovie.title : 'TOP RATED');
+                        $('#trLogoContainer').html(`<h1 class="tr-hero-title">${title}</h1>`);
+                    }
+                } else {
+                    const title = banner ? banner.title : (topMovie ? topMovie.title : 'TOP RATED');
+                    $('#trLogoContainer').html(`<h1 class="tr-hero-title">${title}</h1>`);
+                }
+
+                // 3. VIDEO / BACKGROUND HANDLING
+                const videoEl = document.getElementById('trHeroVideo');
+                let videoLoaded = false;
+
+                if (hasVideo === 'true') {
+                    try {
+                        const videoBlob = await getFromDB('custom_top_rated_banner_video');
+                        if (videoBlob) {
+                            const url = URL.createObjectURL(videoBlob);
+                            videoEl.src = url;
+                            videoEl.load();
+                            videoLoaded = true;
+                        }
+                    } catch (e) { }
+                }
+
+                // Fallback to movie trailer if no custom video
+                if (!videoLoaded && topMovie) {
+                    // Set banner image as background in all cases
+                    $('#topRatedHero').css({
+                        'background-image': `url(${topMovie.banner})`,
+                        'background-size': 'cover',
+                        'background-position': 'center'
+                    });
+
+                    if (topMovie.localVideo) {
+                        if (topMovie.localVideo.startsWith('indexeddb://')) {
+                            try {
+                                const videoId = topMovie.localVideo.replace('indexeddb://', '');
+                                const videoBlob = await getFromDB(videoId);
+                                if (videoBlob) {
+                                    videoEl.src = URL.createObjectURL(videoBlob);
+                                    videoEl.load();
+                                    videoLoaded = true;
+                                }
+                            } catch (e) { }
+                        } else {
+                            videoEl.src = topMovie.localVideo;
+                            videoEl.load();
+                            videoLoaded = true;
+                        }
+                    } else if (topMovie.trailer && topMovie.trailer.endsWith('.mp4')) {
+                        videoEl.src = topMovie.trailer;
+                        videoEl.load();
+                        videoLoaded = true;
+                    } else if (topMovie.trailerEmbed && topMovie.trailerEmbed.includes('youtube.com')) {
+                        // YouTube Fallback as Background
+                        let ytId = '';
+                        if (topMovie.trailerEmbed.includes('embed/')) ytId = topMovie.trailerEmbed.split('embed/')[1].split('?')[0];
+                        else if (topMovie.trailerEmbed.includes('v=')) ytId = topMovie.trailerEmbed.split('v=')[1].split('&')[0];
+
+                        if (ytId) {
+                            const ytUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`;
+                            $('#trVideoContainer').prepend(`<iframe class="tr-hero-iframe" src="${ytUrl}" allow="autoplay; encrypted-media"></iframe>`);
+                            $(videoEl).hide();
+                            videoLoaded = true;
+                            $('#tr-mute-btn').hide();
+                        }
+                    }
+                }
+
+                if (!videoLoaded) {
+                    $(videoEl).hide();
+                    $('#tr-mute-btn').hide();
+                } else {
+                    $(videoEl).show();
+                    const isYT = $('#trVideoContainer').find('.tr-hero-iframe').length > 0;
+                    if (isYT) $('#tr-mute-btn').hide(); else $('#tr-mute-btn').show();
+                }
+
+                // Mute Toggle Logic
+                $('#tr-mute-btn').off('click').on('click', function () {
+                    const isMuted = $(videoEl).prop('muted');
+                    $(videoEl).prop('muted', !isMuted);
+                    $(this).find('i').toggleClass('bi-volume-mute-fill bi-volume-up-fill');
+                });
+
+                // Fade in effect (Sync both logo and podium)
+                setTimeout(() => {
+                    $('#trHeroContent').addClass('visible');
+                    $('#podium-container').addClass('visible');
+                }, 300);
+            }
+
+            const DB_NAME = 'CinematicVideoDB';
+            function openVideoDB() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(DB_NAME, 1);
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            loadCustomHero();
+
+            // Sort for the rest of the page
             const sorted = [...data].sort((a, b) => b.rating - a.rating);
 
             const maxRating = sorted[0]?.rating || 10;
@@ -573,10 +1004,14 @@
                 const card = document.createElement('a');
                 card.href = `detail.html?id=${movie.id}`;
                 card.className = `podium-card ${rankClass}`;
+                const ribbonHtml = (rank === 1) ? `<div class="premium-ribbon"><span>TOP 1</span></div>` : '';
                 card.innerHTML = `
+                    ${ribbonHtml}
                     <span class="podium-rank-bg">${rank}</span>
                     <div class="podium-img-wrapper">
                         <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4 shadow-inset" style="box-shadow: inset 0 0 20px rgba(0,0,0,0.6); z-index: 1;"></div>
+                        <div class="podium-overlay"></div>
                         <div class="podium-info">
                             <div class="podium-badge">
                                 <i class="bi bi-star-fill"></i> ${movie.rating.toFixed(1)}
@@ -591,18 +1026,12 @@
 
             // --- RANKED LIST 4–100 ---
             const rowsContainer = document.getElementById('ranked-rows');
-            const loadMoreBtn = document.getElementById('load-more-btn');
 
-            let currentIndex = 3; // Starting from rank 4 (index 3)
-            const batchSize = 5;
-            const maxRank = 100;
+            function renderRankList() {
+                const moviesToRender = sorted.slice(3, 100);
 
-            function renderRankBatch() {
-                const nextBatch = sorted.slice(currentIndex, currentIndex + batchSize);
-
-                nextBatch.forEach((movie, i) => {
-                    const rank = currentIndex + i + 1;
-                    if (rank > maxRank) return;
+                moviesToRender.forEach((movie, i) => {
+                    const rank = i + 4;
 
                     const barPct = Math.round((movie.rating / 10) * 100);
 
@@ -648,22 +1077,12 @@
                         setTimeout(() => {
                             bar.style.width = bar.dataset.width;
                         }, 100);
-                    }, i * 50);
+                    }, i * 30);
                 });
-
-                currentIndex += batchSize;
-
-                // Hide button if no more movies or reached maxRank
-                if (currentIndex >= sorted.length || currentIndex >= maxRank) {
-                    loadMoreBtn.parentElement.style.display = 'none';
-                }
             }
 
             // Initial render
-            renderRankBatch();
-
-            // Load more event
-            loadMoreBtn.addEventListener('click', renderRankBatch);
+            renderRankList();
         });
     </script>
 </body>

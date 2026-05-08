@@ -25,18 +25,13 @@
 
 <body class="position-relative">
     
-    <!-- BACKGROUND VIDEO GLOBAL -->
-    <div class="global-bg-wrapper position-fixed top-0 start-0 w-100 h-100 z-n1 overflow-hidden" style="opacity: 0.2;">
-        <video autoplay muted loop playsinline class="w-100 h-100" style="object-fit: cover;">
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4" type="video/mp4">
-        </video>
-    </div>
+
 
 
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg fixed-top bg-transparent" data-bs-theme="dark">
-        <div class="container">
+        <div class="container-fluid px-lg-5">
             <a class="navbar-brand font-heading fw-bold d-flex align-items-center logo-wrapper" href="index.html">
                 <span class="logo-text">
                     <span class="logo-uni-container">
@@ -67,11 +62,14 @@
                         <a class="nav-link active rounded-pill px-3" href="index.html" data-i18n="nav_home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link rounded-pill px-3" href="movies.html" data-i18n="nav_movies">Movies</a>
+                        <a class="nav-link rounded-pill px-3" href="movies.html" data-i18n="nav_movies_all">Movies/Series</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top
                             Rated</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="awards.html" data-i18n="nav_awards">Awards</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
@@ -113,6 +111,12 @@
 
     <!-- HERO CAROUSEL -->
     <header id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
+        <!-- Hero Mute Toggle -->
+        <button id="hero-mute-btn" class="btn btn-sm btn-outline-light rounded-circle position-absolute" 
+                style="bottom: 120px; right: 5%; z-index: 100; width: 40px; height: 40px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);">
+            <i class="bi bi-volume-mute-fill"></i>
+        </button>
+
         <div class="carousel-indicators mb-5">
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
@@ -120,87 +124,71 @@
         </div>
 
         <div class="carousel-inner">
-            <!-- Slide 1 -->
-            <div class="carousel-item active" data-bs-interval="5000">
-                <div class="hero-slide-bg"
-                    style="background-image: url('https://image.tmdb.org/t/p/original/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg');">
+            <!-- Slide 1: Dune -->
+            <div class="carousel-item active" data-bs-interval="10000">
+                <div class="hero-video-wrapper">
+                    <video autoplay muted loop playsinline class="hero-video-bg">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-golden-desert-4152-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero-video-overlay"></div>
                 </div>
-                <div class="container h-100 position-relative">
-                    <div class="hero-content liquid-glass">
-                        <span class="badge text-bg-light mb-3">Sci-Fi</span>
-                        <h1 class="hero-title font-heading fw-bold text-white">Dune: Part One</h1>
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i> 8.0</span>
-                            <span class="text-white-50">| 2021 | 2h 35m</span>
+                <div class="container h-100 position-relative d-flex align-items-center">
+                    <div class="hero-content-clean">
+                        <span class="badge bg-danger mb-3 px-3 py-2">NEW SERIES</span>
+                        <h1 class="hero-title font-heading fw-bold text-white mb-2" style="font-size: 5rem; letter-spacing: -2px;">DUNE</h1>
+                        <div class="d-flex align-items-center gap-3 mb-4 fs-5">
+                            <span class="text-warning fw-bold"><i class="bi bi-star-fill"></i> 8.0</span>
+                            <span class="text-white-50">2021</span>
+                            <span class="badge border border-white border-opacity-25 text-white-50">T16</span>
                         </div>
-                        <p class="text-light mb-4">Paul Atreides, a brilliant and gifted young man born into a great
-                            destiny beyond his understanding, must travel to the most dangerous planet in the
-                            universe...</p>
-                        <div class="d-flex gap-3">
-                            <a href="detail.html?id=1" class="btn btn-primary-custom rounded-pill px-4 py-2">
-                                <i class="bi bi-play-fill fs-5 align-middle"></i> Watch Trailer
-                            </a>
-                            <button class="btn btn-outline-light rounded-pill px-4 py-2 btn-watchlist" data-id="1"
-                                data-title="Dune: Part One">
-                                <i class="bi bi-plus-lg"></i> Watchlist
-                            </button>
-                        </div>
+                        <p class="text-white mb-4 opacity-75" style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Paul Atreides must travel to the most dangerous planet in the universe to ensure the future of his family and his people.</p>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 2 -->
-            <div class="carousel-item" data-bs-interval="5000">
-                <div class="hero-slide-bg"
-                    style="background-image: url('https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg');">
+            <!-- Slide 2: Interstellar -->
+            <div class="carousel-item" data-bs-interval="10000">
+                <div class="hero-video-wrapper">
+                    <video autoplay muted loop playsinline class="hero-video-bg">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-star-field-in-the-deep-space-31122-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero-video-overlay"></div>
                 </div>
-                <div class="container h-100 position-relative">
-                    <div class="hero-content liquid-glass">
-                        <span class="badge text-bg-light mb-3">Sci-Fi</span>
-                        <h1 class="hero-title font-heading fw-bold text-white">Interstellar</h1>
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i> 8.7</span>
-                            <span class="text-white-50">| 2014 | 2h 49m</span>
+                <div class="container h-100 position-relative d-flex align-items-center">
+                    <div class="hero-content-clean">
+                        <span class="badge bg-primary mb-3 px-3 py-2">MUST WATCH</span>
+                        <h1 class="hero-title font-heading fw-bold text-white mb-2" style="font-size: 5rem; letter-spacing: -2px;">INTERSTELLAR</h1>
+                        <div class="d-flex align-items-center gap-3 mb-4 fs-5">
+                            <span class="text-warning fw-bold"><i class="bi bi-star-fill"></i> 8.7</span>
+                            <span class="text-white-50">2014</span>
+                            <span class="badge border border-white border-opacity-25 text-white-50">T13</span>
                         </div>
-                        <p class="text-light mb-4">A team of explorers travel through a wormhole in space in an attempt
-                            to ensure humanity's survival.</p>
-                        <div class="d-flex gap-3">
-                            <a href="detail.html?id=2" class="btn btn-primary-custom rounded-pill px-4 py-2">
-                                <i class="bi bi-play-fill fs-5 align-middle"></i> Watch Trailer
-                            </a>
-                            <button class="btn btn-outline-light rounded-pill px-4 py-2 btn-watchlist" data-id="2"
-                                data-title="Interstellar">
-                                <i class="bi bi-plus-lg"></i> Watchlist
-                            </button>
-                        </div>
+                        <p class="text-white mb-4 opacity-75" style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 3 -->
-            <div class="carousel-item" data-bs-interval="5000">
-                <div class="hero-slide-bg"
-                    style="background-image: url('https://image.tmdb.org/t/p/original/b0PlSNiZ3eDAnz247oK5t6yP12F.jpg');">
+            <!-- Slide 3: The Batman -->
+            <div class="carousel-item" data-bs-interval="10000">
+                <div class="hero-video-wrapper">
+                    <video autoplay muted loop playsinline class="hero-video-bg">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-city-lights-at-night-seen-from-above-3453-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero-video-overlay"></div>
                 </div>
-                <div class="container h-100 position-relative">
-                    <div class="hero-content liquid-glass">
-                        <span class="badge text-bg-light mb-3">Action</span>
-                        <h1 class="hero-title font-heading fw-bold text-white">The Batman</h1>
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <span class="text-warning"><i class="bi bi-star-fill"></i> 7.8</span>
-                            <span class="text-white-50">| 2022 | 2h 56m</span>
+                <div class="container h-100 position-relative d-flex align-items-center">
+                    <div class="hero-content-clean">
+                        <span class="badge bg-warning text-dark mb-3 px-3 py-2">TRENDING</span>
+                        <h1 class="hero-title font-heading fw-bold text-white mb-2" style="font-size: 5rem; letter-spacing: -2px;">THE BATMAN</h1>
+                        <div class="d-flex align-items-center gap-3 mb-4 fs-5">
+                            <span class="text-warning fw-bold"><i class="bi bi-star-fill"></i> 7.8</span>
+                            <span class="text-white-50">2022</span>
+                            <span class="badge border border-white border-opacity-25 text-white-50">T18</span>
                         </div>
-                        <p class="text-light mb-4">When a sadistic serial killer begins murdering key political figures
-                            in Gotham, Batman is forced to investigate the city's hidden corruption...</p>
-                        <div class="d-flex gap-3">
-                            <a href="detail.html?id=3" class="btn btn-primary-custom rounded-pill px-4 py-2">
-                                <i class="bi bi-play-fill fs-5 align-middle"></i> Watch Trailer
-                            </a>
-                            <button class="btn btn-outline-light rounded-pill px-4 py-2 btn-watchlist" data-id="3"
-                                data-title="The Batman">
-                                <i class="bi bi-plus-lg"></i> Watchlist
-                            </button>
-                        </div>
+                        <p class="text-white mb-4 opacity-75" style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Batman investigates the city's hidden corruption and questions his family's involvement.</p>
+
                     </div>
                 </div>
             </div>
@@ -216,23 +204,110 @@
         </button>
     </header>
 
-    <!-- TRENDING SECTION -->
-    <section class="py-5 my-5 trending-section">
+    <!-- FEATURED SECTION -->
+    <section id="featured-section" class="py-5">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-end mb-4">
-                <div>
-                    <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body" data-i18n="featured">
-                        Featured</h6>
-                    <h2 class="font-heading fw-bold text-white m-0 section-heading" data-i18n="trending_now">Trending Now</h2>
+            <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body" data-i18n="featured">Featured</h6>
+            <h2 class="font-heading fw-bold text-white mb-4 section-heading">Spotlight</h2>
+            <div id="featured-content">
+                <!-- JS will render a big featured card here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT GRID (Trending + Top 10 sidebar) -->
+    <section class="py-5 trending-section">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Trending Now -->
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between align-items-end mb-4">
+                        <div>
+                            <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Recommendations</h6>
+                            <h2 class="font-heading fw-bold text-white m-0 section-heading" data-i18n="trending_now">Trending Now</h2>
+                        </div>
+                    </div>
+
+                    <!-- Grid phim được render từ jQuery -->
+                    <div id="trending-grid" class="row row-cols-1 row-cols-md-2 g-4">
+                        <!-- JS sẽ bơm HTML vào đây -->
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <button id="show-more-trending" class="btn liquid-glass rounded-pill px-5 py-2 text-white border-0 shadow">
+                            Show More <i class="bi bi-chevron-down ms-2"></i>
+                        </button>
+                    </div>
                 </div>
-                <a href="movies.html" class="text-white text-decoration-none border-bottom border-light pb-1"
-                    data-i18n="view_all">View
-                    All</a>
+
+                <!-- Top 10 in week (Vertical Sidebar) -->
+                <div class="col-lg-4">
+                    <div class="sticky-top" style="top: 100px;">
+                        <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Rankings</h6>
+                        <h2 class="font-heading fw-bold text-white mb-4 section-heading">Top 10 This Week</h2>
+                        <div id="top-10-vertical-list" class="d-flex flex-column gap-3">
+                            <!-- JS will render vertical rank cards here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMING SOON ROW -->
+    <section id="coming-soon-section" class="py-5 bg-black bg-opacity-25">
+        <div class="container">
+            <div class="movie-row-container" id="row-coming-soon">
+                <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Future Releases</h6>
+                <h2 class="font-heading fw-bold text-white mb-4 section-heading">Coming Soon</h2>
+                <div class="scroll-btn scroll-left" onclick="scrollRow('coming-soon', -1)">
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+                <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="scroller-coming-soon">
+                    <!-- JS will render horizontal cards here -->
+                </div>
+                <div class="scroll-btn scroll-right" onclick="scrollRow('coming-soon', 1)">
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAST & AWARDS ROWS -->
+    <section id="cast-awards-section" class="py-5">
+        <div class="container">
+            <!-- Cast Row -->
+            <div class="mb-5">
+                <div class="movie-row-container" id="row-home-cast">
+                    <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Talent</h6>
+                    <h2 class="font-heading fw-bold text-white mb-4 section-heading">Star Cast</h2>
+                    <div class="scroll-btn scroll-left" onclick="scrollRow('home-cast', -1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
+                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="scroller-home-cast">
+                        <!-- JS will render cast circles here -->
+                    </div>
+                    <div class="scroll-btn scroll-right" onclick="scrollRow('home-cast', 1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
             </div>
 
-            <!-- Grid phim được render từ jQuery -->
-            <div id="trending-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-                <!-- JS sẽ bơm HTML vào đây -->
+            <!-- Awards Row -->
+            <div>
+                <div class="movie-row-container" id="row-home-awards">
+                    <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Recognition</h6>
+                    <h2 class="font-heading fw-bold text-white mb-4 section-heading">Award Winning</h2>
+                    <div class="scroll-btn scroll-left" onclick="scrollRow('home-awards', -1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
+                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="scroller-home-awards">
+                        <!-- JS will render award-style cards here -->
+                    </div>
+                    <div class="scroll-btn scroll-right" onclick="scrollRow('home-awards', 1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

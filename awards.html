@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards - UniCenima</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .awards-hero {
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: #0a0a0c;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .awards-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, #0a0a0c 100%),
+                        linear-gradient(to top, #0a0a0c 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .award-banner {
+            position: relative;
+            height: 420px;
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 10;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        }
+        .award-banner-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            opacity: 0.9;
+        }
+        .award-banner-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        .award-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.4) 40%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px 50px;
+            z-index: 2;
+        }
+        .award-right-logo {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: right;
+            z-index: 3;
+            max-width: 40%;
+        }
+        .award-right-logo-text {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 0;
+        }
+        .award-tabs {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border-radius: 40px;
+            padding: 6px;
+            display: inline-flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 900px;
+        }
+        .award-tab-btn {
+            border: none;
+            background: transparent;
+            color: #fff;
+            padding: 8px 22px;
+            border-radius: 35px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+        .award-tab-btn.active {
+            background: rgba(255, 152, 0, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        .award-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+        .award-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .winner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #f9cb28 100%);
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            width: 70%; /* Thu ngắn lại tí nữa */
+            max-width: 750px;
+            box-shadow: 0 4px 15px rgba(249, 203, 40, 0.3);
+        }
+        .award-year {
+            font-size: 6rem;
+            font-weight: 900;
+            opacity: 0.2; /* Tăng đậm thêm tí */
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            pointer-events: none;
+            font-family: 'Outfit', sans-serif;
+            z-index: 50; /* Đảm bảo cực kỳ nổi lên trên */
+        }
+        .text-accent { color: var(--accent) !important; }
+        .liquid-glass-strong {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (min-width: 1200px) {
+            .award-spotlight-row {
+                height: 440px;
+                margin-bottom: 40px !important;
+            }
+            .award-sidebar-container {
+                max-height: 380px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 20px 15px 20px 0;
+                /* Fade effect at top and bottom */
+                -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+                mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            }
+            .award-sidebar-container::-webkit-scrollbar {
+                width: 0px;
+                display: none; /* For Chrome, Safari and Opera */
+            }
+            /* Hide scrollbar for IE, Edge and Firefox */
+            .award-sidebar-container {
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+            }
+            .award-sidebar-container::-webkit-scrollbar-thumb {
+                background: transparent;
+                border-radius: 10px;
+            }
+            .award-sidebar-container:hover::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+            }
+            .award-sidebar-container::-webkit-scrollbar-thumb:hover {
+                background: var(--accent) !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-white">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-transparent" data-bs-theme="dark">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand font-heading fw-bold d-flex align-items-center logo-wrapper" href="index.html">
+                <span class="logo-text">
+                    <span class="logo-uni-container">
+                        <span class="logo-uni">Uni</span>
+                        <div class="solar-system logo-moon">
+                            <div class="solar-system-tilt">
+                                <div class="sun"></div>
+                                <div class="orbit earth-orbit">
+                                    <div class="planet earth"></div>
+                                </div>
+                                <div class="orbit mars-orbit">
+                                    <div class="planet mars"></div>
+                                </div>
+                                <div class="orbit jupiter-orbit">
+                                    <div class="planet jupiter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </span><span class="logo-cenima">Cenima</span>
+                </span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto liquid-glass rounded-pill px-2 py-1 gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="index.html" data-i18n="nav_home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="movies.html" data-i18n="nav_movies_all">Movies/Series</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top Rated</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active rounded-pill px-3" href="awards.html" data-i18n="nav_awards">Awards</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <form class="d-flex" role="search">
+                        <div class="input-group liquid-glass rounded-pill overflow-hidden">
+                            <span class="input-group-text bg-transparent border-0 text-white"><i class="bi bi-search"></i></span>
+                            <input class="form-control bg-transparent border-0 text-white shadow-none" type="search" placeholder="Search movies..." data-i18n="search_placeholder">
+                        </div>
+                    </form>
+                    <button class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
+                        <i class="bi bi-bookmark-fill"></i> <span data-i18n="watchlist">Watchlist</span>
+                        <span id="watchlist-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                    </button>
+                    <div class="vr text-white opacity-25 d-none d-lg-block"></div>
+                    <div class="auth-buttons d-flex align-items-center gap-2"></div>
+                    <div class="vr text-white opacity-25 d-none d-lg-block"></div>
+                    <div class="dropdown">
+                        <button class="btn text-white fw-bold dropdown-toggle d-flex align-items-center gap-1 border-0 shadow-none px-2 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="lang-btn">
+                            EN
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow">
+                            <li><a class="dropdown-item text-white lang-switch" href="#" data-lang="en">English (EN)</a></li>
+                            <li><a class="dropdown-item text-white lang-switch" href="#" data-lang="vi">Tiếng Việt (VI)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- AWARDS HERO BACKGROUND -->
+    <div id="awardsHero" class="awards-hero">
+        <div class="awards-hero-overlay"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid px-4 px-lg-5" style="position: relative; z-index: 100; margin-top: 25vh;">
+        <div id="awards-content">
+            <div class="row g-4 align-items-center mb-5 award-spotlight-row justify-content-center">
+                <!-- Left Side: History timeline -->
+                <div class="col-xl-2 d-none d-xl-block">
+                    <div class="award-history-sidebar award-sidebar-container ps-4">
+                        <h6 class="text-uppercase text-white fw-bold mb-4 d-flex align-items-center gap-2" style="letter-spacing: 2px; font-size: 0.8rem;">
+                            History
+                        </h6>
+                        <div id="history-timeline-container" class="d-flex flex-column gap-3 position-relative">
+                            <!-- JS will populate history timeline here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center: Spotlight -->
+                <div class="col-xl-7">
+                    <!-- Big Rectangular Banner (Spotlight) -->
+                    <div id="awards-spotlight"></div>
+                </div>
+
+                <!-- Right Side: Top Awarded Films -->
+                <div class="col-xl-2 d-none d-xl-block">
+                    <div class="award-top-sidebar award-sidebar-container ps-4">
+                        <h6 class="text-uppercase text-white fw-bold mb-4 d-flex align-items-center justify-content-center gap-2" style="letter-spacing: 2px; font-size: 0.8rem; text-align: center;">
+                            Top Winners
+                        </h6>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="liquid-glass rounded-4 p-3 d-flex align-items-center gap-3 hover-scale transition-all border border-white border-opacity-10 cursor-pointer">
+                                <h2 class="text-accent m-0 fw-bold fst-italic opacity-50" style="line-height: 1;">1</h2>
+                                <div class="text-start">
+                                    <h6 class="text-white mb-1 fw-bold text-truncate" style="max-width: 120px;">Oppenheimer</h6>
+                                    <small class="text-white-50" style="font-size: 0.7rem;"><i class="bi bi-trophy-fill text-warning me-1"></i>7 Oscars</small>
+                                </div>
+                            </div>
+                            
+                            <div class="liquid-glass rounded-4 p-3 d-flex align-items-center gap-3 hover-scale transition-all border border-white border-opacity-10 cursor-pointer opacity-75 hover-opacity-100">
+                                <h2 class="text-white m-0 fw-bold fst-italic opacity-25" style="line-height: 1;">2</h2>
+                                <div class="text-start">
+                                    <h6 class="text-white mb-1 fw-bold text-truncate" style="max-width: 120px;">The Bear</h6>
+                                    <small class="text-white-50" style="font-size: 0.7rem;"><i class="bi bi-trophy-fill text-warning me-1"></i>6 Emmys</small>
+                                </div>
+                            </div>
+
+                            <div class="liquid-glass rounded-4 p-3 d-flex align-items-center gap-3 hover-scale transition-all border border-white border-opacity-10 cursor-pointer opacity-50 hover-opacity-100">
+                                <h2 class="text-white m-0 fw-bold fst-italic opacity-25" style="line-height: 1;">3</h2>
+                                <div class="text-start">
+                                    <h6 class="text-white mb-1 fw-bold text-truncate" style="max-width: 120px;">Poor Things</h6>
+                                    <small class="text-white-50" style="font-size: 0.7rem;"><i class="bi bi-trophy-fill text-warning me-1"></i>4 Awards</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Awards Filter Tabs -->
+            <div class="text-center mt-5">
+                <div class="award-tabs mb-5 overflow-x-auto w-100 justify-content-start justify-content-md-center px-4">
+                    <button class="award-tab-btn active" data-award="all">Award home</button>
+                    <button class="award-tab-btn opacity-50" data-award="oscars">Oscars</button>
+                    <button class="award-tab-btn opacity-50" data-award="anime">Anime Awards</button>
+                    <button class="award-tab-btn opacity-50" data-award="golden">Golden Globe</button>
+                    <button class="award-tab-btn opacity-50" data-award="cannes">Cannes</button>
+                    <button class="award-tab-btn opacity-50" data-award="emmy">Emmy</button>
+                </div>
+            </div>
+
+            <!-- Smaller grid items -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5" id="awards-grid"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const DEFAULT_AWARDS = [
+            { id: 1, title: "Shōgun", type: "Primetime Emmy", category: "Outstanding Drama Series", year: "2024", banner: "https://image.tmdb.org/t/p/original/m9YpS2Vp8S8E8F5R6i5U6R9mX7u.jpg", poster: "https://image.tmdb.org/t/p/w500/sh77p3bsbtTCCmXctvn3ZAs01wM.jpg", desc: "The series made history at the Emmys with 18 awards, a record for a single season.", awardType: "emmy" },
+            { id: 2, title: "Oppenheimer", type: "Academy Awards", category: "Best Picture", year: "2024", banner: "https://image.tmdb.org/t/p/original/rMvYvu4nm9ez9imqZ86vOEvImKi.jpg", poster: "https://image.tmdb.org/t/p/w500/8Gxv8S7HaU0STqovsyoZ9LFWvne.jpg", desc: "Christopher Nolan's masterpiece was honored at the Oscars with 7 major awards, including Best Picture.", awardType: "oscars" },
+            { id: 3, title: "Jujutsu Kaisen Season 2", type: "Crunchyroll Anime Awards", category: "Anime of the Year", year: "2024", banner: "https://image.tmdb.org/t/p/original/uo9jT9HghGk8P2n8E1wYxO0vM3A.jpg", poster: "https://image.tmdb.org/t/p/w500/h77X2Y6O7N0v1oYxO0vM3A.jpg", desc: "The Shibuya Incident arc completely conquered anime fans worldwide.", awardType: "anime" }
+        ];
+
+        let currentAwardFilter = 'all';
+        let currentYearFilter = 'all';
+        let historyExpanded = false;
+
+        function renderHistoryTimeline() {
+            const startYear = 2026;
+            const endYear = 2017;
+            
+            let html = `<div class="position-absolute" style="left: 21px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(to bottom, #f5c518 0%, rgba(255,255,255,0.1) 50%, transparent 100%); z-index: 0;"></div>`;
+            
+            for (let year = startYear; year >= endYear; year--) {
+                const isActive = (currentYearFilter === year.toString() || (currentYearFilter === 'all' && year === startYear));
+                
+                if (isActive) {
+                    html += `
+                    <div class="liquid-glass rounded-pill py-2 px-3 d-flex align-items-center gap-3 position-relative z-1 cursor-pointer hover-scale border border-warning border-opacity-50 mb-3" style="width: max-content;" onclick="filterByYear('${year}')">
+                        <div style="width: 10px; height: 10px; border-radius: 50%; background: #f5c518; box-shadow: 0 0 15px #f5c518;"></div>
+                        <span class="text-warning fw-bold fs-6">${year}</span>
+                    </div>`;
+                } else {
+                    const opacityClass = (startYear - year) <= 2 ? 'opacity-75' : ((startYear - year) <= 4 ? 'opacity-50' : 'opacity-25');
+                    html += `
+                    <div class="liquid-glass rounded-pill py-2 px-3 d-flex align-items-center gap-3 position-relative z-1 ${opacityClass} hover-opacity-100 transition-all cursor-pointer hover-scale mb-3" style="width: max-content;" onclick="filterByYear('${year}')">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: #fff;"></div>
+                        <span class="text-white fw-medium fs-6">${year}</span>
+                    </div>`;
+                }
+            }
+            
+            $('#history-timeline-container').html(html);
+        }
+
+        function filterByYear(year) {
+            if (currentYearFilter === year.toString()) {
+                currentYearFilter = 'all'; // toggle off if clicked again
+            } else {
+                currentYearFilter = year.toString();
+            }
+            renderHistoryTimeline();
+            renderAwards(currentAwardFilter);
+        }
+
+        async function getAssetUrl(key) {
+            try {
+                const db = await openVideoDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, 'readonly');
+                    const store = tx.objectStore(STORE_NAME);
+                    const req = store.get(key);
+                    req.onsuccess = () => {
+                        const file = req.result;
+                        resolve(file ? URL.createObjectURL(file) : null);
+                    };
+                    req.onerror = () => resolve(null);
+                });
+            } catch (e) { return null; }
+        }
+
+        async function renderAwards(filter = 'all') {
+            const savedConfig = JSON.parse(localStorage.getItem('custom_awards_config') || '{}');
+            const awardNames = { 'oscars': 'Academy Awards', 'anime': 'Anime Awards', 'golden': 'Golden Globe', 'cannes': 'Cannes Festival', 'emmy': 'Emmy Awards' };
+            
+            let finalData = [...DEFAULT_AWARDS];
+
+            for (const key of Object.keys(savedConfig)) {
+                const custom = savedConfig[key];
+                if (custom) {
+                    const logoUrl = await getAssetUrl(`award_logo_${key}`);
+                    const videoUrl = await getAssetUrl(`award_video_${key}`);
+                    let defAward = DEFAULT_AWARDS.find(a => a.awardType === key);
+                    if (!defAward && key === 'all') {
+                        defAward = {
+                            id: 'all',
+                            title: 'Award Home',
+                            type: 'Premium Awards',
+                            category: 'Featured',
+                            year: '2024',
+                            banner: DEFAULT_AWARDS[0].banner,
+                            poster: DEFAULT_AWARDS[0].poster,
+                            desc: 'Awards home page featuring the best films.'
+                        };
+                    } else if (!defAward) {
+                        defAward = {};
+                    }
+
+                    const awardObj = {
+                        id: defAward.id || 'custom_' + key,
+                        title: defAward.title || '',
+                        type: custom.author !== undefined ? custom.author : (awardNames[key] || defAward.type || 'Award'),
+                        category: custom.category !== undefined ? custom.category : (defAward.category || 'Winner'),
+                        year: custom.year || defAward.year || '2024',
+                        banner: defAward.banner || '',
+                        poster: defAward.poster || '',
+                        desc: custom.desc !== undefined ? custom.desc : (defAward.desc || ''),
+                        awardType: key,
+                        isCustom: true,
+                        videoUrl: videoUrl,
+                        logoUrl: logoUrl
+                    };
+
+                    const idx = finalData.findIndex(a => a.awardType === key);
+                    if (idx > -1) finalData[idx] = awardObj;
+                    else finalData.push(awardObj);
+                }
+            }
+
+            let filtered = filter === 'all' ? finalData : finalData.filter(a => a.awardType === filter);
+            if (currentYearFilter !== 'all') {
+                filtered = filtered.filter(a => a.year === currentYearFilter);
+            }
+            
+            if (filtered.length > 0) {
+                let latest = filtered[0];
+                if (filter === 'all') {
+                    const homeConfig = finalData.find(a => a.awardType === 'all');
+                    if (homeConfig) latest = homeConfig;
+                }
+
+                // Update Hero Background (Static Image Only)
+                const $h = $('#awardsHero');
+                $h.css('background-image', `url('${latest.banner}')`);
+
+
+                $('#awards-spotlight').html(`
+                    <div class="award-banner border-0 shadow-2xl">
+                        ${latest.videoUrl ? 
+                            `<video class="award-banner-video" src="${latest.videoUrl}" autoplay muted loop playsinline></video>` : 
+                            `<div class="award-banner-bg" style="background-image: url('${latest.banner}')"></div>`
+                        }
+                        <div class="award-banner-overlay">
+                            <div class="winner-badge shadow-lg mb-3" style="width: max-content; align-self: flex-start;"><i class="bi bi-trophy-fill me-1"></i> WINNER</div>
+                            
+                            <div class="d-flex align-items-center gap-4 mb-3">
+                                ${latest.logoUrl ? `<img src="${latest.logoUrl}" style="max-height: 100px; filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));" alt="logo">` : `<h2 class="display-3 fw-bold mb-0">${latest.title}</h2>`}
+                            </div>
+                            <p class="fs-4 text-accent mb-3 fw-bold">${latest.type} &bull; ${latest.category}</p>
+                            <p class="text-white-50 mb-0 d-none d-md-block opacity-75" style="max-width: 750px; font-size: 1.15rem;">${latest.desc}</p>
+                        </div>
+
+                        <div class="award-year">${latest.year}</div>
+                    </div>
+                `);
+            } else {
+                $('#awards-spotlight').html('<div class="py-5 text-center opacity-50 liquid-glass rounded-5 mb-5">No data available for this category</div>');
+            }
+
+            if (filtered.length === 0) {
+                $('#awards-spotlight').html('<div class="text-center text-white-50 p-5 mt-5"><h4>No awards found for this year.</h4></div>');
+                $('#awards-grid').html('');
+                return;
+            }
+
+            let gridHtml = '';
+            filtered.forEach(a => {
+                gridHtml += `
+                    <div class="col">
+                        <div class="award-card liquid-glass d-flex gap-4 align-items-center p-4">
+                            <img src="${a.poster}" class="rounded-4 shadow-lg" style="width: 130px; height: 180px; object-fit: cover;">
+                            <div class="position-relative flex-grow-1">
+                                <div class="winner-badge mb-3" style="font-size: 0.65rem; padding: 4px 12px;">${a.type}</div>
+                                <h4 class="fw-bold mb-1">${a.title}</h4>
+                                <div class="text-accent small fw-bold mb-3 opacity-75">${a.category}</div>
+                                <p class="small text-white-50 mb-0 opacity-50 line-clamp-2">${a.desc}</p>
+                                <div class="position-absolute top-0 end-0 fw-bold opacity-10 fs-1" style="transform: translate(15px, -15px);">${a.year}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#awards-grid').html(gridHtml);
+        }
+
+        $(document).on('click', '.award-tab-btn', function() {
+            $('.award-tab-btn').removeClass('active').addClass('opacity-50');
+            $(this).addClass('active').removeClass('opacity-50');
+            currentAwardFilter = $(this).data('award');
+            renderAwards(currentAwardFilter);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        $(document).ready(() => {
+            renderHistoryTimeline();
+            renderAwards();
+        });
+    </script>
+</body>
+
+</html>

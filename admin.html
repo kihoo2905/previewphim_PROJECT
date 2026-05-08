@@ -21,14 +21,48 @@
     <nav class="navbar navbar-dark mb-4">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">UniCenima Admin</a>
-            <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Trang chủ</a>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-info btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                    <i class="bi bi-play-btn-fill me-1"></i> Banner Home
+                </button>
+                <button class="btn btn-outline-warning btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#topRatedSettingsModal">
+                    <i class="bi bi-star-fill me-1"></i> Banner Top Rated
+                </button>
+                <button class="btn btn-outline-primary btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#movieTabSettingsModal">
+                    <i class="bi bi-film me-1"></i> Banner Phim Lẻ
+                </button>
+                <button class="btn btn-outline-danger btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#spotlightSettingsModal">
+                    <i class="bi bi-lightning-fill me-1"></i> Banner Spotlight
+                </button>
+                <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#seriesTabSettingsModal">
+                    <i class="bi bi-collection-play-fill me-1"></i> Banner Phim Bộ
+                </button>
+                <button class="btn btn-outline-light btn-sm rounded-pill px-3 border-warning text-warning" data-bs-toggle="modal" data-bs-target="#awardsSettingsModal">
+                    <i class="bi bi-trophy-fill me-1"></i> Cài đặt Awards
+                </button>
+                <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Trang chủ</a>
+            </div>
         </div>
     </nav>
 
     <div class="container mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold m-0">Quản lý nội dung</h2>
-            <button class="btn btn-primary px-4 rounded-pill" onclick="openAddModal()"><i class="bi bi-plus-lg me-2"></i>Thêm phim mới</button>
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <h2 class="fw-bold m-0">Quản lý nội dung</h2>
+                <div class="d-flex bg-white rounded-pill p-1 shadow-sm border">
+                    <button class="btn btn-sm px-3 rounded-pill admin-filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="btn btn-sm px-3 rounded-pill admin-filter-btn" data-filter="Movie">Phim Lẻ</button>
+                    <button class="btn btn-sm px-3 rounded-pill admin-filter-btn" data-filter="Series">Phim Bộ</button>
+                    <button class="btn btn-sm px-3 rounded-pill admin-filter-btn" data-filter="ComingSoon">Coming Soon</button>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <div class="input-group input-group-sm" style="width: 250px;">
+                    <span class="input-group-text bg-white border-end-0 rounded-start-pill"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-start-0 rounded-end-pill" id="adminSearch" placeholder="Tìm kiếm phim...">
+                </div>
+                <button class="btn btn-primary px-4 rounded-pill" onclick="openAddModal()"><i class="bi bi-plus-lg me-2"></i>Thêm phim mới</button>
+            </div>
         </div>
 
         <div class="card p-4">
@@ -193,6 +227,14 @@
                                                         <input class="form-check-input" type="checkbox" id="movieTrending">
                                                         <label class="form-check-label small fw-bold" for="movieTrending">Xu hướng (Trending)</label>
                                                     </div>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="movieFeatured">
+                                                        <label class="form-check-label small fw-bold text-danger" for="movieFeatured">Nổi bật (Featured)</label>
+                                                    </div>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="movieComingSoon">
+                                                        <label class="form-check-label small fw-bold" for="movieComingSoon">Coming Soon</label>
+                                                    </div>
                                                     <div class="flex-grow-1">
                                                         <div class="input-group input-group-sm">
                                                             <label class="input-group-text small fw-bold">Nhãn (Badge)</label>
@@ -283,7 +325,7 @@
                                             <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#season-info-pane">Thông tin</button></li>
                                             <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#season-cast-pane" onclick="renderSeasonCast()">Diễn viên</button></li>
                                             <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#season-gallery-pane" onclick="renderSeasonPhotos()">Ảnh</button></li>
-                                            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#season-eps-pane">Tập phim</button></li>
+                                            <li class="nav-item"><button id="tab-eps-label" class="nav-link" data-bs-toggle="tab" data-bs-target="#season-eps-pane">Episodes</button></li>
                                         </ul>
                                         
                                         <div class="tab-content bg-white p-3 border rounded-3 shadow-sm">
@@ -390,13 +432,14 @@
                                             <div class="tab-pane fade" id="season-eps-pane">
                                                 <div id="episodes-list" class="mb-3" style="max-height: 250px; overflow-y: auto;"></div>
                                                 <hr>
-                                                <h6 class="small fw-bold text-success mb-2">Thêm tập mới</h6>
+                                                <h6 id="ep-add-title" class="small fw-bold text-success mb-2">Thêm tập mới</h6>
                                                 <div class="row g-2">
                                                     <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="epTitle" placeholder="Tên tập"></div>
-                                                    <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="epEmbed" placeholder="Link Embed"></div>
+                                                    <div class="col-md-2"><input type="text" class="form-control form-control-sm" id="epEmbed" placeholder="Link Embed"></div>
                                                     <div class="col-md-3"><input type="text" class="form-control form-control-sm" id="epThumb" placeholder="Link Ảnh (Thumb)"></div>
-                                                    <div class="col-md-3 text-end">
-                                                        <button class="btn btn-sm btn-success px-3 rounded-pill w-100" onclick="addEpisode()">Thêm tập</button>
+                                                    <div class="col-md-2"><input type="number" step="0.1" class="form-control form-control-sm" id="epRating" placeholder="Rating"></div>
+                                                    <div class="col-md-2 text-end">
+                                                        <button id="ep-add-btn" class="btn btn-sm btn-success px-3 rounded-pill w-100" onclick="addEpisode()">Thêm</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -505,6 +548,303 @@
             </div>
         </div>
     </div>
+    
+    <!-- BANNER MODAL (HOME) -->
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-primary"><i class="bi bi-play-btn-fill me-2"></i>Cài đặt Banner Trang chủ (Hero)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small">Tên phim (Hiển thị rất lớn)</label>
+                            <input type="text" class="form-control" id="bannerTitle" placeholder="Ví dụ: HOWL'S MOVING CASTLE">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Nhãn góc trái (Màu đỏ)</label>
+                            <input type="text" class="form-control" id="bannerTopBadge" placeholder="Ví dụ: ĐÁNH GIÁ NGAY">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Rating (Ví dụ: 8.5)</label>
+                            <input type="text" class="form-control" id="bannerRating">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Năm sản xuất</label>
+                            <input type="text" class="form-control" id="bannerYear">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Nhãn (Ví dụ: T16, HD)</label>
+                            <input type="text" class="form-control" id="bannerBadge">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold small">Mô tả ngắn</label>
+                            <textarea class="form-control" id="bannerDesc" rows="3" placeholder="Tóm tắt phim..."></textarea>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-warning">Ảnh Logo Tên Phim (Tùy chọn)</label>
+                            <div class="p-3 border rounded bg-light border-warning border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="bannerLogoFile" accept="image/*">
+                                <div class="mt-2 mb-2 d-flex align-items-center gap-3">
+                                    <label class="small text-muted mb-0 fw-bold" style="white-space: nowrap;">Kích thước Logo:</label>
+                                    <input type="range" class="form-range" id="bannerLogoSize" min="200" max="800" step="10" value="500" oninput="document.getElementById('bannerLogoSizeVal').innerText = this.value + 'px'">
+                                    <span id="bannerLogoSizeVal" class="small fw-bold text-primary" style="min-width: 50px;">500px</span>
+                                </div>
+                                <div id="bannerLogoStatus" class="small text-muted">Hỗ trợ các định dạng ảnh phổ biến.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-primary">Video nền Banner (.mp4)</label>
+                            <div class="p-3 border rounded bg-light border-primary border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="globalBgVideoFile" accept="video/*">
+                                <div id="globalBgStatus" class="small text-muted mb-2">Chọn video không lời (Trailer/Background) cho trang chủ.</div>
+                                <div class="progress d-none" id="globalBgProgress" style="height: 5px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-sm btn-outline-danger me-auto" onclick="resetGlobalBg()">Khôi phục Mặc định</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4" onclick="saveHeroBanner()">Lưu Banner Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP RATED BANNER MODAL -->
+    <div class="modal fade" id="topRatedSettingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-warning"><i class="bi bi-star-fill me-2"></i>Cài đặt Banner Top Rated (Hero)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small">Tên phim (Hiển thị rất lớn)</label>
+                            <input type="text" class="form-control" id="tr_bannerTitle" placeholder="Ví dụ: SPIDER-MAN: ACROSS THE SPIDER-VERSE">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Nhãn góc trái (Ví dụ: TOP 1 RATED)</label>
+                            <input type="text" class="form-control" id="tr_bannerTopBadge" placeholder="Ví dụ: TOP 1 RATED">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Rating (Ví dụ: 9.1)</label>
+                            <input type="text" class="form-control" id="tr_bannerRating">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Năm sản xuất</label>
+                            <input type="text" class="form-control" id="tr_bannerYear">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Nhãn (Ví dụ: T13, HD)</label>
+                            <input type="text" class="form-control" id="tr_bannerBadge">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold small">Mô tả ngắn</label>
+                            <textarea class="form-control" id="tr_bannerDesc" rows="3" placeholder="Tóm tắt phim..."></textarea>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-warning">Ảnh Logo Tên Phim (Tùy chọn)</label>
+                            <div class="p-3 border rounded bg-light border-warning border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="tr_bannerLogoFile" accept="image/*">
+                                <div class="mt-2 mb-2 d-flex align-items-center gap-3">
+                                    <label class="small text-muted mb-0 fw-bold" style="white-space: nowrap;">Kích thước Logo:</label>
+                                    <input type="range" class="form-range" id="tr_bannerLogoSize" min="200" max="800" step="10" value="500" oninput="document.getElementById('tr_bannerLogoSizeVal').innerText = this.value + 'px'">
+                                    <span id="tr_bannerLogoSizeVal" class="small fw-bold text-primary" style="min-width: 50px;">500px</span>
+                                </div>
+                                <div id="tr_bannerLogoStatus" class="small text-muted">Hỗ trợ các định dạng ảnh phổ biến.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-primary">Video nền Trailer (.mp4)</label>
+                            <div class="p-3 border rounded bg-light border-primary border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="tr_bannerVideoFile" accept="video/*">
+                                <div id="tr_bannerVideoStatus" class="small text-muted mb-2">Chọn trailer hoặc cảnh phim đẹp cho trang Top Rated.</div>
+                                <div class="progress d-none" id="tr_bannerVideoProgress" style="height: 5px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-sm btn-outline-danger me-auto" onclick="resetTopRatedBanner()">Khôi phục Mặc định</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4" onclick="saveTopRatedBanner()">Lưu Banner Top Rated</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOVIE TAB BANNER MODAL -->
+    <div class="modal fade" id="movieTabSettingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-primary"><i class="bi bi-film me-2"></i>Cài đặt Banner Tab Phim Lẻ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small">Tên phim (Hiển thị rất lớn)</label>
+                            <input type="text" class="form-control" id="mt_bannerTitle" placeholder="Ví dụ: OPPENHEIMER">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Nhãn góc trái (Ví dụ: BLOCKBUSTER)</label>
+                            <input type="text" class="form-control" id="mt_bannerTopBadge" placeholder="Ví dụ: BLOCKBUSTER">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold small">Mô tả ngắn</label>
+                            <textarea class="form-control" id="mt_bannerDesc" rows="3" placeholder="Tóm tắt phim..."></textarea>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-warning">Ảnh Logo Tên Phim (Tùy chọn)</label>
+                            <div class="p-3 border rounded bg-light border-warning border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="mt_bannerLogoFile" accept="image/*">
+                                <div class="mt-2 mb-2 d-flex align-items-center gap-3">
+                                    <label class="small text-muted mb-0 fw-bold" style="white-space: nowrap;">Kích thước Logo:</label>
+                                    <input type="range" class="form-range" id="mt_bannerLogoSize" min="200" max="800" step="10" value="500" oninput="document.getElementById('mt_bannerLogoSizeVal').innerText = this.value + 'px'">
+                                    <span id="mt_bannerLogoSizeVal" class="small fw-bold text-primary" style="min-width: 50px;">500px</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-primary">Video nền Banner (.mp4)</label>
+                            <div class="p-3 border rounded bg-light border-primary border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="mt_bannerVideoFile" accept="video/*">
+                                <div class="progress d-none" id="mt_bannerVideoProgress" style="height: 5px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-sm btn-outline-danger me-auto" onclick="resetMovieTabBanner()">Khôi phục Mặc định</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4" onclick="saveMovieTabBanner()">Lưu Banner Movie Tab</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPOTLIGHT BANNER MODAL -->
+    <div class="modal fade" id="spotlightSettingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-lightning-fill me-2"></i>Cài đặt Banner Spotlight</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small">Tên phim / Tiêu đề Logo</label>
+                            <input type="text" class="form-control" id="sl_bannerTitle" placeholder="Ví dụ: INTERSTELLAR">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Năm & Thể loại</label>
+                            <input type="text" class="form-control" id="sl_bannerMeta" placeholder="2014 • Sci-Fi">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold small">Mô tả ngắn</label>
+                            <textarea class="form-control" id="sl_bannerDesc" rows="3" placeholder="Tóm tắt phim..."></textarea>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-warning">Ảnh Logo Tên Phim (Upload PNG không nền)</label>
+                            <div class="p-3 border rounded bg-light border-warning border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="sl_bannerLogoFile" accept="image/*">
+                                <div id="sl_bannerLogoStatus" class="small text-muted">Tải lên logo dạng PNG để hiển thị đẹp nhất.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-primary">Video Trailer bên trái (.mp4)</label>
+                            <div class="p-3 border rounded bg-light border-primary border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="sl_bannerVideoFile" accept="video/*">
+                                <div id="sl_bannerVideoStatus" class="small text-muted mb-2">Video này sẽ hiển thị ở phần 75% bên trái.</div>
+                                <div class="progress d-none" id="sl_bannerVideoProgress" style="height: 5px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-info">Ảnh nhân vật bên phải (Upload PNG)</label>
+                            <div class="p-3 border rounded bg-light border-info border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="sl_bannerCharFile" accept="image/*">
+                                <div id="sl_bannerCharStatus" class="small text-muted">Ảnh nhân vật chồng lên trailer.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-sm btn-outline-danger me-auto" onclick="resetSpotlightBanner()">Khôi phục Mặc định</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" onclick="saveSpotlightBanner()">Lưu Banner Spotlight</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERIES TAB BANNER MODAL -->
+    <div class="modal fade" id="seriesTabSettingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-success"><i class="bi bi-collection-play-fill me-2"></i>Cài đặt Banner Tab Phim Bộ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold small">Tên phim (Hiển thị rất lớn)</label>
+                            <input type="text" class="form-control" id="st_bannerTitle" placeholder="Ví dụ: SHOGUN">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small">Nhãn góc trái (Ví dụ: NEW SERIES)</label>
+                            <input type="text" class="form-control" id="st_bannerTopBadge" placeholder="Ví dụ: NEW SERIES">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold small">Mô tả ngắn</label>
+                            <textarea class="form-control" id="st_bannerDesc" rows="3" placeholder="Tóm tắt phim..."></textarea>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-warning">Ảnh Logo Tên Phim (Tùy chọn)</label>
+                            <div class="p-3 border rounded bg-light border-warning border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="st_bannerLogoFile" accept="image/*">
+                                <div class="mt-2 mb-2 d-flex align-items-center gap-3">
+                                    <label class="small text-muted mb-0 fw-bold" style="white-space: nowrap;">Kích thước Logo:</label>
+                                    <input type="range" class="form-range" id="st_bannerLogoSize" min="200" max="800" step="10" value="500" oninput="document.getElementById('st_bannerLogoSizeVal').innerText = this.value + 'px'">
+                                    <span id="st_bannerLogoSizeVal" class="small fw-bold text-primary" style="min-width: 50px;">500px</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <label class="form-label fw-bold small text-primary">Video nền Banner (.mp4)</label>
+                            <div class="p-3 border rounded bg-light border-primary border-opacity-25">
+                                <input type="file" class="form-control form-control-sm mb-2" id="st_bannerVideoFile" accept="video/*">
+                                <div class="progress d-none" id="st_bannerVideoProgress" style="height: 5px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-sm btn-outline-danger me-auto" onclick="resetSeriesTabBanner()">Khôi phục Mặc định</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4" onclick="saveSeriesTabBanner()">Lưu Banner Series Tab</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -514,15 +854,43 @@
         let currentMovieId = null;
         let currentSeasonId = null;
 
+        let adminFilter = 'all';
+        let adminSearchQuery = '';
+
         function renderAdminTable() {
             let html = '';
-            adminMovies.forEach(m => {
+            let filtered = adminMovies;
+            
+            if (adminFilter !== 'all') {
+                filtered = filtered.filter(m => {
+                    if (adminFilter === 'ComingSoon') return !!m.isComingSoon;
+                    const isSeries = (m.type === 'Series' || (m.seasons && m.seasons.length > 0));
+                    const isMovie = (m.type === 'Movie' || (!m.type && !(m.seasons && m.seasons.length > 0)));
+                    return adminFilter === 'Series' ? isSeries : isMovie;
+                });
+            }
+
+            if (adminSearchQuery) {
+                const q = adminSearchQuery.toLowerCase();
+                filtered = filtered.filter(m => 
+                    m.title.toLowerCase().includes(q) || 
+                    (m.subtitle && m.subtitle.toLowerCase().includes(q))
+                );
+            }
+
+            filtered.forEach(m => {
+                const isSeries = (m.type === 'Series' || (m.seasons && m.seasons.length > 0));
+                const typeIcon = isSeries ? 'bi-collection-play' : 'bi-film';
+                const typeColor = isSeries ? 'text-success' : 'text-primary';
+                
                 html += `
                     <tr>
                         <td><img src="${m.poster}" alt=""></td>
                         <td>
                             <div class="fw-bold">${m.title}</div>
-                            <div class="small text-muted">${m.genre}</div>
+                            <div class="small text-muted d-flex align-items-center gap-1">
+                                <i class="bi ${typeIcon} ${typeColor}"></i> ${m.genre}
+                            </div>
                         </td>
                         <td>${m.year}</td>
                         <td><span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i>${m.rating}</span></td>
@@ -533,8 +901,21 @@
                     </tr>
                 `;
             });
-            $('#admin-table tbody').html(html);
+            $('#admin-table tbody').html(html || '<tr><td colspan="5" class="text-center py-5 opacity-50">Không tìm thấy nội dung phù hợp</td></tr>');
         }
+
+        // Filter and Search Events
+        $(document).on('click', '.admin-filter-btn', function() {
+            $('.admin-filter-btn').removeClass('active btn-primary text-white').addClass('btn-sm');
+            $(this).addClass('active btn-primary text-white');
+            adminFilter = $(this).data('filter');
+            renderAdminTable();
+        });
+
+        $(document).on('input', '#adminSearch', function() {
+            adminSearchQuery = $(this).val().trim();
+            renderAdminTable();
+        });
 
         function openAddModal() {
             currentMovieId = null;
@@ -548,6 +929,9 @@
             $('#movieType').val('Movie');
             $('#movieDuration').val('');
             $('.movie-tag').prop('checked', false);
+            $('#movieTrending').prop('checked', false);
+            $('#movieFeatured').prop('checked', false);
+            $('#movieComingSoon').prop('checked', false);
             $('#modalTitle').text('Thêm phim mới');
             
             updateMovieCastUI();
@@ -556,6 +940,11 @@
             $('#seasons-list').html('');
             $('#season-detail-area').addClass('d-none');
             $('#no-season-msg').removeClass('d-none');
+            
+            // Initial label sync
+            const isSeries = $('#movieType').val() === 'Series';
+            $('#tab-eps-label').text(isSeries ? 'Episodes' : 'Movies');
+
             movieModal.show();
         }
 
@@ -580,6 +969,8 @@
                 $('#movieDesc').val(movie.description);
                 $('#moviePreview').val(movie.preview || '');
                 $('#movieTrending').prop('checked', !!movie.isTrending);
+                $('#movieComingSoon').prop('checked', !!movie.isComingSoon);
+                $('#movieFeatured').prop('checked', !!movie.isFeatured);
                 $('#movieBadge').val(movie.badge || '');
                 $('#movieCreator').val(movie.creator || '');
                 
@@ -784,6 +1175,17 @@
             renderEpisodes();
             renderSeasonCast();
             renderSeasonPhotos();
+            
+            // Dynamic Labels based on Global Movie Type
+            const movieGlobalType = $('#movieType').val(); // 'Movie' or 'Series'
+            const isSeries = movieGlobalType === 'Series';
+            
+            // Update Tab Label & Header
+            $('#tab-eps-label').text(isSeries ? 'Episodes' : 'Movies');
+            $('#ep-add-title').text(isSeries ? 'Thêm tập mới' : 'Thêm phim điện ảnh mới');
+            $('#epTitle').attr('placeholder', isSeries ? 'Tên tập' : 'Tên phim lẻ');
+            $('#ep-add-btn').text(isSeries ? 'Thêm tập' : 'Thêm phim');
+            
             $('#season-detail-area').removeClass('d-none');
             $('#no-season-msg').addClass('d-none');
         }
@@ -937,6 +1339,7 @@
                         <img src="${thumb}" style="width: 80px; height: 45px; object-fit: cover; border-radius: 4px;">
                         <div class="flex-grow-1 overflow-hidden">
                             <div class="small fw-bold text-truncate">${ep.title}</div>
+                            <div class="small text-warning mt-1"><i class="bi bi-star-fill"></i> ${ep.rating || 'N/A'} <span class="text-muted">/ 10</span></div>
                         </div>
                         <div class="d-flex gap-2">
                             <button class="btn btn-sm btn-outline-info p-1 px-2 rounded-pill small" onclick="openAdvancedEpEditor(${i})" style="font-size: 10px;">Chi tiết</button>
@@ -957,7 +1360,7 @@
                 title: $('#epTitle').val(),
                 embed: $('#epEmbed').val(),
                 thumb: $('#epThumb').val(),
-                rating: 9.0,
+                rating: $('#epRating').val() ? parseFloat($('#epRating').val()) : 9.0,
                 date: new Date().toLocaleDateString(),
                 cast: [], // Array of {name, role, photo}
                 photos: [], // Array of URL strings
@@ -1027,6 +1430,8 @@
                 description: $('#movieDesc').val(),
                 preview: $('#moviePreview').val(),
                 isTrending: $('#movieTrending').is(':checked'),
+                isComingSoon: $('#movieComingSoon').is(':checked'),
+                isFeatured: $('#movieFeatured').is(':checked'),
                 badge: $('#movieBadge').val(),
                 creator: $('#movieCreator').val(),
                 cast: currentMovieCast,
@@ -1057,7 +1462,15 @@
             }
         }
 
-        $(document).ready(() => renderAdminTable());
+        $(document).ready(() => {
+            renderAdminTable();
+            
+            // Real-time label updates for Movie Type
+            $('#movieType').on('change', function() {
+                const isSeries = $(this).val() === 'Series';
+                $('#tab-eps-label').text(isSeries ? 'Episodes' : 'Movies');
+            });
+        });
 
         const advEpModal = new bootstrap.Modal(document.getElementById('advancedEpModal'));
         let editingEpIndex = null;
@@ -1231,7 +1644,12 @@
                 const db = await openVideoDB();
                 const tx = db.transaction(STORE_NAME, 'readwrite');
                 const store = tx.objectStore(STORE_NAME);
-                await store.put(file, storageId);
+                
+                await new Promise((resolve, reject) => {
+                    const req = store.put(file, storageId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => reject(req.error);
+                });
                 
                 movie.localVideo = `indexeddb://${storageId}`;
                 $('#movieUploadStatus').text('Thành công: ' + file.name);
@@ -1322,6 +1740,641 @@
                 alert("Lỗi khi lưu trailer.");
             }
         });
+
+        // --- HOME BANNER SETTINGS ---
+        $('#settingsModal').on('show.bs.modal', function () {
+            const savedDataStr = localStorage.getItem('custom_hero_banner_data');
+            if (savedDataStr) {
+                try {
+                    const data = JSON.parse(savedDataStr);
+                    $('#bannerTitle').val(data.title || '');
+                    $('#bannerTopBadge').val(data.topBadge || '');
+                    $('#bannerLogoSize').val(data.logoSize || '500');
+                    $('#bannerLogoSizeVal').text((data.logoSize || '500') + 'px');
+                    $('#bannerRating').val(data.rating || '');
+                    $('#bannerYear').val(data.year || '');
+                    $('#bannerBadge').val(data.badge || '');
+                    $('#bannerDesc').val(data.desc || '');
+                } catch (e) {
+                    console.error("Error parsing banner data", e);
+                }
+            }
+        });
+
+        $(document).on('change', '#bannerLogoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const logoId = 'custom_hero_banner_logo';
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                
+                await new Promise((resolve, reject) => {
+                    const req = store.put(file, logoId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => reject(req.error);
+                });
+
+                $('#bannerLogoStatus').text('Thành công: Đã lưu Logo ' + file.name).addClass('text-success');
+                localStorage.setItem('has_custom_hero_logo', 'true');
+            } catch (err) {
+                alert("Lỗi khi lưu logo.");
+            }
+        });
+
+        $(document).on('change', '#globalBgVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const videoId = 'custom_hero_banner_video';
+            $('#globalBgStatus').text('Đang tải lên: ' + file.name);
+            $('#globalBgProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+
+                await new Promise((resolve, reject) => {
+                    const req = store.put(file, videoId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => reject(req.error);
+                });
+
+                $('#globalBgStatus').text('Thành công: ' + file.name);
+                $('#globalBgProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                localStorage.setItem('has_custom_hero_video', 'true');
+            } catch (err) {
+                alert("Lỗi khi lưu video.");
+            }
+        });
+
+        function saveHeroBanner() {
+            const data = {
+                title: $('#bannerTitle').val(),
+                topBadge: $('#bannerTopBadge').val(),
+                logoSize: $('#bannerLogoSize').val(),
+                rating: $('#bannerRating').val(),
+                year: $('#bannerYear').val(),
+                badge: $('#bannerBadge').val(),
+                desc: $('#bannerDesc').val()
+            };
+            localStorage.setItem('custom_hero_banner_data', JSON.stringify(data));
+            alert("Đã lưu Banner Home!");
+            $('#settingsModal').modal('hide');
+        }
+
+        async function resetGlobalBg() {
+            if (!confirm("Khôi phục mặc định?")) return;
+            const db = await openVideoDB();
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            const store = tx.objectStore(STORE_NAME);
+            await store.delete('custom_hero_banner_video');
+            await store.delete('custom_hero_banner_logo');
+            localStorage.removeItem('has_custom_hero_video');
+            localStorage.removeItem('has_custom_hero_logo');
+            localStorage.removeItem('custom_hero_banner_data');
+            location.reload();
+        }
+
+        // --- TOP RATED BANNER SETTINGS ---
+        $('#topRatedSettingsModal').on('show.bs.modal', function () {
+            const savedDataStr = localStorage.getItem('custom_top_rated_banner_data');
+            if (savedDataStr) {
+                try {
+                    const data = JSON.parse(savedDataStr);
+                    $('#tr_bannerTitle').val(data.title || '');
+                    $('#tr_bannerTopBadge').val(data.topBadge || '');
+                    $('#tr_bannerLogoSize').val(data.logoSize || '500');
+                    $('#tr_bannerLogoSizeVal').text((data.logoSize || '500') + 'px');
+                    $('#tr_bannerRating').val(data.rating || '');
+                    $('#tr_bannerYear').val(data.year || '');
+                    $('#tr_bannerBadge').val(data.badge || '');
+                    $('#tr_bannerDesc').val(data.desc || '');
+                } catch (e) {
+                    console.error("Error parsing top rated banner data", e);
+                }
+            }
+        });
+
+        $(document).on('change', '#tr_bannerLogoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const logoId = 'custom_top_rated_banner_logo';
+            $('#tr_bannerLogoStatus').text('Đang tải lên logo: ' + file.name);
+
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                
+                await new Promise((resolve, reject) => {
+                    const req = store.put(file, logoId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => reject(req.error);
+                });
+                
+                $('#tr_bannerLogoStatus').text('Thành công: Đã lưu Logo ' + file.name).addClass('text-success');
+                localStorage.setItem('has_custom_top_rated_logo', 'true');
+            } catch (err) {
+                console.error(err);
+                $('#tr_bannerLogoStatus').text('Lỗi khi tải lên logo.');
+                alert("Lỗi khi lưu logo banner.");
+            }
+        });
+
+        $(document).on('change', '#tr_bannerVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const videoId = 'custom_top_rated_banner_video';
+            $('#tr_bannerVideoStatus').text('Đang tải lên: ' + file.name);
+            $('#tr_bannerVideoProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+
+                await new Promise((resolve, reject) => {
+                    const req = store.put(file, videoId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => reject(req.error);
+                });
+                
+                $('#tr_bannerVideoStatus').text('Thành công: ' + file.name);
+                $('#tr_bannerVideoProgress').find('.progress-bar').css('width', '100%').removeClass('bg-primary').addClass('bg-success');
+                localStorage.setItem('has_custom_top_rated_video', 'true');
+            } catch (err) {
+                console.error(err);
+                $('#tr_bannerVideoStatus').text('Lỗi khi tải lên video.');
+                alert("Lỗi khi lưu video nền banner.");
+            }
+        });
+
+        function saveTopRatedBanner() {
+            const title = $('#tr_bannerTitle').val();
+            const topBadge = $('#tr_bannerTopBadge').val() || "TOP 1 RATED";
+            const logoSize = $('#tr_bannerLogoSize').val() || "500";
+            const rating = $('#tr_bannerRating').val();
+            const year = $('#tr_bannerYear').val();
+            const badge = $('#tr_bannerBadge').val();
+            const desc = $('#tr_bannerDesc').val();
+
+            if (!title) {
+                alert("Vui lòng nhập Tên phim cho Banner!");
+                return;
+            }
+
+            const bannerData = {
+                title: title,
+                topBadge: topBadge,
+                logoSize: logoSize,
+                rating: rating,
+                year: year,
+                badge: badge,
+                desc: desc
+            };
+
+            localStorage.setItem('custom_top_rated_banner_data', JSON.stringify(bannerData));
+            alert("Đã lưu cài đặt Banner Top Rated thành công!");
+            $('#topRatedSettingsModal').modal('hide');
+        }
+
+        async function resetTopRatedBanner() {
+            if (!confirm("Bạn có chắc muốn khôi phục Banner Top Rated về mặc định?")) return;
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                
+                try { await store.delete('custom_top_rated_banner_video'); } catch(e) {}
+                try { await store.delete('custom_top_rated_banner_logo'); } catch(e) {}
+                
+                localStorage.removeItem('has_custom_top_rated_video');
+                localStorage.removeItem('has_custom_top_rated_logo');
+                localStorage.removeItem('custom_top_rated_banner_data');
+                
+                alert("Đã khôi phục mặc định.");
+                location.reload();
+            } catch (err) {
+                alert("Lỗi khi xóa cấu hình.");
+            }
+        }
+
+        // --- MOVIE TAB BANNER LOGIC ---
+        $('#movieTabSettingsModal').on('show.bs.modal', function () {
+            const savedDataStr = localStorage.getItem('custom_movie_tab_banner_data');
+            if (savedDataStr) {
+                const data = JSON.parse(savedDataStr);
+                $('#mt_bannerTitle').val(data.title || '');
+                $('#mt_bannerTopBadge').val(data.topBadge || '');
+                $('#mt_bannerLogoSize').val(data.logoSize || '500');
+                $('#mt_bannerLogoSizeVal').text((data.logoSize || '500') + 'px');
+                $('#mt_bannerDesc').val(data.desc || '');
+            }
+        });
+
+        // --- MOVIE TAB BANNER LOGIC ---
+        $('#movieTabSettingsModal').on('show.bs.modal', function () {
+            const savedDataStr = localStorage.getItem('custom_movie_tab_banner_data');
+            if (savedDataStr) {
+                const data = JSON.parse(savedDataStr);
+                $('#mt_bannerTitle').val(data.title || '');
+                $('#mt_bannerTopBadge').val(data.topBadge || '');
+                $('#mt_bannerLogoSize').val(data.logoSize || '500');
+                $('#mt_bannerLogoSizeVal').text((data.logoSize || '500') + 'px');
+                $('#mt_bannerDesc').val(data.desc || '');
+            }
+        });
+
+        $(document).on('change', '#mt_bannerLogoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_movie_tab_banner_logo');
+                localStorage.setItem('has_custom_movie_tab_logo', 'true');
+                alert("Đã lưu logo thành công!");
+            } catch (err) { alert("Lỗi khi lưu logo."); }
+        });
+
+        $(document).on('change', '#mt_bannerVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            $('#mt_bannerVideoProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_movie_tab_banner_video');
+                $('#mt_bannerVideoProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                localStorage.setItem('has_custom_movie_tab_video', 'true');
+                alert("Đã lưu video thành công!");
+            } catch (err) { alert("Lỗi khi lưu video."); }
+        });
+
+        function saveMovieTabBanner() {
+            const data = {
+                title: $('#mt_bannerTitle').val(),
+                topBadge: $('#mt_bannerTopBadge').val(),
+                logoSize: $('#mt_bannerLogoSize').val(),
+                desc: $('#mt_bannerDesc').val()
+            };
+            localStorage.setItem('custom_movie_tab_banner_data', JSON.stringify(data));
+            alert("Đã lưu Banner Tab Phim Lẻ!");
+            $('#movieTabSettingsModal').modal('hide');
+        }
+
+        async function resetMovieTabBanner() {
+            if (!confirm("Khôi phục mặc định?")) return;
+            const db = await openVideoDB();
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            const store = tx.objectStore(STORE_NAME);
+            await store.delete('custom_movie_tab_banner_video');
+            await store.delete('custom_movie_tab_banner_logo');
+            localStorage.removeItem('has_custom_movie_tab_video');
+            localStorage.removeItem('has_custom_movie_tab_logo');
+            localStorage.removeItem('custom_movie_tab_banner_data');
+            location.reload();
+        }
+
+        // --- SERIES TAB BANNER LOGIC ---
+        $('#seriesTabSettingsModal').on('show.bs.modal', function () {
+            const savedDataStr = localStorage.getItem('custom_series_tab_banner_data');
+            if (savedDataStr) {
+                const data = JSON.parse(savedDataStr);
+                $('#st_bannerTitle').val(data.title || '');
+                $('#st_bannerTopBadge').val(data.topBadge || '');
+                $('#st_bannerLogoSize').val(data.logoSize || '500');
+                $('#st_bannerLogoSizeVal').text((data.logoSize || '500') + 'px');
+                $('#st_bannerDesc').val(data.desc || '');
+            }
+        });
+
+        $(document).on('change', '#st_bannerLogoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_series_tab_banner_logo');
+                localStorage.setItem('has_custom_series_tab_logo', 'true');
+                alert("Đã lưu logo thành công!");
+            } catch (err) { alert("Lỗi khi lưu logo."); }
+        });
+
+        $(document).on('change', '#st_bannerVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            $('#st_bannerVideoProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_series_tab_banner_video');
+                $('#st_bannerVideoProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                localStorage.setItem('has_custom_series_tab_video', 'true');
+                alert("Đã lưu video thành công!");
+            } catch (err) { alert("Lỗi khi lưu video."); }
+        });
+
+        function saveSeriesTabBanner() {
+            const data = {
+                title: $('#st_bannerTitle').val(),
+                topBadge: $('#st_bannerTopBadge').val(),
+                logoSize: $('#st_bannerLogoSize').val(),
+                desc: $('#st_bannerDesc').val()
+            };
+            localStorage.setItem('custom_series_tab_banner_data', JSON.stringify(data));
+            alert("Đã lưu Banner Tab Phim Bộ!");
+            $('#seriesTabSettingsModal').modal('hide');
+        }
+
+        // --- SPOTLIGHT BANNER SETTINGS ---
+        $('#spotlightSettingsModal').on('show.bs.modal', function () {
+            const savedDataStr = localStorage.getItem('custom_spotlight_banner_data');
+            if (savedDataStr) {
+                try {
+                    const data = JSON.parse(savedDataStr);
+                    $('#sl_bannerTitle').val(data.title || '');
+                    $('#sl_bannerMeta').val(data.meta || '');
+                    $('#sl_bannerDesc').val(data.desc || '');
+                } catch (e) {}
+            }
+        });
+
+        $(document).on('change', '#sl_bannerLogoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            $('#sl_bannerLogoStatus').text('Đang tải lên logo...');
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_spotlight_logo');
+                localStorage.setItem('has_custom_spotlight_logo', 'true');
+                $('#sl_bannerLogoStatus').text('Đã tải lên: ' + file.name).addClass('text-success');
+            } catch (err) { alert("Lỗi khi lưu logo."); }
+        });
+
+        $(document).on('change', '#sl_bannerCharFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            $('#sl_bannerCharStatus').text('Đang tải lên ảnh nhân vật...');
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_spotlight_char');
+                localStorage.setItem('has_custom_spotlight_char', 'true');
+                $('#sl_bannerCharStatus').text('Đã tải lên: ' + file.name).addClass('text-success');
+            } catch (err) { alert("Lỗi khi lưu ảnh nhân vật."); }
+        });
+
+        $(document).on('change', '#sl_bannerVideoFile', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            $('#sl_bannerVideoProgress').removeClass('d-none').find('.progress-bar').css('width', '50%');
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                await store.put(file, 'custom_spotlight_video');
+                $('#sl_bannerVideoProgress').find('.progress-bar').css('width', '100%').addClass('bg-success');
+                localStorage.setItem('has_custom_spotlight_video', 'true');
+                $('#sl_bannerVideoStatus').text('Đã tải lên video: ' + file.name).addClass('text-success');
+            } catch (err) { alert("Lỗi khi lưu video."); }
+        });
+
+        function saveSpotlightBanner() {
+            const data = {
+                title: $('#sl_bannerTitle').val(),
+                meta: $('#sl_bannerMeta').val(),
+                desc: $('#sl_bannerDesc').val()
+            };
+            localStorage.setItem('custom_spotlight_banner_data', JSON.stringify(data));
+            localStorage.setItem('has_custom_spotlight', 'true');
+            alert("Đã lưu Banner Spotlight!");
+            $('#spotlightSettingsModal').modal('hide');
+        }
+
+        async function resetSpotlightBanner() {
+            if (!confirm("Khôi phục mặc định?")) return;
+            const db = await openVideoDB();
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            const store = tx.objectStore(STORE_NAME);
+            await store.delete('custom_spotlight_video');
+            await store.delete('custom_spotlight_logo');
+            await store.delete('custom_spotlight_char');
+            localStorage.removeItem('has_custom_spotlight_video');
+            localStorage.removeItem('has_custom_spotlight_logo');
+            localStorage.removeItem('has_custom_spotlight_char');
+            localStorage.removeItem('has_custom_spotlight');
+            localStorage.removeItem('custom_spotlight_banner_data');
+            location.reload();
+        }
+
+        async function resetSeriesTabBanner() {
+            if (!confirm("Khôi phục mặc định?")) return;
+            const db = await openVideoDB();
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            const store = tx.objectStore(STORE_NAME);
+            await store.delete('custom_series_tab_banner_video');
+            await store.delete('custom_series_tab_banner_logo');
+            localStorage.removeItem('has_custom_series_tab_video');
+            localStorage.removeItem('has_custom_series_tab_logo');
+            localStorage.removeItem('custom_series_tab_banner_data');
+            location.reload();
+        }
+
+    </script>
+
+    <!-- MODAL CÀI ĐẶT AWARDS (PLACEHOLDER FOR UI) -->
+    <div class="modal fade" id="awardsSettingsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header py-3">
+                    <h5 class="modal-title fw-bold text-warning"><i class="bi bi-trophy-fill me-2"></i>Quản lý Giải Thưởng (Awards)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="alert alert-info border-0 rounded-4 shadow-sm mb-4">
+                        <i class="bi bi-info-circle-fill me-2"></i> Tại đây bạn có thể cấu hình phim chiến thắng cho từng hạng mục giải thưởng.
+                    </div>
+                    <div class="row g-4" id="awards-config-container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-warning rounded-pill px-4 fw-bold" onclick="saveAwardsConfig()">Hoàn tất</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editAwardModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow rounded-4">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Chỉnh sửa phim đoạt giải</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editAwardKey">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Trailer Video</label>
+                        <input type="file" class="form-control" id="awardWinnerVideoFile" accept="video/*">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Logo Phim (Ảnh)</label>
+                        <input type="file" class="form-control" id="awardWinnerLogoFile" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Năm (VD: 2024)</label>
+                        <input type="text" class="form-control" id="awardYear" placeholder="Để trống sẽ dùng mặc định">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label fw-bold">Tên tác giả (Trái)</label>
+                            <input type="text" class="form-control" id="awardAuthor" placeholder="VD: Anime Awards">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold">Đề cử (Phải)</label>
+                            <input type="text" class="form-control" id="awardCategory" placeholder="VD: Anime of the Year">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mô tả thêm (Tùy chọn)</label>
+                        <textarea class="form-control" id="awardDesc" rows="2" placeholder="Nhập mô tả hoặc để trống"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary w-100 rounded-pill py-2 fw-bold" onclick="applyAwardEdit()">Cập nhật hạng mục</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // --- AWARDS MANAGEMENT LOGIC ---
+        const awardKeys = ['all', 'oscars', 'anime', 'golden', 'cannes', 'emmy'];
+        const awardNames = {
+            'all': 'Award Home (Trang chủ Giải thưởng)',
+            'oscars': 'Academy Awards (Oscars)',
+            'anime': 'Crunchyroll Anime Awards',
+            'golden': 'Golden Globe Awards',
+            'cannes': 'Liên hoan phim Cannes',
+            'emmy': 'Emmy Awards'
+        };
+
+        $(document).ready(function() {
+            $(document).on('shown.bs.modal', '#awardsSettingsModal', function () {
+                renderAwardsConfigList();
+            });
+        });
+
+        function renderAwardsConfigList() {
+            const savedConfig = JSON.parse(localStorage.getItem('custom_awards_config') || '{}');
+            let html = '';
+            awardKeys.forEach(key => {
+                const data = savedConfig[key] || { title: 'Chưa có', desc: '' };
+                html += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border shadow-sm rounded-4 p-3 position-relative bg-white text-dark">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0 text-primary">${awardNames[key]}</h6>
+                                    <small class="text-muted">ID: ${key}</small>
+                                </div>
+                                <i class="bi bi-trophy text-warning fs-4"></i>
+                            </div>
+                            <div class="mb-3">
+                                <p class="mb-1 small fw-bold text-secondary">Người thắng giải:</p>
+                                <p class="mb-0 text-dark fw-bold">${data.title}</p>
+                                <div class="mt-2 d-flex flex-wrap gap-1">
+                                    ${data.hasVideo ? `<small class="badge bg-success-subtle text-success border border-success-subtle">Có Video</small>` : ''}
+                                    ${data.hasLogo ? `<small class="badge bg-info-subtle text-info border border-info-subtle">Có Logo</small>` : ''}
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary rounded-pill w-100 mt-auto" onclick="openEditAward('${key}')">
+                                <i class="bi bi-pencil-square me-1"></i> Cấu hình hạng mục này
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#awards-config-container').html(html);
+        }
+
+        function openEditAward(key) {
+            $('#editAwardKey').val(key);
+            const config = JSON.parse(localStorage.getItem('custom_awards_config') || '{}');
+            const data = config[key] || {};
+            $('#awardYear').val(data.year || '');
+            $('#awardAuthor').val(data.author || '');
+            $('#awardCategory').val(data.category || '');
+            $('#awardDesc').val(data.desc || '');
+            $('#awardWinnerVideoFile').val('');
+            $('#awardWinnerLogoFile').val('');
+            $('#editAwardModal').modal('show');
+        }
+
+        async function applyAwardEdit() {
+            const key = $('#editAwardKey').val();
+            const config = JSON.parse(localStorage.getItem('custom_awards_config') || '{}');
+            
+            config[key] = config[key] || {};
+
+            const awardYear = $('#awardYear').val();
+            const awardAuthor = $('#awardAuthor').val();
+            const awardCategory = $('#awardCategory').val();
+            const awardDesc = $('#awardDesc').val();
+            
+            if (awardYear) config[key].year = awardYear;
+            if (awardAuthor !== undefined) config[key].author = awardAuthor;
+            if (awardCategory !== undefined) config[key].category = awardCategory;
+            if (awardDesc !== undefined) config[key].desc = awardDesc; // allow empty
+
+            const videoFile = $('#awardWinnerVideoFile')[0].files[0];
+            const logoFile = $('#awardWinnerLogoFile')[0].files[0];
+
+            try {
+                const db = await openVideoDB();
+                
+                const putData = (file, keyName) => new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    const req = store.put(file, keyName);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => reject(req.error);
+                });
+
+                if (videoFile) {
+                    await putData(videoFile, `award_video_${key}`);
+                    config[key].hasVideo = true;
+                }
+                if (logoFile) {
+                    await putData(logoFile, `award_logo_${key}`);
+                    config[key].hasLogo = true;
+                }
+
+                localStorage.setItem('custom_awards_config', JSON.stringify(config));
+                alert("Đã cập nhật hạng mục: " + awardNames[key]);
+                $('#editAwardModal').modal('hide');
+                renderAwardsConfigList();
+            } catch (err) {
+                console.error(err);
+                alert("Lỗi khi lưu cấu hình: " + err.message);
+            }
+        }
+
+        function saveAwardsConfig() {
+            alert("Đã lưu cấu hình Awards thành công!");
+            $('#awardsSettingsModal').modal('hide');
+            location.reload();
+        }
     </script>
 </body>
 </html>
