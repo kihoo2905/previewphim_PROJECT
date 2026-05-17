@@ -34,6 +34,12 @@
                 <button class="btn btn-outline-danger btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#spotlightSettingsModal">
                     <i class="bi bi-lightning-fill me-1"></i> Banner Spotlight
                 </button>
+                <button class="btn btn-outline-danger btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#netflixSpotlightAdminModal">
+                    <i class="bi bi-play-circle-fill me-1"></i> Spotlight Netflix
+                </button>
+                <button class="btn btn-sm rounded-pill px-3" style="border-color:#3b82f6;color:#3b82f6;" data-bs-toggle="modal" data-bs-target="#actionSpotlightAdminModal">
+                    <i class="bi bi-play-circle-fill me-1"></i> Spotlight Action
+                </button>
                 <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#seriesTabSettingsModal">
                     <i class="bi bi-collection-play-fill me-1"></i> Banner Phim Bộ
                 </button>
@@ -70,6 +76,7 @@
                 <table class="table table-hover align-middle" id="admin-table">
                     <thead>
                         <tr class="text-secondary small text-uppercase">
+                            <th>ID</th>
                             <th>Poster</th>
                             <th>Phim</th>
                             <th>Năm</th>
@@ -129,7 +136,43 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label small fw-bold">Thể loại chính</label>
-                                                <input type="text" class="form-control" id="movieGenre" required>
+                                                <input type="text" class="form-control" id="movieGenre" list="genreSuggestions" autocomplete="off" placeholder="Nhập để tìm thể loại..." required>
+                                                <datalist id="genreSuggestions">
+                                                    <option value="Action">
+                                                    <option value="Adventure">
+                                                    <option value="Animation">
+                                                    <option value="Anime">
+                                                    <option value="Biography">
+                                                    <option value="Comedy">
+                                                    <option value="Crime">
+                                                    <option value="Documentary">
+                                                    <option value="Drama">
+                                                    <option value="Family">
+                                                    <option value="Fantasy">
+                                                    <option value="History">
+                                                    <option value="Horror">
+                                                    <option value="Musical">
+                                                    <option value="Mystery">
+                                                    <option value="Romance">
+                                                    <option value="Sci-Fi">
+                                                    <option value="Sport">
+                                                    <option value="Superhero">
+                                                    <option value="Thriller">
+                                                    <option value="War">
+                                                    <option value="Western">
+                                                    <option value="K-Drama">
+                                                    <option value="C-Drama">
+                                                    <option value="Slice of Life">
+                                                    <option value="Psychological">
+                                                    <option value="Martial Arts">
+                                                    <option value="Survival">
+                                                    <option value="Isekai">
+                                                    <option value="Shounen">
+                                                    <option value="Shoujo">
+                                                    <option value="Mecha">
+                                                    <option value="Supernatural">
+                                                    <option value="Short Film">
+                                                </datalist>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label small fw-bold">Khu vực (Region)</label>
@@ -150,51 +193,51 @@
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label small fw-bold text-primary">Nhãn phụ (Tags)</label>
-                                                <div class="d-flex flex-wrap gap-3 p-3 border rounded bg-white shadow-sm">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Teen" id="tagTeen">
-                                                        <label class="form-check-label small" for="tagTeen">Teen</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="School" id="tagSchool">
-                                                        <label class="form-check-label small" for="tagSchool">Học đường</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Coming-of-age" id="tagComingOfAge">
-                                                        <label class="form-check-label small" for="tagComingOfAge">Coming-of-age</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Bromance" id="tagBromance">
-                                                        <label class="form-check-label small" for="tagBromance">Bromance</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="LGBTQ+" id="tagLGBTQ">
-                                                        <label class="form-check-label small" for="tagLGBTQ">LGBTQ+</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Live-action" id="tagLiveAction">
-                                                        <label class="form-check-label small" for="tagLiveAction">Live-action</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Mystery" id="tagMystery">
-                                                        <label class="form-check-label small" for="tagMystery">Mystery</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Thriller" id="tagThriller">
-                                                        <label class="form-check-label small" for="tagThriller">Thriller</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Fantasy" id="tagFantasy">
-                                                        <label class="form-check-label small" for="tagFantasy">Fantasy</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Action" id="tagAction">
-                                                        <label class="form-check-label small" for="tagAction">Action</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input movie-tag" type="checkbox" value="Horror" id="tagHorror">
-                                                        <label class="form-check-label small" for="tagHorror">Horror</label>
-                                                    </div>
+                                                <div class="row row-cols-3 g-2 p-3 border rounded bg-white shadow-sm" style="max-height:200px;overflow-y:auto;">
+                                                    <!-- Hành động / Phiêu lưu -->
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Action" id="tagAction"><label class="form-check-label small" for="tagAction">Action</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Adventure" id="tagAdventure"><label class="form-check-label small" for="tagAdventure">Adventure</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Martial Arts" id="tagMartialArts"><label class="form-check-label small" for="tagMartialArts">Martial Arts</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Survival" id="tagSurvival"><label class="form-check-label small" for="tagSurvival">Survival</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Superhero" id="tagSuperhero"><label class="form-check-label small" for="tagSuperhero">Superhero</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="War" id="tagWar"><label class="form-check-label small" for="tagWar">War</label></div></div>
+                                                    <!-- Tâm lý / Kinh dị -->
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Horror" id="tagHorror"><label class="form-check-label small" for="tagHorror">Horror</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Thriller" id="tagThriller"><label class="form-check-label small" for="tagThriller">Thriller</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Mystery" id="tagMystery"><label class="form-check-label small" for="tagMystery">Mystery</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Psychological" id="tagPsychological"><label class="form-check-label small" for="tagPsychological">Psychological</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Crime" id="tagCrime"><label class="form-check-label small" for="tagCrime">Crime</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Supernatural" id="tagSupernatural"><label class="form-check-label small" for="tagSupernatural">Supernatural</label></div></div>
+                                                    <!-- Tình cảm / Gia đình -->
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Romance" id="tagRomance"><label class="form-check-label small" for="tagRomance">Romance</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Drama" id="tagDrama"><label class="form-check-label small" for="tagDrama">Drama</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Family" id="tagFamily"><label class="form-check-label small" for="tagFamily">Family</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Teen" id="tagTeen"><label class="form-check-label small" for="tagTeen">Teen</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="School" id="tagSchool"><label class="form-check-label small" for="tagSchool">Học đường</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Coming-of-age" id="tagComingOfAge"><label class="form-check-label small" for="tagComingOfAge">Coming-of-age</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Bromance" id="tagBromance"><label class="form-check-label small" for="tagBromance">Bromance</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="LGBTQ+" id="tagLGBTQ"><label class="form-check-label small" for="tagLGBTQ">LGBTQ+</label></div></div>
+                                                    <!-- Khoa học / Viễn tưởng -->
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Sci-Fi" id="tagSciFi"><label class="form-check-label small" for="tagSciFi">Sci-Fi</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Fantasy" id="tagFantasy"><label class="form-check-label small" for="tagFantasy">Fantasy</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Isekai" id="tagIsekai"><label class="form-check-label small" for="tagIsekai">Isekai</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Mecha" id="tagMecha"><label class="form-check-label small" for="tagMecha">Mecha</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Time Travel" id="tagTimeTravel"><label class="form-check-label small" for="tagTimeTravel">Time Travel</label></div></div>
+                                                    <!-- Anime / Hoạt hình -->
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Anime" id="tagAnime"><label class="form-check-label small" for="tagAnime">Anime</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Shounen" id="tagShounen"><label class="form-check-label small" for="tagShounen">Shounen</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Shoujo" id="tagShoujo"><label class="form-check-label small" for="tagShoujo">Shoujo</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Animation" id="tagAnimation"><label class="form-check-label small" for="tagAnimation">Animation</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Live-action" id="tagLiveAction"><label class="form-check-label small" for="tagLiveAction">Live-action</label></div></div>
+                                                    <!-- Khác -->
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Comedy" id="tagComedy"><label class="form-check-label small" for="tagComedy">Comedy</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="History" id="tagHistory"><label class="form-check-label small" for="tagHistory">History</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Biography" id="tagBiography"><label class="form-check-label small" for="tagBiography">Biography</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Musical" id="tagMusical"><label class="form-check-label small" for="tagMusical">Musical</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Documentary" id="tagDocumentary"><label class="form-check-label small" for="tagDocumentary">Documentary</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Sport" id="tagSport"><label class="form-check-label small" for="tagSport">Sport</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Slice of Life" id="tagSliceOfLife"><label class="form-check-label small" for="tagSliceOfLife">Slice of Life</label></div></div>
+                                                    <div class="col"><div class="form-check"><input class="form-check-input movie-tag" type="checkbox" value="Western" id="tagWestern"><label class="form-check-label small" for="tagWestern">Western</label></div></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -234,6 +277,10 @@
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox" id="movieComingSoon">
                                                         <label class="form-check-label small fw-bold" for="movieComingSoon">Coming Soon</label>
+                                                    </div>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="movieNetflixExclusive">
+                                                        <label class="form-check-label small fw-bold text-danger" for="movieNetflixExclusive">Độc quyền Netflix</label>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <div class="input-group input-group-sm">
@@ -350,7 +397,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <label class="small fw-bold">Thể loại</label>
-                                                        <input type="text" class="form-control form-control-sm" id="seasonGenre" placeholder="Sci-Fi, Action">
+                                                        <input type="text" class="form-control form-control-sm" id="seasonGenre" list="genreSuggestions" autocomplete="off" placeholder="Nhập để tìm thể loại...">
                                                     </div>
                                                     <div class="col-6">
                                                         <label class="small fw-bold">Rating</label>
@@ -848,8 +895,11 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
     <script>
         let adminMovies = JSON.parse(localStorage.getItem('cinematic_movies')) || [];
+        adminMovies.sort((a, b) => a.id - b.id);
         const movieModal = new bootstrap.Modal(document.getElementById('movieModal'));
         let currentMovieId = null;
         let currentSeasonId = null;
@@ -878,13 +928,14 @@
                 );
             }
 
-            filtered.forEach(m => {
+            filtered.forEach((m, idx) => {
                 const isSeries = (m.type === 'Series' || (m.seasons && m.seasons.length > 0));
                 const typeIcon = isSeries ? 'bi-collection-play' : 'bi-film';
                 const typeColor = isSeries ? 'text-success' : 'text-primary';
                 
                 html += `
                     <tr>
+                        <td><strong class="text-secondary" style="font-size: 0.9rem;">#${idx + 1}</strong></td>
                         <td><img src="${m.poster}" alt=""></td>
                         <td>
                             <div class="fw-bold">${m.title}</div>
@@ -901,7 +952,7 @@
                     </tr>
                 `;
             });
-            $('#admin-table tbody').html(html || '<tr><td colspan="5" class="text-center py-5 opacity-50">Không tìm thấy nội dung phù hợp</td></tr>');
+            $('#admin-table tbody').html(html || '<tr><td colspan="6" class="text-center py-5 opacity-50">Không tìm thấy nội dung phù hợp</td></tr>');
         }
 
         // Filter and Search Events
@@ -932,6 +983,7 @@
             $('#movieTrending').prop('checked', false);
             $('#movieFeatured').prop('checked', false);
             $('#movieComingSoon').prop('checked', false);
+            $('#movieNetflixExclusive').prop('checked', false);
             $('#modalTitle').text('Thêm phim mới');
             
             updateMovieCastUI();
@@ -971,6 +1023,7 @@
                 $('#movieTrending').prop('checked', !!movie.isTrending);
                 $('#movieComingSoon').prop('checked', !!movie.isComingSoon);
                 $('#movieFeatured').prop('checked', !!movie.isFeatured);
+                $('#movieNetflixExclusive').prop('checked', !!movie.isNetflixExclusive);
                 $('#movieBadge').val(movie.badge || '');
                 $('#movieCreator').val(movie.creator || '');
                 
@@ -1432,6 +1485,7 @@
                 isTrending: $('#movieTrending').is(':checked'),
                 isComingSoon: $('#movieComingSoon').is(':checked'),
                 isFeatured: $('#movieFeatured').is(':checked'),
+                isNetflixExclusive: $('#movieNetflixExclusive').is(':checked'),
                 badge: $('#movieBadge').val(),
                 creator: $('#movieCreator').val(),
                 cast: currentMovieCast,
@@ -1443,12 +1497,21 @@
                 const index = adminMovies.findIndex(m => m.id == id);
                 if (index !== -1) {
                     adminMovies[index] = { ...adminMovies[index], ...movieData };
+                    // Đồng bộ lưu lên database
+                    if (typeof MovieAPI !== 'undefined') {
+                        MovieAPI.updateMovie(id, movieData).catch(err => console.error("Database update error:", err));
+                    }
                 }
             } else {
                 const newMovie = { id: Date.now(), ...movieData, seasons: [] };
                 adminMovies.push(newMovie);
+                // Đồng bộ tạo mới lên database
+                if (typeof MovieAPI !== 'undefined') {
+                    MovieAPI.createMovie(newMovie).catch(err => console.error("Database create error:", err));
+                }
             }
 
+            adminMovies.sort((a, b) => a.id - b.id);
             localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
             renderAdminTable();
             movieModal.hide();
@@ -1457,12 +1520,30 @@
         function deleteMovie(id) {
             if(confirm("Bạn có chắc muốn xóa phim này?")) {
                 adminMovies = adminMovies.filter(m => m.id != id);
+                // Đồng bộ xóa khỏi database
+                if (typeof MovieAPI !== 'undefined') {
+                    MovieAPI.deleteMovie(id).catch(err => console.error("Database delete error:", err));
+                }
                 localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
                 renderAdminTable();
             }
         }
 
-        $(document).ready(() => {
+        $(document).ready(async () => {
+            // Đồng bộ dữ liệu trực tiếp từ Database khi tải trang Admin
+            try {
+                if (typeof MovieAPI !== 'undefined') {
+                    const backendMovies = await MovieAPI.getAllMovies();
+                    if (backendMovies && Array.isArray(backendMovies) && backendMovies.length > 0) {
+                        adminMovies = backendMovies;
+                        adminMovies.sort((a, b) => a.id - b.id);
+                        localStorage.setItem('cinematic_movies', JSON.stringify(adminMovies));
+                    }
+                }
+            } catch (e) {
+                console.warn("⚠️ Không thể kết nối Database, sử dụng LocalStorage làm dự phòng.", e);
+            }
+
             renderAdminTable();
             
             // Real-time label updates for Movie Type
@@ -2374,6 +2455,265 @@
             alert("Đã lưu cấu hình Awards thành công!");
             $('#awardsSettingsModal').modal('hide');
             location.reload();
+        }
+    </script>
+
+    <!-- NETFLIX SPOTLIGHT ADMIN MODAL -->
+    <div class="modal fade" id="netflixSpotlightAdminModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header" style="background:#1a1a1a;">
+                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-play-circle-fill me-2"></i>Cấu hình Trailer Spotlight Netflix</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="background:#111; color:#eee;">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-warning">Tiêu đề phim</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="nsl_title" placeholder="Tên phim...">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small text-warning">Năm</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="nsl_year" placeholder="2024">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small text-warning">Rating</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="nsl_rating" placeholder="9.5">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-warning">Mô tả ngắn</label>
+                            <textarea class="form-control bg-dark text-white border-secondary" id="nsl_desc" rows="2" placeholder="Tóm tắt nội dung..."></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-warning">YouTube Video ID (nền)</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="nsl_youtubeId" placeholder="Ví dụ: dQw4w9WgXcQ">
+                            <div id="nsl_videoStatus" class="small text-muted mt-1">Trailer sẽ chạy nền ở Spotlight.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-warning">Nhãn Phụ (Badge)</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="nsl_exclusiveText" placeholder="EXCLUSIVE / HOT / NEW...">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-danger">Video MP4 (nền thay thế)</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="nsl_videoFile" accept="video/*">
+                            <div class="progress d-none mt-2" id="nsl_videoProgress" style="height:5px;"><div class="progress-bar bg-danger" style="width:0%"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-danger">Nhãn Phụ Spotlight & Card</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="nsl_tagLogoFile" accept="image/*">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-danger">Logo chính (thay tiêu đề)</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="nsl_logoFile" accept="image/*">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-danger">Mini Logo (góc card)</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="nsl_miniLogoFile" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background:#1a1a1a;">
+                    <button class="btn btn-sm btn-outline-danger me-auto" onclick="resetSpotlightAdmin('netflix')">Xóa cấu hình</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger text-white rounded-pill px-4" onclick="saveSpotlightAdmin('netflix')">Lưu Spotlight</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTION SPOTLIGHT ADMIN MODAL -->
+    <div class="modal fade" id="actionSpotlightAdminModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header" style="background:#1a1a2e;">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-play-circle-fill me-2 text-primary"></i>Cấu hình Trailer Spotlight Action</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="background:#0f0f23; color:#eee;">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-info">Tiêu đề phim</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="asl_title" placeholder="Tên phim...">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small text-info">Năm</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="asl_year" placeholder="2024">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small text-info">Rating</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="asl_rating" placeholder="9.5">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-info">Mô tả ngắn</label>
+                            <textarea class="form-control bg-dark text-white border-secondary" id="asl_desc" rows="2" placeholder="Tóm tắt nội dung..."></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-info">YouTube Video ID (nền)</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="asl_youtubeId" placeholder="Ví dụ: dQw4w9WgXcQ">
+                            <div id="asl_videoStatus" class="small text-muted mt-1">Trailer sẽ chạy nền ở Spotlight.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-info">Nhãn Phụ (Badge)</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="asl_exclusiveText" placeholder="EXCLUSIVE / HOT / NEW...">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-primary">Video MP4 (nền thay thế)</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="asl_videoFile" accept="video/*">
+                            <div class="progress d-none mt-2" id="asl_videoProgress" style="height:5px;"><div class="progress-bar bg-primary" style="width:0%"></div></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-primary">Nhãn Phụ Spotlight & Card</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="asl_tagLogoFile" accept="image/*">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-primary">Logo chính (thay tiêu đề)</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="asl_logoFile" accept="image/*">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-primary">Mini Logo (góc card)</label>
+                            <input type="file" class="form-control bg-dark text-white border-secondary" id="asl_miniLogoFile" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background:#1a1a2e;">
+                    <button class="btn btn-sm btn-outline-warning me-auto" onclick="resetSpotlightAdmin('action')">Xóa cấu hình</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-warning text-white rounded-pill px-4" onclick="saveSpotlightAdmin('action')">Lưu Spotlight</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DYNAMIC SPOTLIGHT ADMIN LOGIC ---
+        function getPrefix(type) { return type === 'netflix' ? 'nsl' : 'asl'; }
+
+        // Pre-fill modal with saved data on open
+        document.getElementById('netflixSpotlightAdminModal').addEventListener('show.bs.modal', function () { loadSpotlightModal('netflix'); });
+        document.getElementById('actionSpotlightAdminModal').addEventListener('show.bs.modal', function () { loadSpotlightModal('action'); });
+
+        function loadSpotlightModal(type) {
+            const prefix = getPrefix(type);
+            const data = JSON.parse(localStorage.getItem(`custom_spotlight_data_${type}`) || '{}');
+            document.getElementById(`${prefix}_title`).value = data.title || '';
+            document.getElementById(`${prefix}_year`).value = data.year || '';
+            document.getElementById(`${prefix}_rating`).value = data.rating || '';
+            document.getElementById(`${prefix}_desc`).value = data.desc || '';
+            document.getElementById(`${prefix}_youtubeId`).value = data.youtubeId || '';
+            document.getElementById(`${prefix}_exclusiveText`).value = data.exclusiveText || '';
+        }
+
+        async function saveSpotlightAdmin(type) {
+            const prefix = getPrefix(type);
+            const data = {
+                title: document.getElementById(`${prefix}_title`).value,
+                year: document.getElementById(`${prefix}_year`).value,
+                rating: document.getElementById(`${prefix}_rating`).value,
+                desc: document.getElementById(`${prefix}_desc`).value,
+                youtubeId: document.getElementById(`${prefix}_youtubeId`).value,
+                exclusiveText: document.getElementById(`${prefix}_exclusiveText`).value,
+                hasVideo: localStorage.getItem(`has_spotlight_video_${type}`) === 'true',
+                hasLogo: localStorage.getItem(`has_spotlight_logo_${type}`) === 'true',
+                hasMiniLogo: localStorage.getItem(`has_spotlight_mini_logo_${type}`) === 'true',
+                hasTagLogo: localStorage.getItem(`has_spotlight_tag_logo_${type}`) === 'true'
+            };
+
+            const DB_NAME_SP = 'CinematicVideoDB';
+            const STORE_NAME_SP = 'videos';
+
+            const openDBSP = () => new Promise((resolve, reject) => {
+                const req = indexedDB.open(DB_NAME_SP, 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME_SP)) {
+                        db.createObjectStore(STORE_NAME_SP);
+                    }
+                };
+                req.onsuccess = e => resolve(e.target.result);
+                req.onerror = () => reject(req.error);
+            });
+
+            const putToDBSP = (db, file, key) => new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME_SP, 'readwrite');
+                const store = tx.objectStore(STORE_NAME_SP);
+                const req = store.put(file, key);
+                req.onsuccess = () => resolve();
+                req.onerror = () => reject(req.error);
+            });
+
+            try {
+                const db = await openDBSP();
+
+                const tagLogoFile = document.getElementById(`${prefix}_tagLogoFile`).files[0];
+                if (tagLogoFile) {
+                    await putToDBSP(db, tagLogoFile, `spotlight_tag_logo_${type}`);
+                    localStorage.setItem(`has_spotlight_tag_logo_${type}`, 'true');
+                    data.hasTagLogo = true;
+                }
+
+                const miniLogoFile = document.getElementById(`${prefix}_miniLogoFile`).files[0];
+                if (miniLogoFile) {
+                    await putToDBSP(db, miniLogoFile, `spotlight_mini_logo_${type}`);
+                    localStorage.setItem(`has_spotlight_mini_logo_${type}`, 'true');
+                    data.hasMiniLogo = true;
+                }
+
+                const videoFile = document.getElementById(`${prefix}_videoFile`).files[0];
+                if (videoFile) {
+                    const prog = document.getElementById(`${prefix}_videoProgress`);
+                    if (prog) prog.classList.remove('d-none');
+                    await putToDBSP(db, videoFile, `spotlight_video_${type}`);
+                    localStorage.setItem(`has_spotlight_video_${type}`, 'true');
+                    data.hasVideo = true;
+                }
+
+                const logoFile = document.getElementById(`${prefix}_logoFile`).files[0];
+                if (logoFile) {
+                    await putToDBSP(db, logoFile, `spotlight_logo_${type}`);
+                    localStorage.setItem(`has_spotlight_logo_${type}`, 'true');
+                    data.hasLogo = true;
+                }
+
+                localStorage.setItem(`custom_spotlight_data_${type}`, JSON.stringify(data));
+                alert(`Đã lưu cấu hình Spotlight ${type} thành công!`);
+                location.reload();
+            } catch (err) {
+                console.error(err);
+                alert('Lỗi khi lưu: ' + err.message);
+            }
+        }
+
+        async function resetSpotlightAdmin(type) {
+            if (!confirm(`Khôi phục mặc định cho Spotlight ${type}?`)) return;
+            const DB_NAME_SP = 'CinematicVideoDB';
+            const STORE_NAME_SP = 'videos';
+            const req = indexedDB.open(DB_NAME_SP, 1);
+            req.onupgradeneeded = (e) => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains(STORE_NAME_SP)) db.createObjectStore(STORE_NAME_SP);
+            };
+            req.onsuccess = function(e) {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains(STORE_NAME_SP)) {
+                    alert('Không tìm thấy dữ liệu để xóa.');
+                    location.reload();
+                    return;
+                }
+                const tx = db.transaction(STORE_NAME_SP, 'readwrite');
+                const store = tx.objectStore(STORE_NAME_SP);
+                store.delete(`spotlight_video_${type}`);
+                store.delete(`spotlight_logo_${type}`);
+                store.delete(`spotlight_mini_logo_${type}`);
+                store.delete(`spotlight_tag_logo_${type}`);
+                tx.oncomplete = () => {
+                    localStorage.removeItem(`has_spotlight_video_${type}`);
+                    localStorage.removeItem(`has_spotlight_logo_${type}`);
+                    localStorage.removeItem(`has_spotlight_mini_logo_${type}`);
+                    localStorage.removeItem(`has_spotlight_tag_logo_${type}`);
+                    localStorage.removeItem(`custom_spotlight_data_${type}`);
+                    location.reload();
+                };
+            };
         }
     </script>
 </body>

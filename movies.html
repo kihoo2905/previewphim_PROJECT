@@ -24,12 +24,18 @@
                 <span class="logo-text">
                     <span class="logo-uni-container">
                         <span class="logo-uni">Uni</span>
-                        <div class="solar-system logo-moon">
+                        <div class="logo-moon">
                             <div class="solar-system-tilt">
                                 <div class="sun"></div>
-                                <div class="orbit earth-orbit"><div class="planet earth"></div></div>
-                                <div class="orbit mars-orbit"><div class="planet mars"></div></div>
-                                <div class="orbit jupiter-orbit"><div class="planet jupiter"></div></div>
+                                <div class="orbit earth-orbit">
+                                    <div class="planet earth"></div>
+                                </div>
+                                <div class="orbit mars-orbit">
+                                    <div class="planet mars"></div>
+                                </div>
+                                <div class="orbit jupiter-orbit">
+                                    <div class="planet jupiter"></div>
+                                </div>
                             </div>
                         </div>
                     </span><span class="logo-cenima">Cenima</span>
@@ -49,6 +55,7 @@
                     <li class="nav-item">
                         <a class="nav-link rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top Rated</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link rounded-pill px-3" href="awards.html" data-i18n="nav_awards">Awards</a>
                     </li>
@@ -59,10 +66,10 @@
                     </div>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <button class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
+                    <a href="watchlist.html" class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
                         <i class="bi bi-bookmark-fill"></i> <span data-i18n="watchlist">Watchlist</span>
                         <span id="watchlist-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                    </button>
+                    </a>
                     <!-- Auth Buttons -->
                     <div class="vr text-white opacity-25 d-none d-lg-block"></div>
                     <div class="auth-buttons d-flex align-items-center gap-2"></div>
@@ -120,8 +127,9 @@
             <div class="tr-hero-content" id="moviesHeroContent" style="max-width: 650px; margin-top: 60px;">
                 <div class="tr-hero-header-area mb-4">
                     <div id="moviesLogoContainer"></div>
-                    <div class="d-flex justify-content-start" style="margin-top: -15px;">
+                    <div class="d-flex align-items-center gap-3" style="margin-top: -15px;">
                         <div id="moviesTopBadge" class="tr-top-badge m-0" style="display:none;">COLLECTION</div>
+                        <div id="moviesMetaRow" class="m-0" style="display:none;"></div>
                     </div>
                 </div>
                 <p class="tr-hero-desc" id="moviesDesc" style="display:none;"></p>
@@ -200,24 +208,16 @@
         </div>
     </footer>
 
-    <!-- TOAST THÔNG BÁO -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="watchlistToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body" id="toast-body-text">Đã thêm vào Watchlist!</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    </div>
+
 
     <!-- FLOATING ADMIN BUTTON -->
-    <a href="admin.html" class="btn btn-warning rounded-circle position-fixed shadow-lg" style="bottom: 20px; left: 20px; z-index: 1000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-        <i class="bi bi-gear-fill fs-5"></i>
+    <a href="admin.html" id="admin-settings-btn" class="btn btn-warning rounded-circle position-fixed shadow-lg" style="bottom: 20px; left: 20px; z-index: 1000; width: 38px; height: 38px; display: none; align-items: center; justify-content: center; padding: 0;">
+        <i class="bi bi-gear-fill" style="font-size: 1rem;"></i>
     </a>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/config.js"></script><script src="js/api.js"></script><script src="js/main.js"></script>
 </body>
 </html>

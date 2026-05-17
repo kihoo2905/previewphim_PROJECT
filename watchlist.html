@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist — UniCenima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-color: #050507;
+            overflow-x: hidden;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Mouse Follower Orb */
+        .mouse-follower {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 152, 0, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Bokeh Particles */
+        .bokeh-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bokeh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: float 25s infinite ease-in-out;
+            will-change: transform;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(150px, -80px) scale(1.3); }
+            66% { transform: translate(-80px, 150px) scale(0.7); }
+        }
+
+        .watchlist-bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(255, 152, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(255, 152, 0, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .watchlist-header {
+            padding-top: 130px;
+            padding-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 700px;
+            z-index: -1;
+            overflow: hidden;
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        #dynamic-header-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(60px) brightness(0.5) saturate(1.6);
+            transform: scale(1.1);
+            transition: all 2s ease;
+            opacity: 0;
+            will-change: transform;
+        }
+
+        #dynamic-header-bg.loaded {
+            opacity: 0.7;
+        }
+
+        .header-split-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .header-left-content {
+            flex: 1;
+            position: relative;
+        }
+
+        .watchlist-title-container {
+            padding-left: 25px;
+            position: relative;
+            border-left: 6px solid #ff9800;
+        }
+
+        .watchlist-title-container::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            height: 100%;
+            width: 6px;
+            background: #ff9800;
+            box-shadow: 0 0 30px rgba(255, 152, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        .header-right-content {
+            flex: 0 0 650px;
+        }
+
+        .watchlist-title-container h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6.5rem;
+            font-weight: normal;
+            color: #ffffff;
+            letter-spacing: 2px;
+            line-height: 0.85;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        .watchlist-stats {
+            margin-top: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 25px;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .watchlist-stats:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(255, 152, 0, 0.3);
+            box-shadow: 0 20px 45px rgba(255, 152, 0, 0.1);
+        }
+
+        .featured-choice-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.7);
+            transition: all 0.5s ease;
+            width: 100%;
+        }
+
+        /* Sheen Effect */
+        .featured-choice-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.05),
+                transparent
+            );
+            transform: skewX(-20deg);
+            transition: 0.8s;
+            pointer-events: none;
+        }
+
+        .featured-choice-card:hover::after {
+            left: 150%;
+        }
+
+        .featured-choice-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 48px;
+            padding: 2px;
+            background: linear-gradient(45deg, transparent, rgba(255,152,0,0.3), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .featured-choice-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 60px 120px rgba(255, 152, 0, 0.1);
+        }
+
+        .featured-choice-ribbon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 152, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 152, 0, 0.4);
+            color: #ff9800;
+            font-weight: 800;
+            padding: 8px 24px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            z-index: 5;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 15px rgba(255, 152, 0, 0.2);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-choice-ribbon::before {
+            content: '★';
+            font-size: 1rem;
+        }
+
+        .featured-choice-poster {
+            width: 280px;
+            height: 420px;
+            border-radius: 32px;
+            object-fit: cover;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .featured-choice-card:hover .featured-choice-poster {
+            transform: scale(1.08);
+            box-shadow: 0 50px 100px rgba(0,0,0,1);
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .section-divider h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .section-divider .line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .watchlist-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+            height: 100%;
+            position: relative;
+        }
+
+        /* Card Sheen */
+        .watchlist-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.03),
+                transparent
+            );
+            transform: skewX(-20deg);
+            transition: 0.6s;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .watchlist-card:hover::before {
+            left: 150%;
+        }
+
+        .watchlist-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 152, 0, 0.5);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        .watchlist-poster-box {
+            position: relative;
+            aspect-ratio: 2/3;
+            overflow: hidden;
+            border-radius: 28px;
+            margin: 14px;
+            transition: all 0.6s ease;
+        }
+
+        .watchlist-poster-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .watchlist-card:hover .watchlist-poster-box img {
+            transform: scale(1.15);
+        }
+
+        .watchlist-remove-overlay {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            opacity: 0; /* Hide by default as requested */
+            transform: scale(0.7);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
+        }
+
+        .watchlist-card:hover .watchlist-remove-overlay {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .movie-card-wrapper {
+            position: relative;
+            z-index: 1;
+            transition: z-index 0s;
+        }
+
+        .movie-card-wrapper:hover {
+            z-index: 100 !important; /* Bring to front when zooming to avoid overlap */
+        }
+
+        .btn-remove-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px; /* Square-ish for better hit area */
+            background: rgba(229, 9, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .btn-remove-circle:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            border-color: #fff;
+        }
+
+        .watchlist-card-info {
+            padding: 10px 25px 25px;
+        }
+
+        .empty-watchlist {
+            padding: 150px 0;
+            text-align: center;
+        }
+
+        .empty-icon-wrapper {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.02));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 40px;
+            color: #ff9800;
+            font-size: 4.5rem;
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 30px 70px rgba(255, 152, 0, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        }
+
+        .loading-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+    </style>
+</head>
+<body class="position-relative">
+    <div class="mouse-follower"></div>
+    <div class="bokeh-container">
+        <div class="bokeh" style="width: 400px; height: 400px; background: #ff9800; top: -100px; left: -100px;"></div>
+        <div class="bokeh" style="width: 300px; height: 300px; background: #ffc107; bottom: -50px; right: 10%; animation-delay: -5s;"></div>
+        <div class="bokeh" style="width: 500px; height: 500px; background: #ff5722; top: 40%; right: -200px; animation-delay: -10s;"></div>
+    </div>
+    <div class="watchlist-bg-glow"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top scrolled liquid-glass-strong" data-bs-theme="dark">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand font-heading fw-bold d-flex align-items-center logo-wrapper" href="index.html">
+                <span class="logo-text">
+                    <span class="logo-uni-container">
+                        <span class="logo-uni">Uni</span>
+                        <div class="logo-moon">
+                            <div class="solar-system-tilt">
+                                <div class="sun"></div>
+                                <div class="orbit earth-orbit">
+                                    <div class="planet earth"></div>
+                                </div>
+                                <div class="orbit mars-orbit">
+                                    <div class="planet mars"></div>
+                                </div>
+                                <div class="orbit jupiter-orbit">
+                                    <div class="planet jupiter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </span><span class="logo-cenima">Cenima</span>
+                </span>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto liquid-glass rounded-pill px-2 py-1 gap-1">
+                    <li class="nav-item"><a class="nav-link rounded-pill px-3" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link rounded-pill px-3" href="movies.html">Movies</a></li>
+                    <li class="nav-item"><a class="nav-link active rounded-pill px-3" href="watchlist.html">Watchlist</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="auth-buttons d-flex align-items-center gap-2"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="watchlist-header">
+        <div class="header-bg-canvas">
+            <img id="dynamic-header-bg" src="" alt="">
+        </div>
+        <div class="container">
+            <div class="header-split-container">
+                <div class="header-left-content">
+                    <div class="watchlist-title-container">
+                        <h1 class="font-heading display-3 fw-bold text-white mb-0">My Watchlist</h1>
+                    </div>
+                    <p class="text-white-50 fs-5 mt-4 opacity-75">Curated collection of your favorite movies and series.</p>
+                    
+                    <div class="watchlist-stats">
+                        <div class="d-flex align-items-center gap-2 text-white">
+                            <i class="bi bi-collection-play text-warning"></i>
+                            <span id="watchlist-count-text" class="fw-bold">0</span> <span class="opacity-50">Items</span>
+                        </div>
+                        <div class="vr opacity-20 h-100"></div>
+                        <div class="d-flex align-items-center gap-2 text-white">
+                            <i class="bi bi-person-circle opacity-50"></i>
+                            <span id="user-display-name" class="fw-medium text-white-50">User</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="top-choice-container" class="header-right-content d-none">
+                    <!-- Top Choice injected here -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="container mb-5 pb-5">
+        <div id="collection-header" class="section-divider d-none">
+            <h4>Your Collection</h4>
+            <div class="line"></div>
+        </div>
+
+        <div id="watchlist-grid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+            <!-- Loading States -->
+            <div class="col"><div class="watchlist-card loading-shimmer" style="height: 400px; border-radius: 24px;"></div></div>
+            <div class="col"><div class="watchlist-card loading-shimmer" style="height: 400px; border-radius: 24px;"></div></div>
+            <div class="col"><div class="watchlist-card loading-shimmer" style="height: 400px; border-radius: 24px;"></div></div>
+            <div class="col"><div class="watchlist-card loading-shimmer" style="height: 400px; border-radius: 24px;"></div></div>
+            <div class="col"><div class="watchlist-card loading-shimmer" style="height: 400px; border-radius: 24px;"></div></div>
+        </div>
+
+        <div id="empty-state" class="empty-watchlist d-none">
+            <div class="empty-icon-wrapper">
+                <i class="bi bi-bookmark-star"></i>
+            </div>
+            <h2 class="text-white fw-bold mb-3">Your watchlist is waiting...</h2>
+            <p class="text-white-50 fs-5 mb-5 mx-auto" style="max-width: 500px;">Start adding movies and series to your list and they will appear here for easy access.</p>
+            <a href="movies.html" class="btn btn-warning rounded-pill px-5 py-3 fw-bold shadow-lg hover-scale">
+                <i class="bi bi-search me-2"></i> Explore Library
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(document).ready(async function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            $('#user-display-name').text(user.username || 'User');
+
+            try {
+                const watchlist = await MovieAPI.getWatchlist();
+                               if (watchlist && watchlist.length > 0) {
+                    $('#watchlist-count-text').text(watchlist.length);
+                    
+                    // Sort by rating to pick the top one
+                    const sortedWatchlist = [...watchlist].sort((a, b) => b.rating - a.rating);
+                    const topChoice = sortedWatchlist[0];
+                    const remaining = sortedWatchlist.slice(1);
+
+                    // Set dynamic background from Top Choice
+                    if (topChoice.poster) {
+                        const $bg = $('#dynamic-header-bg');
+                        $bg.attr('src', topChoice.poster).on('load', function() {
+                            $(this).addClass('loaded');
+                        });
+                    }
+
+                    // Render Top Choice
+                    if (topChoice) {
+                        const topRating = topChoice.rating ? parseFloat(topChoice.rating).toFixed(1) : '0.0';
+                        $('#top-choice-container').html(`
+                            <div class="featured-choice-card animate__animated animate__fadeIn">
+                                <div class="featured-choice-ribbon">TOP CHOICE</div>
+                                <img src="${topChoice.poster}" class="featured-choice-poster" style="width: 140px; height: 210px; border-radius: 20px;" alt="${topChoice.title}">
+                                <div class="featured-choice-info">
+                                    <div class="badge bg-warning text-dark mb-2 fw-bold px-2 py-1 rounded-pill shadow-sm" style="font-size: 0.7rem;">
+                                        <i class="bi bi-trophy-fill me-1"></i>HIGHEST RATED
+                                    </div>
+                                    <h3 class="fw-bold text-white mb-2 font-heading" style="font-size: 1.8rem;">${topChoice.title}</h3>
+                                    <div class="d-flex align-items-center gap-3 mb-3 text-white-50 small">
+                                        <span class="fw-bold text-warning"><i class="bi bi-star-fill me-1"></i> ${topRating}</span>
+                                        <span>${topChoice.year}</span>
+                                    </div>
+                                    <p class="text-white-50 mb-4 opacity-75 text-truncate-3" style="font-size: 0.9rem; line-height: 1.5; max-width: 400px;">
+                                        ${topChoice.description || topChoice.preview || 'No description available.'}
+                                    </p>
+                                    <div class="d-flex gap-2">
+                                        <a href="detail.html?id=${topChoice._id}" class="btn btn-warning btn-sm rounded-pill px-4 py-2 fw-bold hover-scale">
+                                            View Details
+                                        </a>
+                                        <button class="btn btn-outline-danger btn-sm border-2 rounded-pill px-4 py-2 remove-watchlist-btn" data-id="${topChoice._id || topChoice.id}">
+                                            Remove from list
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).removeClass('d-none');
+                    }
+
+                    if (remaining.length > 0) {
+                        $('#collection-header').removeClass('d-none');
+                        let html = '';
+                        remaining.forEach((movie, index) => {
+                            const delay = index * 50;
+                            const rating = movie.rating ? parseFloat(movie.rating).toFixed(1) : '0.0';
+                            
+                            html += `
+                                <div class="col movie-card-wrapper" data-id="${movie._id || movie.id}" style="animation: fadeInUp 0.6s ease forwards ${delay}ms; opacity: 0; position: relative; z-index: 5;">
+                                    <div class="watchlist-card">
+                                        <div class="watchlist-remove-overlay" style="z-index: 50;">
+                                            <button class="btn-remove-circle remove-watchlist-btn" data-id="${movie._id || movie.id}" title="Remove from list" style="position: relative; z-index: 60;">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <a href="detail.html?id=${movie._id || movie.id}" class="text-decoration-none" style="position: relative; z-index: 1;">
+                                            <div class="watchlist-poster-box">
+                                                <img src="${movie.poster}" alt="${movie.title}">
+                                                <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-gradient-to-t from-black to-transparent">
+                                                    <span class="badge bg-warning text-dark fw-bold rounded-pill shadow">
+                                                        <i class="bi bi-star-fill me-1"></i> ${rating}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="watchlist-card-info">
+                                                <h6 class="text-white fw-bold mb-1 text-truncate font-heading">${movie.title}</h6>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <span class="text-white-50 small opacity-75">${movie.year}</span>
+                                                    <span class="text-warning x-small fw-bold text-uppercase opacity-50" style="font-size: 0.65rem; letter-spacing: 1px;">${movie.genre || 'Movie'}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $('#watchlist-grid').html(html);
+                    } else {
+                        $('#watchlist-grid').empty();
+                    }
+                } else {
+                    $('#empty-state').removeClass('d-none');
+                    $('#watchlist-grid').empty();
+                    $('#watchlist-count-text').text('0');
+                }
+            } catch (err) {
+                console.error('Error fetching watchlist:', err);
+                $('#watchlist-grid').html('<div class="col-12 text-center text-danger py-5"><h4>Error loading your watchlist</h4><p>Please check your connection and try again.</p></div>');
+            }
+
+            // Handle Remove from Watchlist
+            $(document).on('click', '.remove-watchlist-btn', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const movieId = $(this).data('id');
+                const $cardWrapper = $(this).closest('.movie-card-wrapper');
+
+                try {
+                    await MovieAPI.removeFromWatchlist(movieId);
+                    
+                    // Show premium toast
+                    if (window.showToast) {
+                        window.showToast('Removed', 'Movie has been removed from your watchlist.', 'success');
+                    }
+
+                    $cardWrapper.css({
+                        'transform': 'scale(0.8) translateY(20px)',
+                        'opacity': '0',
+                        'transition': 'all 0.4s ease'
+                    });
+
+                    setTimeout(() => {
+                        $cardWrapper.remove();
+                        const currentCount = parseInt($('#watchlist-count-text').text());
+                        $('#watchlist-count-text').text(Math.max(0, currentCount - 1));
+                        
+                        if ($('.movie-card-wrapper').length === 0) {
+                            $('#empty-state').removeClass('d-none');
+                        }
+                    }, 400);
+                } catch (err) {
+                    if (window.showToast) {
+                        window.showToast('Error', 'Failed to remove movie. Please try again.', 'error');
+                    }
+                }
+            });
+        });
+
+        // Parallax and Mouse Interactions
+        $(document).mousemove(function(e) {
+            // Mouse Follower
+            $('.mouse-follower').css({
+                left: e.clientX,
+                top: e.clientY
+            });
+
+            // Subtle Tilt for Header Title
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            $('.watchlist-title-container h1').css('transform', `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`);
+        });
+
+        $(window).scroll(function() {
+            const scrolled = $(window).scrollTop();
+            
+            // Parallax Bokeh
+            $('.bokeh').each(function(index) {
+                const speed = 0.1 * (index + 1);
+                $(this).css('transform', `translateY(${scrolled * speed}px)`);
+            });
+
+            // Parallax Header BG
+            $('#dynamic-header-bg').css('transform', `scale(1.1) translateY(${scrolled * 0.3}px)`);
+        });
+
+        // Add keyframe animation for card entry
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInUp {
+                from { transform: translateY(30px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

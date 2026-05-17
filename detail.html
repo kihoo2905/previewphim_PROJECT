@@ -27,7 +27,7 @@
                 <span class="logo-text">
                     <span class="logo-uni-container">
                         <span class="logo-uni">Uni</span>
-                        <div class="solar-system logo-moon">
+                        <div class="logo-moon">
                             <div class="solar-system-tilt">
                                 <div class="sun"></div>
                                 <div class="orbit earth-orbit">
@@ -50,16 +50,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto liquid-glass rounded-pill px-2 py-1 gap-1">
                     <li class="nav-item"><a class="nav-link rounded-pill px-3" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link rounded-pill px-3" href="movies.html">Movies</a></li>
-                    <li class="nav-item"><a class="nav-link rounded-pill px-3" href="awards.html">Awards</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top
+                            Rated</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3" href="awards.html" data-i18n="nav_awards">Awards</a>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <button
+                    <a href="watchlist.html"
                         class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
                         <i class="bi bi-bookmark-fill"></i> Watchlist
                         <span id="watchlist-badge"
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                    </button>
+                    </a>
                     <!-- Auth Buttons -->
                     <div class="vr text-white opacity-25 d-none d-lg-block"></div>
                     <div class="auth-buttons d-flex align-items-center gap-2"></div>
@@ -72,26 +78,27 @@
     <div id="movie-detail-container" class="detail-content-area">
 
         <!-- HERO BANNER OVERLAY -->
-        <div id="detail-hero" class="detail-hero-wrapper"
-            style="background-image: url('https://image.tmdb.org/t/p/original/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg');"></div>
+        <div id="detail-hero" class="detail-hero-wrapper"></div>
 
         <!-- MAIN MOVIE INFO -->
         <div class="container position-relative z-1 detail-info mb-5 pb-5">
             <div class="row gx-5">
                 <!-- POSTER -->
                 <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
-                    <img id="detail-poster" src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg"
-                        alt="Poster" class="detail-poster img-fluid">
+                    <div class="position-relative" id="detail-poster-container">
+                        <img id="detail-poster" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                            alt="Poster" class="detail-poster img-fluid">
+                    </div>
                 </div>
 
                 <!-- THÔNG TIN -->
                 <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-end">
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <span class="badge text-bg-warning px-3 py-2 fs-6"><i class="bi bi-star-fill"></i> <span
-                                id="detail-rating">8.0</span></span>
+                                id="detail-rating">-.-</span></span>
                         <span class="text-white-50">
-                            <span id="detail-year">2021</span> &bull;
-                            <span id="detail-genre">Sci-Fi</span>
+                            <span id="detail-year">----</span> &bull;
+                            <span id="detail-genre">----</span>
                             <span id="detail-duration-container" class="d-none"> &bull; <span
                                     id="detail-duration"></span></span>
                         </span>
@@ -100,7 +107,7 @@
                     <div class="d-flex gap-4 mb-3">
                         <div class="mb-2">
                             <span class="text-white-50 small text-uppercase" data-i18n="director">Director</span>
-                            <h6 id="detail-director" class="text-white m-0">Denis Villeneuve</h6>
+                            <h6 id="detail-director" class="text-white m-0">----</h6>
                         </div>
                         <div class="mb-2 d-none" id="detail-creator-row">
                             <span class="text-white-50 small text-uppercase" data-i18n="original_creator">Original
@@ -109,13 +116,12 @@
                         </div>
                     </div>
 
-                    <h1 id="detail-title" class="font-heading fw-bold text-white display-4 mb-1">Dune: Part One</h1>
-                    <h2 id="detail-subtitle" class="text-warning text-opacity-75 fs-5 fw-bold mb-4 font-heading"
-                        style="letter-spacing: 2px;">SHINGEKI NO KYOJIN</h2>
+                    <h1 id="detail-title" class="font-heading fw-bold text-white display-4 mb-1"></h1>
+                    <h2 id="detail-subtitle" class="text-warning text-opacity-75 fs-5 fw-bold mb-4 font-heading d-none"
+                        style="letter-spacing: 2px;"></h2>
 
                     <p id="detail-desc" class="text-light mb-5 fs-5 fw-light" style="max-width: 800px;">
-                        Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his
-                        understanding...
+                        
                     </p>
 
                     <div class="d-flex gap-3">
@@ -123,8 +129,8 @@
                             <i class="bi bi-play-fill"></i> Watch Trailer
                         </a>
                         <button id="btn-add-watchlist"
-                            class="btn liquid-glass-strong text-white rounded-pill px-4 py-3 btn-watchlist" data-id="1"
-                            data-title="Dune: Part One">
+                            class="btn liquid-glass-strong text-white rounded-pill px-4 py-3 btn-watchlist" data-id=""
+                            data-title="">
                             <i class="bi bi-plus-lg"></i> Add to Watchlist
                         </button>
                     </div>
@@ -602,9 +608,12 @@
                             </div>
                             <div class="mb-4">
                                 <label class="text-primary small fw-bold d-block mb-1">UniCenima Rating</label>
-                                <div class="text-warning fs-4 fw-bold"><i class="bi bi-star-fill"></i> <span
-                                        id="ep-detail-rating">9.0</span><small class="text-white-50 fs-6">/10</small>
+                                <div class="rating-chip-lg">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span id="ep-detail-rating">9.0</span>
+                                    <small class="text-white-50 fs-6 fw-normal" style="margin-left: -5px;">/10</small>
                                 </div>
+
                             </div>
                             <hr class="border-secondary opacity-25">
                             <div class="d-grid mt-4">
@@ -682,22 +691,12 @@
             </div>
         </footer>
 
-        <!-- TOAST -->
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="watchlistToast" class="toast align-items-center text-bg-success border-0" role="alert"
-                aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body" id="toast-body-text">Đã thêm vào Watchlist!</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                        data-bs-dismiss="toast"></button>
-                </div>
-            </div>
-        </div>
+
 
         <!-- FLOATING ADMIN BUTTON -->
-        <a href="admin.html" class="btn btn-warning rounded-circle position-fixed shadow-lg"
-            style="bottom: 20px; left: 20px; z-index: 1000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-            <i class="bi bi-gear-fill fs-5"></i>
+        <a href="admin.html" id="admin-settings-btn" class="btn btn-warning rounded-circle position-fixed shadow-lg"
+            style="bottom: 20px; left: 20px; z-index: 1000; width: 38px; height: 38px; display: none; align-items: center; justify-content: center; padding: 0;">
+            <i class="bi bi-gear-fill" style="font-size: 1rem;"></i>
         </a>
 
         <!-- REVIEW FORM MODAL -->
@@ -749,7 +748,7 @@
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/config.js"></script><script src="js/api.js"></script><script src="js/main.js"></script>
 </body>
 
 </html>

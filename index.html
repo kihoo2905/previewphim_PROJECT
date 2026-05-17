@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinematic - Movie Review</title>
+    <title>UniCenima - Home</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
 </head>
 
 <body class="position-relative">
-    
+
 
 
 
@@ -36,7 +36,7 @@
                 <span class="logo-text">
                     <span class="logo-uni-container">
                         <span class="logo-uni">Uni</span>
-                        <div class="solar-system logo-moon">
+                        <div class="logo-moon">
                             <div class="solar-system-tilt">
                                 <div class="sun"></div>
                                 <div class="orbit earth-orbit">
@@ -53,6 +53,7 @@
                     </span><span class="logo-cenima">Cenima</span>
                 </span>
             </a>
+
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -62,7 +63,8 @@
                         <a class="nav-link active rounded-pill px-3" href="index.html" data-i18n="nav_home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link rounded-pill px-3" href="movies.html" data-i18n="nav_movies_all">Movies/Series</a>
+                        <a class="nav-link rounded-pill px-3" href="movies.html"
+                            data-i18n="nav_movies_all">Movies/Series</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link rounded-pill px-3" href="top-rated.html" data-i18n="nav_top_rated">Top
@@ -72,7 +74,7 @@
                         <a class="nav-link rounded-pill px-3" href="awards.html" data-i18n="nav_awards">Awards</a>
                     </li>
                 </ul>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2">
                     <form class="d-flex" role="search">
                         <div class="input-group liquid-glass rounded-pill overflow-hidden">
                             <span class="input-group-text bg-transparent border-0 text-white"><i
@@ -81,16 +83,16 @@
                                 placeholder="Search movies..." data-i18n="search_placeholder">
                         </div>
                     </form>
-                    <button
-                        class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-block">
+                    <a href="watchlist.html"
+                        class="btn liquid-glass rounded-pill position-relative border-0 text-white d-none d-md-flex align-items-center gap-1">
                         <i class="bi bi-bookmark-fill"></i> <span data-i18n="watchlist">Watchlist</span>
                         <span id="watchlist-badge"
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                    </button>
+                    </a>
                     <!-- Auth Buttons -->
-                    <div class="vr text-white opacity-25 d-none d-lg-block"></div>
+                    <div class="vr text-white opacity-25 d-none d-lg-block mx-1"></div>
                     <div class="auth-buttons d-flex align-items-center gap-2"></div>
-                    <div class="vr text-white opacity-25 d-none d-lg-block"></div>
+                    <div class="vr text-white opacity-25 d-none d-lg-block mx-1"></div>
                     <div class="dropdown">
                         <button
                             class="btn text-white fw-bold dropdown-toggle d-flex align-items-center gap-1 border-0 shadow-none px-2 bg-transparent"
@@ -112,96 +114,43 @@
     <!-- HERO CAROUSEL -->
     <header id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
         <!-- Hero Mute Toggle -->
-        <button id="hero-mute-btn" class="btn btn-sm btn-outline-light rounded-circle position-absolute" 
-                style="bottom: 120px; right: 5%; z-index: 100; width: 40px; height: 40px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);">
+        <button id="hero-mute-btn" class="btn btn-sm btn-outline-light rounded-circle position-absolute"
+            style="bottom: 120px; right: 5%; z-index: 100; width: 40px; height: 40px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);">
             <i class="bi bi-volume-mute-fill"></i>
         </button>
 
-        <div class="carousel-indicators mb-5">
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-        </div>
 
         <div class="carousel-inner">
-            <!-- Slide 1: Dune -->
+            <!-- Slide 1: Doraemon -->
             <div class="carousel-item active" data-bs-interval="10000">
                 <div class="hero-video-wrapper">
                     <video autoplay muted loop playsinline class="hero-video-bg">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-golden-desert-4152-large.mp4" type="video/mp4">
+                        <source src="Videos/videoHome.mp4" type="video/mp4">
                     </video>
                     <div class="hero-video-overlay"></div>
                 </div>
                 <div class="container h-100 position-relative d-flex align-items-center">
                     <div class="hero-content-clean">
-                        <span class="badge bg-danger mb-3 px-3 py-2">NEW SERIES</span>
-                        <h1 class="hero-title font-heading fw-bold text-white mb-2" style="font-size: 5rem; letter-spacing: -2px;">DUNE</h1>
-                        <div class="d-flex align-items-center gap-3 mb-4 fs-5">
-                            <span class="text-warning fw-bold"><i class="bi bi-star-fill"></i> 8.0</span>
-                            <span class="text-white-50">2021</span>
-                            <span class="badge border border-white border-opacity-25 text-white-50">T16</span>
+                        <div class="mb-3">
+                            <span class="badge badge-liquid-new px-3 py-2">COMING SOON</span>
                         </div>
-                        <p class="text-white mb-4 opacity-75" style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Paul Atreides must travel to the most dangerous planet in the universe to ensure the future of his family and his people.</p>
-
+                        <!-- Logo ảnh thay cho chữ tiêu đề -->
+                        <img src="images/logoHome.png" alt="Doraemon" class="mb-3"
+                            style="max-height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.8));">
+                        <div class="d-flex align-items-center gap-3 mb-4" style="font-size: 0.9rem;">
+                            <span class="fw-bold" style="color: rgba(255, 255, 255, 0.6);">2026</span>
+                            <span class="badge py-1 px-2"
+                                style="background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; color: #ffffff; font-size: 0.8rem; line-height: 1;">TV-PG</span>
+                        </div>
+                        <p class="text-white mb-4 opacity-75"
+                            style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                            A deep-sea adventure begins when Nobita and his friends uncover a hidden
+                            underwater kingdom threatened by an ancient force.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 2: Interstellar -->
-            <div class="carousel-item" data-bs-interval="10000">
-                <div class="hero-video-wrapper">
-                    <video autoplay muted loop playsinline class="hero-video-bg">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-star-field-in-the-deep-space-31122-large.mp4" type="video/mp4">
-                    </video>
-                    <div class="hero-video-overlay"></div>
-                </div>
-                <div class="container h-100 position-relative d-flex align-items-center">
-                    <div class="hero-content-clean">
-                        <span class="badge bg-primary mb-3 px-3 py-2">MUST WATCH</span>
-                        <h1 class="hero-title font-heading fw-bold text-white mb-2" style="font-size: 5rem; letter-spacing: -2px;">INTERSTELLAR</h1>
-                        <div class="d-flex align-items-center gap-3 mb-4 fs-5">
-                            <span class="text-warning fw-bold"><i class="bi bi-star-fill"></i> 8.7</span>
-                            <span class="text-white-50">2014</span>
-                            <span class="badge border border-white border-opacity-25 text-white-50">T13</span>
-                        </div>
-                        <p class="text-white mb-4 opacity-75" style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3: The Batman -->
-            <div class="carousel-item" data-bs-interval="10000">
-                <div class="hero-video-wrapper">
-                    <video autoplay muted loop playsinline class="hero-video-bg">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-city-lights-at-night-seen-from-above-3453-large.mp4" type="video/mp4">
-                    </video>
-                    <div class="hero-video-overlay"></div>
-                </div>
-                <div class="container h-100 position-relative d-flex align-items-center">
-                    <div class="hero-content-clean">
-                        <span class="badge bg-warning text-dark mb-3 px-3 py-2">TRENDING</span>
-                        <h1 class="hero-title font-heading fw-bold text-white mb-2" style="font-size: 5rem; letter-spacing: -2px;">THE BATMAN</h1>
-                        <div class="d-flex align-items-center gap-3 mb-4 fs-5">
-                            <span class="text-warning fw-bold"><i class="bi bi-star-fill"></i> 7.8</span>
-                            <span class="text-white-50">2022</span>
-                            <span class="badge border border-white border-opacity-25 text-white-50">T18</span>
-                        </div>
-                        <p class="text-white mb-4 opacity-75" style="max-width: 500px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Batman investigates the city's hidden corruption and questions his family's involvement.</p>
-
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </header>
 
     <!-- FEATURED SECTION -->
@@ -216,7 +165,7 @@
     </section>
 
     <!-- MAIN CONTENT GRID (Trending + Top 10 sidebar) -->
-    <section class="py-5 trending-section">
+    <section class="py-4 trending-section">
         <div class="container">
             <div class="row g-5">
                 <!-- Trending Now -->
@@ -224,17 +173,19 @@
                     <div class="d-flex justify-content-between align-items-end mb-4">
                         <div>
                             <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Recommendations</h6>
-                            <h2 class="font-heading fw-bold text-white m-0 section-heading" data-i18n="trending_now">Trending Now</h2>
+                            <h2 class="font-heading fw-bold text-white m-0 section-heading" data-i18n="trending_now">
+                                Trending Now</h2>
                         </div>
                     </div>
 
                     <!-- Grid phim được render từ jQuery -->
-                    <div id="trending-grid" class="row row-cols-1 row-cols-md-2 g-4">
+                    <div id="trending-grid" class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-4">
                         <!-- JS sẽ bơm HTML vào đây -->
                     </div>
 
                     <div class="text-center mt-5">
-                        <button id="show-more-trending" class="btn liquid-glass rounded-pill px-5 py-2 text-white border-0 shadow">
+                        <button id="show-more-trending"
+                            class="btn liquid-glass rounded-pill px-5 py-2 text-white border-0 shadow">
                             Show More <i class="bi bi-chevron-down ms-2"></i>
                         </button>
                     </div>
@@ -255,7 +206,7 @@
     </section>
 
     <!-- COMING SOON ROW -->
-    <section id="coming-soon-section" class="py-5 bg-black bg-opacity-25">
+    <section id="coming-soon-section" class="py-4 bg-black bg-opacity-25">
         <div class="container">
             <div class="movie-row-container" id="row-coming-soon">
                 <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Future Releases</h6>
@@ -263,7 +214,8 @@
                 <div class="scroll-btn scroll-left" onclick="scrollRow('coming-soon', -1)">
                     <i class="bi bi-chevron-left"></i>
                 </div>
-                <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="scroller-coming-soon">
+                <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar"
+                    id="scroller-coming-soon">
                     <!-- JS will render horizontal cards here -->
                 </div>
                 <div class="scroll-btn scroll-right" onclick="scrollRow('coming-soon', 1)">
@@ -273,18 +225,300 @@
         </div>
     </section>
 
+    <!-- NEW CONTENT ROWS -->
+    <section class="py-4 overflow-hidden">
+        <div class="container">
+            <!-- Most Liked Row -->
+            <div class="mb-5">
+                <div class="movie-row-container" id="row-most-liked">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div>
+                            <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body"
+                                style="font-size: 0.7rem;">Fan Favorites</h6>
+                            <h2 class="font-heading fw-bold text-white m-0 section-heading">Most Liked</h2>
+                        </div>
+                    </div>
+                    <div class="scroll-btn scroll-left" onclick="scrollRow('most-liked', -1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
+                    <div class="movie-row-scroller d-flex gap-5 overflow-x-auto pb-5 hide-scrollbar pt-5 ps-5"
+                        id="scroller-most-liked">
+                        <!-- JS will render UNIQUE cards here -->
+                    </div>
+                    <div class="scroll-btn scroll-right" onclick="scrollRow('most-liked', 1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Movies Row -->
+            <div class="mb-5">
+                <div class="movie-row-container" id="row-new-movies">
+                    <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Fresh Content</h6>
+                    <h2 class="font-heading fw-bold text-white mb-4 section-heading">New Movies</h2>
+                    <div class="scroll-btn scroll-left" onclick="scrollRow('new-movies', -1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
+                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar"
+                        id="scroller-new-movies">
+                        <!-- JS will render horizontal cards here -->
+                    </div>
+                    <div class="scroll-btn scroll-right" onclick="scrollRow('new-movies', 1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Series Row with Spotlight -->
+            <div class="mt-lg-5 pt-lg-5">
+                <div class="row g-4 align-items-stretch">
+                    <!-- Spotlight Series -->
+                    <div class="col-lg-5" id="new-series-spotlight-container">
+                        <!-- Big Card Rendered by JS -->
+                        <div class="d-flex align-items-center justify-content-center h-100 py-5">
+                            <div class="spinner-border text-warning" role="status"></div>
+                        </div>
+                    </div>
+                    <!-- Regular Series Row -->
+                    <div class="col-lg-7">
+                        <div class="movie-row-container h-100 d-flex flex-column" id="row-new-series">
+                            <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Binge Worthy</h6>
+                            <h2 class="font-heading fw-bold text-white mb-4 section-heading">More New Series</h2>
+                            <div class="scroll-btn scroll-left" onclick="scrollRow('new-series', -1)">
+                                <i class="bi bi-chevron-left"></i>
+                            </div>
+                            <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar flex-grow-1"
+                                id="scroller-new-series">
+                                <!-- JS will render horizontal cards here -->
+                            </div>
+                            <div class="scroll-btn scroll-right" onclick="scrollRow('new-series', 1)">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Only on Netflix Section (Zigzag Layout) -->
+            <div style="margin-top: 20px;">
+                <div class="row align-items-start mb-5">
+                    <!-- Left: Small Ranking Row -->
+                    <div class="col-lg-8 mt-2 pe-lg-0">
+                        <div class="netflix-ranking-container position-relative">
+                            <h6 class="text-white-50 text-uppercase tracking-widest mb-3 font-body"
+                                style="font-size: 0.7rem;">Netflix Top Ranking</h6>
+                            <div class="scroll-btn scroll-left mini"
+                                onclick="document.getElementById('netflix-mini-ranking').scrollBy({left: -300, behavior: 'smooth'})">
+                                <i class="bi bi-chevron-left"></i>
+                            </div>
+                            <div class="d-flex gap-3 overflow-x-auto hide-scrollbar pb-2" id="netflix-mini-ranking">
+                                <!-- JS will render mini rank cards here -->
+                            </div>
+                            <div class="scroll-btn scroll-right mini"
+                                onclick="document.getElementById('netflix-mini-ranking').scrollBy({left: 300, behavior: 'smooth'})">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right: Section Header -->
+                    <div class="col-lg-4">
+                        <div class="section-header mb-2 text-end">
+                            <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Netflix Originals
+                            </h6>
+                            <h2 class="font-heading fw-bold text-white section-heading" data-i18n="coll_netflix">Only on
+                                Netflix</h2>
+                            <div id="netflix-section-logo" class="text-end opacity-75" style="margin-top: 60px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 align-items-stretch">
+                    <!-- Spotlight Action (Big Card) -->
+                    <div class="col-lg-6" id="action-spotlight-container">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <!-- Regular Action Row -->
+                    <div class="col-lg-6">
+                        <div class="movie-row-container h-100 position-relative" id="row-action-adv">
+                            <div class="scroll-btn scroll-left red-glass-btn"
+                                onclick="document.getElementById('scroller-action-adv').scrollBy({left: -600, behavior: 'smooth'})">
+                                <i class="bi bi-chevron-left"></i>
+                            </div>
+                            <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar h-100 align-items-center"
+                                id="scroller-action-adv">
+                                <!-- JS will render horizontal cards here -->
+                            </div>
+                            <div class="scroll-btn scroll-right red-glass-btn"
+                                onclick="document.getElementById('scroller-action-adv').scrollBy({left: 600, behavior: 'smooth'})">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CINEMA NEWS & INSIGHTS (Diverse Layout) -->
+            <div class="news-insights-section mt-5">
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <div>
+                        <h2 class="font-heading fw-bold text-white mb-0 section-heading">Behind the Scenes <i
+                                class="bi bi-chevron-right fs-4 ms-1 opacity-50"></i></h2>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Left: Main News Grid -->
+                    <div class="col-lg-8">
+                        <!-- Big Featured News (Dynamic) -->
+                        <div id="insights-spotlight-container"
+                            class="featured-news-card liquid-glass rounded-4 overflow-hidden mb-4 p-0 border border-white border-opacity-10 shadow-lg">
+                            <div class="d-flex align-items-center justify-content-center h-100 py-5">
+                                <div class="spinner-border text-warning" role="status"></div>
+                            </div>
+                        </div>
+
+                        <!-- Smaller News Items -->
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="modern-news-card d-flex gap-3">
+                                    <div class="news-img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=200&auto=format&fit=crop"
+                                            alt="News">
+                                    </div>
+                                    <div class="news-content-area">
+                                        <div class="news-tag-small">MCU Phase 6</div>
+                                        <h6 class="news-title-small">Spider-Man 4: Tom Holland Confirms Shooting Starts
+                                            This Summer</h6>
+                                        <div class="news-meta-small">
+                                            <span>May 10</span>
+                                            <span>&bull;</span>
+                                            <span>Marvel Daily</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modern-news-card d-flex gap-3">
+                                    <div class="news-img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1611604548018-d56bbd85d681?q=80&w=200&auto=format&fit=crop"
+                                            alt="News">
+                                    </div>
+                                    <div class="news-content-area">
+                                        <div class="news-tag-small">Rumors</div>
+                                        <h6 class="news-title-small">Secret Wars: RDJ Rumored to Return as Doctor Doom
+                                            in 2026</h6>
+                                        <div class="news-meta-small">
+                                            <span>May 10</span>
+                                            <span>&bull;</span>
+                                            <span>MCU Insights</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modern-news-card d-flex gap-3">
+                                    <div class="news-img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1626278664285-f796b9ee7806?q=80&w=200&auto=format&fit=crop"
+                                            alt="News">
+                                    </div>
+                                    <div class="news-content-area">
+                                        <div class="news-tag-small">SDCC 2026</div>
+                                        <h6 class="news-title-small">Marvel Studios Announces Full Phase 6 Slate at
+                                            Comic-Con</h6>
+                                        <div class="news-meta-small">
+                                            <span>May 10</span>
+                                            <span>&bull;</span>
+                                            <span>The Hollywood Reporter</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modern-news-card d-flex gap-3">
+                                    <div class="news-img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1608889175123-8ee362201f81?q=80&w=200&auto=format&fit=crop"
+                                            alt="News">
+                                    </div>
+                                    <div class="news-content-area">
+                                        <div class="news-tag-small">Box Office</div>
+                                        <h6 class="news-title-small">Deadpool & Wolverine Breaks All-Time R-Rated
+                                            Records</h6>
+                                        <div class="news-meta-small">
+                                            <span>May 10</span>
+                                            <span>&bull;</span>
+                                            <span>Variety</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Tags & Quick Links -->
+                    <div class="col-lg-4">
+                        <div class="rounded-4 p-4 h-100 border border-white border-opacity-10 position-relative"
+                            style="background: #111114; contain: strict; will-change: auto;">
+                            <h5 class="text-white fw-bold mb-4 font-heading" style="letter-spacing: 1px;">MARVEL
+                                INSIGHTS</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="#" class="news-tag">Avengers</a>
+                                <a href="#" class="news-tag">MCU Phase 6</a>
+                                <a href="#" class="news-tag">Spider-Man</a>
+                                <a href="#" class="news-tag">X-Men</a>
+                                <a href="#" class="news-tag">Fantastic Four</a>
+                                <a href="#" class="news-tag">Disney+</a>
+                                <a href="#" class="news-tag">Doctor Doom</a>
+                                <a href="#" class="news-tag">Secret Wars</a>
+                                <a href="#" class="news-tag">Deadpool</a>
+                                <a href="#" class="news-tag">Wolverine</a>
+                                <a href="#" class="news-tag">Iron Man</a>
+                                <a href="#" class="news-tag">Daredevil</a>
+                                <a href="#" class="news-tag">Multiverse</a>
+                                <a href="#" class="news-tag">SDCC</a>
+                            </div>
+
+                            <div id="hot-news-spotlight-container">
+                                <div
+                                    class="mt-4 p-3 rounded-4 bg-danger bg-opacity-10 border border-danger border-opacity-20 shadow-lg">
+                                    <h6 class="text-danger fw-bold mb-2 small tracking-widest">MCU UPDATE</h6>
+                                    <p id="hn-sidebar-desc" class="text-white mb-3"
+                                        style="font-size: 0.85rem; line-height: 1.4;">Spider-Man: No Way Home returns
+                                        with an exclusive extended cut featuring new unseen footage!</p>
+                                    <div class="d-flex gap-2">
+                                        <button
+                                            class="btn btn-danger btn-sm flex-grow-1 fw-bold rounded-pill btn-watchlist"
+                                            data-title="Spider-Man: No Way Home" style="font-size: 0.75rem;"><i
+                                                class="bi bi-plus-lg me-1"></i>Add to Watch</button>
+                                        <button class="btn btn-outline-light btn-sm flex-grow-1 fw-bold rounded-pill"
+                                            data-bs-toggle="modal" data-bs-target="#review-form-modal"
+                                            style="font-size: 0.75rem;"><i class="bi bi-star me-1"></i>Rate Now</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Character Spotlight Section -->
+                            <div id="sidebar-character-spotlight" class="position-relative"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CAST & AWARDS ROWS -->
-    <section id="cast-awards-section" class="py-5">
+    <section id="cast-awards-section" class="py-4">
         <div class="container">
             <!-- Cast Row -->
-            <div class="mb-5">
+            <div class="mb-4">
                 <div class="movie-row-container" id="row-home-cast">
                     <h6 class="text-white-50 text-uppercase tracking-widest mb-1 font-body">Talent</h6>
                     <h2 class="font-heading fw-bold text-white mb-4 section-heading">Star Cast</h2>
                     <div class="scroll-btn scroll-left" onclick="scrollRow('home-cast', -1)">
                         <i class="bi bi-chevron-left"></i>
                     </div>
-                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="scroller-home-cast">
+                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar"
+                        id="scroller-home-cast">
                         <!-- JS will render cast circles here -->
                     </div>
                     <div class="scroll-btn scroll-right" onclick="scrollRow('home-cast', 1)">
@@ -301,11 +535,35 @@
                     <div class="scroll-btn scroll-left" onclick="scrollRow('home-awards', -1)">
                         <i class="bi bi-chevron-left"></i>
                     </div>
-                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar" id="scroller-home-awards">
+                    <div class="movie-row-scroller d-flex gap-4 overflow-x-auto pb-4 hide-scrollbar"
+                        id="scroller-home-awards">
                         <!-- JS will render award-style cards here -->
                     </div>
                     <div class="scroll-btn scroll-right" onclick="scrollRow('home-awards', 1)">
                         <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- CINEMA TRIVIA (Unique Layout) -->
+            <div class="mt-5 mb-5 pt-4">
+                <div
+                    class="trivia-container liquid-glass-strong rounded-5 p-5 border border-white border-opacity-10 position-relative overflow-hidden">
+                    <div class="row align-items-center position-relative z-1">
+                        <div class="col-lg-8">
+                            <h6 class="text-warning text-uppercase tracking-widest mb-3 fw-bold">Cinema Trivia</h6>
+                            <h3 class="text-white font-heading fw-bold mb-4 display-6" id="trivia-title">Did you know?
+                            </h3>
+                            <p class="text-white fs-4 fw-light lh-base mb-4 opacity-90" id="trivia-desc">
+                                "In <span class="text-warning fw-bold">Harry Potter and the Philosopher's Stone</span>,
+                                over 300 children auditioned for the main trio before Daniel Radcliffe, Emma Watson, and
+                                Rupert Grint were cast."
+                            </p>
+                            <button class="btn btn-outline-warning rounded-pill px-4 py-2 fw-bold">Read More
+                                Facts</button>
+                        </div>
+                        <div class="col-lg-4 d-none d-lg-block text-center" id="trivia-logo-area">
+                            <img src="images/logoCenimaTriVia.png" class="img-fluid" style="max-height: 250px;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -337,19 +595,28 @@
                     <!-- Inline QR code SVG (simple pattern) -->
                     <div class="footer-qr" title="Scan to download">
                         <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000">
-                            <rect x="0" y="0" width="9" height="9"/><rect x="12" y="0" width="9" height="9"/>
-                            <rect x="0" y="12" width="9" height="9"/>
-                            <rect x="2" y="2" width="5" height="5" fill="#fff"/><rect x="14" y="2" width="5" height="5" fill="#fff"/>
-                            <rect x="2" y="14" width="5" height="5" fill="#fff"/>
-                            <rect x="4" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/>
-                            <rect x="4" y="16" width="1" height="1"/>
-                            <rect x="12" y="12" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/>
-                            <rect x="16" y="12" width="1" height="1"/><rect x="18" y="12" width="3" height="1"/>
-                            <rect x="12" y="14" width="3" height="1"/><rect x="16" y="14" width="1" height="1"/>
-                            <rect x="18" y="14" width="3" height="3"/><rect x="12" y="16" width="1" height="1"/>
-                            <rect x="14" y="16" width="3" height="1"/><rect x="20" y="16" width="1" height="1"/>
-                            <rect x="12" y="18" width="5" height="1"/><rect x="18" y="18" width="1" height="1"/>
-                            <rect x="12" y="20" width="9" height="1"/>
+                            <rect x="0" y="0" width="9" height="9" />
+                            <rect x="12" y="0" width="9" height="9" />
+                            <rect x="0" y="12" width="9" height="9" />
+                            <rect x="2" y="2" width="5" height="5" fill="#fff" />
+                            <rect x="14" y="2" width="5" height="5" fill="#fff" />
+                            <rect x="2" y="14" width="5" height="5" fill="#fff" />
+                            <rect x="4" y="4" width="1" height="1" />
+                            <rect x="16" y="4" width="1" height="1" />
+                            <rect x="4" y="16" width="1" height="1" />
+                            <rect x="12" y="12" width="1" height="1" />
+                            <rect x="14" y="12" width="1" height="1" />
+                            <rect x="16" y="12" width="1" height="1" />
+                            <rect x="18" y="12" width="3" height="1" />
+                            <rect x="12" y="14" width="3" height="1" />
+                            <rect x="16" y="14" width="1" height="1" />
+                            <rect x="18" y="14" width="3" height="3" />
+                            <rect x="12" y="16" width="1" height="1" />
+                            <rect x="14" y="16" width="3" height="1" />
+                            <rect x="20" y="16" width="1" height="1" />
+                            <rect x="12" y="18" width="5" height="1" />
+                            <rect x="18" y="18" width="1" height="1" />
+                            <rect x="12" y="20" width="9" height="1" />
                         </svg>
                     </div>
                 </div>
@@ -378,29 +645,65 @@
         </div>
     </footer>
 
-    <!-- TOAST THÔNG BÁO -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="watchlistToast" class="toast align-items-center text-bg-success border-0" role="alert"
-            aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body" id="toast-body-text">
-                    Đã thêm vào Watchlist!
+
+
+    <!-- FLOATING ADMIN BUTTON -->
+    <a href="admin.html" id="admin-settings-btn" class="btn btn-warning rounded-circle position-fixed shadow-lg"
+        style="bottom: 20px; left: 20px; z-index: 1000; width: 38px; height: 38px; display: none; align-items: center; justify-content: center; padding: 0;">
+        <i class="bi bi-gear-fill" style="font-size: 1rem;"></i>
+    </a>
+
+    <!-- REVIEW FORM MODAL -->
+    <div class="modal fade" id="review-form-modal" tabindex="-1" data-bs-theme="dark">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content liquid-glass-strong border-secondary border-opacity-50">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title font-heading fw-bold">Write a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                    aria-label="Close"></button>
+                <div class="modal-body">
+                    <form id="review-form">
+                        <div class="mb-4">
+                            <label class="form-label text-white-50">Your Rating</label>
+                            <div class="text-warning fs-3" id="star-rating" style="cursor: pointer;">
+                                <i class="bi bi-star star-item" data-value="1"></i>
+                                <i class="bi bi-star star-item" data-value="2"></i>
+                                <i class="bi bi-star star-item" data-value="3"></i>
+                                <i class="bi bi-star star-item" data-value="4"></i>
+                                <i class="bi bi-star star-item" data-value="5"></i>
+                                <i class="bi bi-star star-item" data-value="6"></i>
+                                <i class="bi bi-star star-item" data-value="7"></i>
+                                <i class="bi bi-star star-item" data-value="8"></i>
+                                <i class="bi bi-star star-item" data-value="9"></i>
+                                <i class="bi bi-star star-item" data-value="10"></i>
+                            </div>
+                            <input type="hidden" id="review-rating-value" value="0">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-white-50">Review Title</label>
+                            <input type="text" id="review-title"
+                                class="form-control bg-transparent text-white border-secondary border-opacity-50 shadow-none"
+                                placeholder="Short summary of your review">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-white-50">Your Review</label>
+                            <textarea id="review-text"
+                                class="form-control bg-transparent text-white border-secondary border-opacity-50 shadow-none"
+                                rows="5" placeholder="What did you think about the movie?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100 rounded-pill py-3 fw-bold">Submit
+                            Review</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- FLOATING ADMIN BUTTON -->
-    <a href="admin.html" class="btn btn-warning rounded-circle position-fixed shadow-lg"
-        style="bottom: 20px; left: 20px; z-index: 1000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-        <i class="bi bi-gear-fill fs-5"></i>
-    </a>
-
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/main.js"></script>
 </body>
 
